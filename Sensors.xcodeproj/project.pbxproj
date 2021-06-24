@@ -15,6 +15,7 @@
 		05646BFA2685072900707676 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* MainWindowController.xib */; };
 		05646BFC268507CD00707676 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFB268507CD00707676 /* SensorData.swift */; };
 		05646BFE268508D200707676 /* Synchronizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFD268508D200707676 /* Synchronizable.swift */; };
+		05646C02268527CD00707676 /* Sensors.m in Sources */ = {isa = PBXBuildFile; fileRef = 05646C01268527CD00707676 /* Sensors.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,9 @@
 		05646BF92685072900707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindowController.xib; sourceTree = "<group>"; };
 		05646BFB268507CD00707676 /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		05646BFD268508D200707676 /* Synchronizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synchronizable.swift; sourceTree = "<group>"; };
+		05646C00268527CD00707676 /* Sensors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sensors.h; sourceTree = "<group>"; };
+		05646C01268527CD00707676 /* Sensors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sensors.m; sourceTree = "<group>"; };
+		05646C03268527E400707676 /* Sensors-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Sensors-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,8 @@
 				05646BAF2685020A00707676 /* ApplicationDelegate.swift */,
 				05646BF62685064C00707676 /* MainWindowController.swift */,
 				05646BFB268507CD00707676 /* SensorData.swift */,
+				05646C00268527CD00707676 /* Sensors.h */,
+				05646C01268527CD00707676 /* Sensors.m */,
 				05646BFD268508D200707676 /* Synchronizable.swift */,
 			);
 			path = Classes;
@@ -138,6 +144,7 @@
 		05646BB62685021500707676 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05646C03268527E400707676 /* Sensors-Bridging-Header.h */,
 				05646BA4268501B400707676 /* Info.plist */,
 				05646BA5268501B400707676 /* Sensors.entitlements */,
 			);
@@ -292,6 +299,7 @@
 				TargetAttributes = {
 					05646B99268501B300707676 = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -356,6 +364,7 @@
 				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
 				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,
 				05646BFC268507CD00707676 /* SensorData.swift in Sources */,
+				05646C02268527CD00707676 /* Sensors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +417,7 @@
 		05646BA9268501B400707676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Sensors/Sensors.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 326Y53CJMD;
@@ -419,12 +429,16 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.Sensors";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sensors/Sensors-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		05646BAA268501B400707676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Sensors/Sensors.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 326Y53CJMD;
@@ -436,6 +450,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.Sensors";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sensors/Sensors-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

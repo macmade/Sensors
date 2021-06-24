@@ -22,19 +22,18 @@
  * THE SOFTWARE.
  ******************************************************************************/
 
-import Cocoa
+@import Foundation;
 
-class MainWindowController: NSWindowController
-{
-    public override var windowNibName: NSNib.Name?
-    {
-        "MainWindowController"
-    }
-    
-    override public func windowDidLoad()
-    {
-        super.windowDidLoad()
-        
-        let _ = Sensors.shared()
-    }
-}
+NS_ASSUME_NONNULL_BEGIN
+
+@class SensorData;
+
+@interface Sensors: NSObject
+
+@property( atomic, readwrite, strong ) NSArray< SensorData * > * data;
+
++ ( instancetype )shared;
+
+@end
+
+NS_ASSUME_NONNULL_END

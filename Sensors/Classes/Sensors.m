@@ -22,19 +22,68 @@
  * THE SOFTWARE.
  ******************************************************************************/
 
-import Cocoa
+#import "Sensors.h"
+#import "Sensors-Swift.h"
 
-class MainWindowController: NSWindowController
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Sensors()
+
+@property( atomic, readwrite, strong ) NSMutableDictionary< NSString *, SensorData * > * sensors;
+
+- ( void )readSensors: ( NSTimer * )timer;
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+@implementation Sensors
+
++ ( instancetype )shared
 {
-    public override var windowNibName: NSNib.Name?
+    static dispatch_once_t once;
+    static Sensors       * instance;
+    
+    dispatch_once
+    (
+        &once,
+        ^( void )
+        {
+            instance = [ Sensors new ];
+        }
+    );
+    
+    return instance;
+}
+
+- ( instancetype )init
+{
+    if( ( self = [ super init ] ) )
     {
-        "MainWindowController"
+        self.sensors = [ NSMutableDictionary new ];
+        self.data    = [ NSArray new ];
+        
+        dispatch_async
+        (
+            dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0 ),
+            ^( void )
+            {
+                [ NSTimer scheduledTimerWithTimeInterval: 1 target:self selector: @selector( readSensors: ) userInfo: nil repeats: YES ];
+                
+                while( YES )
+                {
+                    [ [ NSRunLoop currentRunLoop ] runUntilDate: [ NSDate dateWithTimeIntervalSinceNow: 1 ] ];
+                }
+            }
+        );
     }
     
-    override public func windowDidLoad()
-    {
-        super.windowDidLoad()
-        
-        let _ = Sensors.shared()
-    }
+    return self;
 }
+
+- ( void )readSensors: ( NSTimer * )timer
+{
+    ( void )timer;
+}
+
+@end
