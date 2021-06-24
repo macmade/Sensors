@@ -11,6 +11,8 @@
 		05646BB52685020A00707676 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BB12685020A00707676 /* MainMenu.xib */; };
 		05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BEE2685055F00707676 /* AboutWindowController.swift */; };
 		05646BF22685058700707676 /* AboutWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF02685058700707676 /* AboutWindowController.xib */; };
+		05646BF72685064C00707676 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BF62685064C00707676 /* MainWindowController.swift */; };
+		05646BFA2685072900707676 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* MainWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		05646BEB268503D300707676 /* Debug - zld.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug - zld.xcconfig"; sourceTree = "<group>"; };
 		05646BEE2685055F00707676 /* AboutWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		05646BF12685058700707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AboutWindowController.xib; sourceTree = "<group>"; };
+		05646BF62685064C00707676 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		05646BF92685072900707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 			children = (
 				05646BEE2685055F00707676 /* AboutWindowController.swift */,
 				05646BAF2685020A00707676 /* ApplicationDelegate.swift */,
+				05646BF62685064C00707676 /* MainWindowController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			children = (
 				05646BF02685058700707676 /* AboutWindowController.xib */,
 				05646BB12685020A00707676 /* MainMenu.xib */,
+				05646BF82685072900707676 /* MainWindowController.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -307,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05646BB52685020A00707676 /* MainMenu.xib in Resources */,
+				05646BFA2685072900707676 /* MainWindowController.xib in Resources */,
 				05646BF22685058700707676 /* AboutWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +347,7 @@
 			files = (
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
 				05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */,
+				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +368,14 @@
 				05646BF12685058700707676 /* Base */,
 			);
 			name = AboutWindowController.xib;
+			sourceTree = "<group>";
+		};
+		05646BF82685072900707676 /* MainWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05646BF92685072900707676 /* Base */,
+			);
+			name = MainWindowController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
