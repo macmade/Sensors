@@ -13,6 +13,8 @@
 		05646BF22685058700707676 /* AboutWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF02685058700707676 /* AboutWindowController.xib */; };
 		05646BF72685064C00707676 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BF62685064C00707676 /* MainWindowController.swift */; };
 		05646BFA2685072900707676 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* MainWindowController.xib */; };
+		05646BFC268507CD00707676 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFB268507CD00707676 /* SensorData.swift */; };
+		05646BFE268508D200707676 /* Synchronizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFD268508D200707676 /* Synchronizable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		05646BF12685058700707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AboutWindowController.xib; sourceTree = "<group>"; };
 		05646BF62685064C00707676 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		05646BF92685072900707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindowController.xib; sourceTree = "<group>"; };
+		05646BFB268507CD00707676 /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
+		05646BFD268508D200707676 /* Synchronizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synchronizable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				05646BEE2685055F00707676 /* AboutWindowController.swift */,
 				05646BAF2685020A00707676 /* ApplicationDelegate.swift */,
 				05646BF62685064C00707676 /* MainWindowController.swift */,
+				05646BFB268507CD00707676 /* SensorData.swift */,
+				05646BFD268508D200707676 /* Synchronizable.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -348,6 +354,8 @@
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
 				05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */,
 				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
+				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,
+				05646BFC268507CD00707676 /* SensorData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
