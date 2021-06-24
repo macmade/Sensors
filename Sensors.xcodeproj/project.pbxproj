@@ -77,6 +77,7 @@
 		05646C00268527CD00707676 /* Sensors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sensors.h; sourceTree = "<group>"; };
 		05646C01268527CD00707676 /* Sensors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sensors.m; sourceTree = "<group>"; };
 		05646C03268527E400707676 /* Sensors-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Sensors-Bridging-Header.h"; sourceTree = "<group>"; };
+		05646C172685303D00707676 /* IOHID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHID.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +123,7 @@
 			children = (
 				05646BEE2685055F00707676 /* AboutWindowController.swift */,
 				05646BAF2685020A00707676 /* ApplicationDelegate.swift */,
+				05646C172685303D00707676 /* IOHID.h */,
 				05646BF62685064C00707676 /* MainWindowController.swift */,
 				05646BFB268507CD00707676 /* SensorData.swift */,
 				05646C00268527CD00707676 /* Sensors.h */,

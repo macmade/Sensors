@@ -24,14 +24,18 @@
 
 #import "Sensors.h"
 #import "Sensors-Swift.h"
+#import "IOHID.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Sensors()
 
-@property( atomic, readwrite, strong ) NSMutableDictionary< NSString *, SensorData * > * sensors;
+@property( nonatomic, readwrite, strong ) NSMutableDictionary< NSString *, SensorData * > * sensors;
 
+- ( void )run __attribute__( ( noreturn ) );
 - ( void )readSensors: ( NSTimer * )timer;
+- ( void )readSensors: ( SensorDataKind )kind page: ( HIDPage )page usage: ( NSInteger )usage event: ( HIDEvent )eventType client: ( IOHIDEventSystemClientRef )client;
+- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind;
 
 @end
 
@@ -68,12 +72,7 @@ NS_ASSUME_NONNULL_END
             dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0 ),
             ^( void )
             {
-                [ NSTimer scheduledTimerWithTimeInterval: 1 target:self selector: @selector( readSensors: ) userInfo: nil repeats: YES ];
-                
-                while( YES )
-                {
-                    [ [ NSRunLoop currentRunLoop ] runUntilDate: [ NSDate dateWithTimeIntervalSinceNow: 1 ] ];
-                }
+                [ self run ];
             }
         );
     }
@@ -81,9 +80,79 @@ NS_ASSUME_NONNULL_END
     return self;
 }
 
+- ( void )run
+{
+    IOHIDEventSystemClientRef client = IOHIDEventSystemClientCreate( kCFAllocatorDefault );
+    NSDictionary            * info   = @{ @"Client" : [ NSValue valueWithPointer: client ] };
+    
+    [ NSTimer scheduledTimerWithTimeInterval: 2 target: self selector: @selector( readSensors: ) userInfo: info repeats: YES ];
+    
+    while( YES )
+    {
+        [ [ NSRunLoop currentRunLoop ] runUntilDate: [ NSDate dateWithTimeIntervalSinceNow: 5 ] ];
+    }
+}
+
 - ( void )readSensors: ( NSTimer * )timer
 {
-    ( void )timer;
+    IOHIDEventSystemClientRef client = ( ( NSValue * )( timer.userInfo[ @"Client" ] ) ).pointerValue;
+    
+    if( client != nil )
+    {
+        [ self readSensors: SensorDataKindThermal page: HIDPageAppleVendor            usage: HIDUsageAppleVendorTemperatureSensor  event: IOHIDEventTypeTemperature client: client ];
+        [ self readSensors: SensorDataKindPower   page: HIDPageAppleVendorPowerSensor usage: HIDUsageAppleVendorPowerSensorPower   event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorDataKindVoltage page: HIDPageAppleVendorPowerSensor usage: HIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorDataKindCurrent page: HIDPageAppleVendorPowerSensor usage: HIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
+        
+        self.data = self.sensors.allValues;
+    }
+}
+
+- ( void )readSensors: ( SensorDataKind )kind page: ( HIDPage )page usage: ( NSInteger )usage event: ( HIDEvent )eventType client: ( IOHIDEventSystemClientRef )client
+{
+    NSDictionary * filter =
+    @{
+        @"PrimaryUsagePage" : [ NSNumber numberWithLongLong: page ],
+        @"PrimaryUsage"     : [ NSNumber numberWithLongLong: usage ]
+    };
+    
+    IOHIDEventSystemClientSetMatching( client, ( __bridge CFDictionaryRef )filter );
+    
+    {
+        NSArray * services = CFBridgingRelease( IOHIDEventSystemClientCopyServices( client ) );
+        
+        for( id o in services )
+        {
+            IOHIDServiceClientRef service = ( __bridge IOHIDServiceClientRef )o;
+            CFTypeRef             event   = IOHIDServiceClientCopyEvent( service, eventType, 0, 0 );
+            NSString            * name    = CFBridgingRelease( IOHIDServiceClientCopyProperty( service, CFSTR( "Product" ) ) );
+            
+            if( name != nil && event != nil )
+            {
+                [ self addSensorData: IOHIDEventGetFloatValue( event, eventType << 16 ) name: name kind: kind ];
+            }
+            
+            if( event != nil )
+            {
+                CFRelease( event );
+            }
+        }
+    }
+}
+
+- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind
+{
+    NSString   * key  = [ NSString stringWithFormat: @"%llu.%@", ( uint64_t )kind, name ];
+    SensorData * data = [ self.sensors objectForKey: key ];
+    
+    if( data == nil )
+    {
+        data = [ [ SensorData alloc ] initWithKind: kind name: name ];
+        
+        [ self.sensors setObject: data forKey: key ];
+    }
+    
+    [ data addValue: value ];
 }
 
 @end

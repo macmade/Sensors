@@ -26,6 +26,8 @@ import Cocoa
 
 class MainWindowController: NSWindowController
 {
+    @objc private dynamic var sensors = Sensors.shared()
+    
     public override var windowNibName: NSNib.Name?
     {
         "MainWindowController"
@@ -34,7 +36,5 @@ class MainWindowController: NSWindowController
     override public func windowDidLoad()
     {
         super.windowDidLoad()
-        
-        let _ = Sensors.shared()
     }
 }

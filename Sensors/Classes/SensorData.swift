@@ -26,9 +26,11 @@ import Foundation
 
 @objc class SensorData: NSObject, Synchronizable
 {
-    @objc public enum Kind: Int
+    @objc( SensorDataKind )
+    public enum Kind: Int
     {
         case thermal
+        case power
         case voltage
         case current
     }
@@ -72,12 +74,13 @@ import Foundation
         }
     }
     
-    public init( kind: Kind, name: String )
+    @objc public init( kind: Kind, name: String )
     {
         self.kind = kind
         self.name = name
     }
     
+    @objc( addValue: )
     public func add( value: Double )
     {
         self.synchronized
@@ -90,5 +93,13 @@ import Foundation
             self.didChangeValue( for: \.min )
             self.didChangeValue( for: \.max )
         }
+    }
+    
+    override var description: String
+    {
+        let min = String( format: "%.2f", self.min?.doubleValue ?? 0 )
+        let max = String( format: "%.2f", self.max?.doubleValue ?? 0 )
+        
+        return "\( super.description ): \( name ) (min: \( min ), max: \( max ))"
     }
 }
