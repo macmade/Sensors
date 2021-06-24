@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="Sensors" customModuleProvider="target">
             <connections>
+                <outlet property="arrayController" destination="k4f-4o-be4" id="F6X-Lo-Fc0"/>
+                <outlet property="collectionView" destination="d8j-id-ziA" id="tbm-Yo-sK6"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="3Jc-9C-AuF"/>
             </connections>
         </customObject>
@@ -20,9 +22,136 @@
             <value key="minSize" type="size" width="800" height="500"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-rz-hcT">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
+                        <subviews>
+                            <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKe-JS-2Ui">
+                                <rect key="frame" x="20" y="86" width="760" height="384"/>
+                                <clipView key="contentView" drawsBackground="NO" id="zVN-hJ-YmX">
+                                    <rect key="frame" x="0.0" y="0.0" width="760" height="384"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView id="d8j-id-ziA">
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="384"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="jv5-sj-5QH">
+                                                <size key="itemSize" width="50" height="50"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="pbH-A9-JB1">
+                                    <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="F9Y-Pq-ygs">
+                                    <rect key="frame" x="743" y="1" width="16" height="372"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="X4f-ON-Yh7">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="86"/>
+                                <subviews>
+                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b0-bM-ppa">
+                                        <rect key="frame" x="20" y="44" width="760" height="22"/>
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="m6w-FG-kg5">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </searchFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.searchText" id="n2O-a4-5b5">
+                                                <dictionary key="options">
+                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </searchField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CWx-dr-5aC">
+                                        <rect key="frame" x="18" y="19" width="103" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Temperature" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lZo-Np-2Ev">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.showTemperature" id="IqV-HK-3FM"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="apn-Dt-z1Z">
+                                        <rect key="frame" x="127" y="19" width="64" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Power" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4bM-kt-J9b">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.showPower" id="28v-0p-pG2"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YH9-KV-isM">
+                                        <rect key="frame" x="197" y="19" width="72" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Voltage" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Kn-WX-eN1">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.showVoltage" id="SEA-Tu-BOl"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DL0-ry-nBa">
+                                        <rect key="frame" x="275" y="19" width="72" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Current" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WBA-tr-bDK">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.showCurrent" id="McY-1z-eLE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="YH9-KV-isM" firstAttribute="leading" secondItem="apn-Dt-z1Z" secondAttribute="trailing" constant="8" symbolic="YES" id="1mE-BZ-tnv"/>
+                                    <constraint firstItem="0b0-bM-ppa" firstAttribute="leading" secondItem="X4f-ON-Yh7" secondAttribute="leading" constant="20" symbolic="YES" id="7Hg-zM-lO0"/>
+                                    <constraint firstItem="YH9-KV-isM" firstAttribute="centerY" secondItem="apn-Dt-z1Z" secondAttribute="centerY" id="Jgn-Uq-L5Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="CWx-dr-5aC" secondAttribute="bottom" constant="20" symbolic="YES" id="Jzi-b5-KAO"/>
+                                    <constraint firstItem="0b0-bM-ppa" firstAttribute="top" secondItem="X4f-ON-Yh7" secondAttribute="top" constant="20" symbolic="YES" id="MLt-9Q-NWw"/>
+                                    <constraint firstItem="apn-Dt-z1Z" firstAttribute="leading" secondItem="CWx-dr-5aC" secondAttribute="trailing" constant="8" symbolic="YES" id="MaH-kQ-OH9"/>
+                                    <constraint firstItem="DL0-ry-nBa" firstAttribute="centerY" secondItem="YH9-KV-isM" secondAttribute="centerY" id="UFB-Be-d69"/>
+                                    <constraint firstItem="CWx-dr-5aC" firstAttribute="top" secondItem="0b0-bM-ppa" secondAttribute="bottom" constant="8" symbolic="YES" id="WkJ-Ke-Bqu"/>
+                                    <constraint firstItem="apn-Dt-z1Z" firstAttribute="centerY" secondItem="CWx-dr-5aC" secondAttribute="centerY" id="dzM-ba-Ywj"/>
+                                    <constraint firstItem="CWx-dr-5aC" firstAttribute="leading" secondItem="X4f-ON-Yh7" secondAttribute="leading" constant="20" symbolic="YES" id="kHN-fy-wU3"/>
+                                    <constraint firstItem="DL0-ry-nBa" firstAttribute="leading" secondItem="YH9-KV-isM" secondAttribute="trailing" constant="8" symbolic="YES" id="kXC-gz-rYd"/>
+                                    <constraint firstAttribute="trailing" secondItem="0b0-bM-ppa" secondAttribute="trailing" constant="20" symbolic="YES" id="vhy-3U-orM"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DL0-ry-nBa" secondAttribute="trailing" constant="20" symbolic="YES" id="yDe-dg-UV7"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="X4f-ON-Yh7" firstAttribute="top" secondItem="aKe-JS-2Ui" secondAttribute="bottom" id="5IN-cs-jqm"/>
+                            <constraint firstItem="aKe-JS-2Ui" firstAttribute="leading" secondItem="uRj-rz-hcT" secondAttribute="leading" constant="20" symbolic="YES" id="K0o-wa-efC"/>
+                            <constraint firstAttribute="bottom" secondItem="X4f-ON-Yh7" secondAttribute="bottom" id="L6P-Pp-IP7"/>
+                            <constraint firstAttribute="trailing" secondItem="X4f-ON-Yh7" secondAttribute="trailing" id="Lxr-7P-w7M"/>
+                            <constraint firstAttribute="trailing" secondItem="aKe-JS-2Ui" secondAttribute="trailing" constant="20" symbolic="YES" id="RZP-rx-Xju"/>
+                            <constraint firstItem="aKe-JS-2Ui" firstAttribute="top" secondItem="uRj-rz-hcT" secondAttribute="top" constant="30" id="b5q-1K-Vb2"/>
+                            <constraint firstItem="X4f-ON-Yh7" firstAttribute="leading" secondItem="uRj-rz-hcT" secondAttribute="leading" id="ffA-eK-qjQ"/>
+                        </constraints>
+                    </visualEffectView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="uRj-rz-hcT" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="WwN-si-Yl6"/>
+                    <constraint firstAttribute="trailing" secondItem="uRj-rz-hcT" secondAttribute="trailing" id="eKa-0b-qZ9"/>
+                    <constraint firstItem="uRj-rz-hcT" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="f7k-yq-eVb"/>
+                    <constraint firstAttribute="bottom" secondItem="uRj-rz-hcT" secondAttribute="bottom" id="v4a-ky-3o2"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="27" y="144"/>
+            <point key="canvasLocation" x="-110" y="144"/>
         </window>
+        <arrayController id="k4f-4o-be4">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.sensors.data" id="V1H-EA-tCm"/>
+            </connections>
+        </arrayController>
     </objects>
 </document>

@@ -28,6 +28,34 @@ class MainWindowController: NSWindowController
 {
     @objc private dynamic var sensors = Sensors.shared()
     
+    @objc private dynamic var showTemperature = true
+    {
+        didSet { self.updateFilters() }
+    }
+    
+    @objc private dynamic var showPower = true
+    {
+        didSet { self.updateFilters() }
+    }
+    
+    @objc private dynamic var showVoltage = true
+    {
+        didSet { self.updateFilters() }
+    }
+    
+    @objc private dynamic var showCurrent = true
+    {
+        didSet { self.updateFilters() }
+    }
+    
+    @objc private dynamic var searchText: String?
+    {
+        didSet { self.updateFilters() }
+    }
+    
+    @IBOutlet private var collectionView:  NSCollectionView!
+    @IBOutlet private var arrayController: NSArrayController!
+    
     public override var windowNibName: NSNib.Name?
     {
         "MainWindowController"
@@ -37,4 +65,7 @@ class MainWindowController: NSWindowController
     {
         super.windowDidLoad()
     }
+    
+    private func updateFilters()
+    {}
 }
