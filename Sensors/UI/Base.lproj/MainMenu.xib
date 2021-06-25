@@ -620,6 +620,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
+                            <menuItem title="Invert Appearance" keyEquivalent="I" id="6w7-2z-28y">
+                                <connections>
+                                    <action selector="invertAppearance:" target="Voe-Tx-rLC" id="4Pu-nf-2qL"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="fAC-OL-6Vc"/>
                             <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
