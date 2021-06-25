@@ -84,8 +84,10 @@ NS_ASSUME_NONNULL_END
 {
     IOHIDEventSystemClientRef client = IOHIDEventSystemClientCreate( kCFAllocatorDefault );
     NSDictionary            * info   = @{ @"Client" : [ NSValue valueWithPointer: client ] };
+    NSTimer                 * timer  = [ NSTimer timerWithTimeInterval: 2 target: self selector: @selector( readSensors: ) userInfo: info repeats: YES ];
     
-    [ NSTimer scheduledTimerWithTimeInterval: 2 target: self selector: @selector( readSensors: ) userInfo: info repeats: YES ];
+    [ self readSensors: timer ];
+    [ [ NSRunLoop currentRunLoop ] addTimer: timer forMode: NSDefaultRunLoopMode ];
     
     while( YES )
     {
