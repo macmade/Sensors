@@ -22,6 +22,7 @@
 		0566B9442686438E006EE45A /* CurrentTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9402686438E006EE45A /* CurrentTemplate.pdf */; };
 		0566B9452686438E006EE45A /* ThermalTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9412686438E006EE45A /* ThermalTemplate.pdf */; };
 		0566B94726864492006EE45A /* LastSensorValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94626864492006EE45A /* LastSensorValue.swift */; };
+		0566B94926864627006EE45A /* SensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94826864627006EE45A /* SensorGraphView.swift */; };
 		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		0566B9402686438E006EE45A /* CurrentTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = CurrentTemplate.pdf; sourceTree = "<group>"; };
 		0566B9412686438E006EE45A /* ThermalTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ThermalTemplate.pdf; sourceTree = "<group>"; };
 		0566B94626864492006EE45A /* LastSensorValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSensorValue.swift; sourceTree = "<group>"; };
+		0566B94826864627006EE45A /* SensorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGraphView.swift; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 				05E0C31B268635C300D1D216 /* SensorItem.swift */,
 				0566B93B26864187006EE45A /* SensorDataToImage.swift */,
 				0566B94626864492006EE45A /* LastSensorValue.swift */,
+				0566B94826864627006EE45A /* SensorGraphView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
 				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,
 				05646BFC268507CD00707676 /* SensorData.swift in Sources */,
+				0566B94926864627006EE45A /* SensorGraphView.swift in Sources */,
 				05646C02268527CD00707676 /* Sensors.m in Sources */,
 				05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */,
 			);

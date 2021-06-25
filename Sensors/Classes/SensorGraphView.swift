@@ -24,31 +24,16 @@
 
 import Cocoa
 
-public class SensorItem: NSCollectionViewItem
+public class SensorGraphView: NSView
 {
     @objc public dynamic var sensor: SensorData?
+    
+    public override func draw( _ rect: NSRect )
     {
-        didSet
-        {
-            self.graph.sensor = self.sensor
-        }
-    }
-    
-    private var graph = SensorGraphView()
-    
-    @IBOutlet private var graphContainer: NSView!
-    
-    public override func viewDidLoad()
-    {
-        super.viewDidLoad()
+        let border       = NSBezierPath( roundedRect: rect.insetBy( dx: 1, dy: 1 ), xRadius: 10, yRadius: 10 )
+        border.lineWidth = 1
         
-        self.graph.translatesAutoresizingMaskIntoConstraints = false
-        self.graph.frame                                     = self.graphContainer.bounds
-        
-        self.graphContainer.addSubview( self.graph )
-        self.graphContainer.addConstraint( NSLayoutConstraint( item: self.graph, attribute: .width,   relatedBy: .equal, toItem: self.graphContainer, attribute: .width,   multiplier: 1, constant: 0 ) )
-        self.graphContainer.addConstraint( NSLayoutConstraint( item: self.graph, attribute: .height,  relatedBy: .equal, toItem: self.graphContainer, attribute: .height,  multiplier: 1, constant: 0 ) )
-        self.graphContainer.addConstraint( NSLayoutConstraint( item: self.graph, attribute: .centerX, relatedBy: .equal, toItem: self.graphContainer, attribute: .centerX, multiplier: 1, constant: 0 ) )
-        self.graphContainer.addConstraint( NSLayoutConstraint( item: self.graph, attribute: .centerY, relatedBy: .equal, toItem: self.graphContainer, attribute: .centerY, multiplier: 1, constant: 0 ) )
+        NSColor.gray.setStroke()
+        border.stroke()
     }
 }
