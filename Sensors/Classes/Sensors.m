@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - ( void )run __attribute__( ( noreturn ) );
 - ( void )readSensors: ( NSTimer * )timer;
-- ( void )readSensors: ( SensorDataKind )kind page: ( HIDPage )page usage: ( NSInteger )usage event: ( HIDEvent )eventType client: ( IOHIDEventSystemClientRef )client;
+- ( void )readSensors: ( SensorDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client;
 - ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind;
 
 @end
@@ -99,16 +99,16 @@ NS_ASSUME_NONNULL_END
     
     if( client != nil )
     {
-        [ self readSensors: SensorDataKindThermal page: HIDPageAppleVendor            usage: HIDUsageAppleVendorTemperatureSensor  event: IOHIDEventTypeTemperature client: client ];
-        [ self readSensors: SensorDataKindPower   page: HIDPageAppleVendorPowerSensor usage: HIDUsageAppleVendorPowerSensorPower   event: IOHIDEventTypePower       client: client ];
-        [ self readSensors: SensorDataKindVoltage page: HIDPageAppleVendorPowerSensor usage: HIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
-        [ self readSensors: SensorDataKindCurrent page: HIDPageAppleVendorPowerSensor usage: HIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorDataKindThermal page: IOHIDPageAppleVendor            usage: IOHIDUsageAppleVendorTemperatureSensor  event: IOHIDEventTypeTemperature client: client ];
+        [ self readSensors: SensorDataKindPower   page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorPower   event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorDataKindVoltage page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorDataKindCurrent page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
         
         self.data = self.sensors.allValues;
     }
 }
 
-- ( void )readSensors: ( SensorDataKind )kind page: ( HIDPage )page usage: ( NSInteger )usage event: ( HIDEvent )eventType client: ( IOHIDEventSystemClientRef )client
+- ( void )readSensors: ( SensorDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client
 {
     NSDictionary * filter =
     @{

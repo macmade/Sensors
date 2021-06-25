@@ -30,61 +30,61 @@
 
 /* @see https://opensource.apple.com/source/IOHIDFamily/ */
 
-typedef NS_ENUM( int64_t, HIDPage )
+typedef NS_ENUM( int64_t, IOHIDPage )
 {
-    HIDPageAppleVendor                   = 0xFF00,
-    HIDPageAppleVendorKeyboard           = 0xFF01,
-    HIDPageAppleVendorMouse              = 0xFF02,
-    HIDPageAppleVendorAccelerometer      = 0xFF03,
-    HIDPageAppleVendorAmbientLightSensor = 0xFF04,
-    HIDPageAppleVendorTemperatureSensor  = 0xFF05,
-    HIDPageAppleVendorHeadset            = 0xFF07,
-    HIDPageAppleVendorPowerSensor        = 0xFF08,
-    HIDPageAppleVendorSmartCover         = 0xFF09,
-    HIDPageAppleVendorPlatinum           = 0xFF0A,
-    HIDPageAppleVendorLisa               = 0xFF0B,
-    HIDPageAppleVendorMotion             = 0xFF0C,
-    HIDPageAppleVendorBattery            = 0xFF0D,
-    HIDPageAppleVendorIRRemote           = 0xFF0E,
-    HIDPageAppleVendorDebug              = 0xFF0F,
-    HIDPageAppleVendorFilteredEvent      = 0xFF50,
-    HIDPageAppleVendorMultitouch         = 0xFF60,
-    HIDPageAppleVendorDisplay            = 0xFF92,
-    HIDPageAppleVendorTopCase            = 0x00FF
+    IOHIDPageAppleVendor                   = 0xFF00,
+    IOHIDPageAppleVendorKeyboard           = 0xFF01,
+    IOHIDPageAppleVendorMouse              = 0xFF02,
+    IOHIDPageAppleVendorAccelerometer      = 0xFF03,
+    IOHIDPageAppleVendorAmbientLightSensor = 0xFF04,
+    IOHIDPageAppleVendorTemperatureSensor  = 0xFF05,
+    IOHIDPageAppleVendorHeadset            = 0xFF07,
+    IOHIDPageAppleVendorPowerSensor        = 0xFF08,
+    IOHIDPageAppleVendorSmartCover         = 0xFF09,
+    IOHIDPageAppleVendorPlatinum           = 0xFF0A,
+    IOHIDPageAppleVendorLisa               = 0xFF0B,
+    IOHIDPageAppleVendorMotion             = 0xFF0C,
+    IOHIDPageAppleVendorBattery            = 0xFF0D,
+    IOHIDPageAppleVendorIRRemote           = 0xFF0E,
+    IOHIDPageAppleVendorDebug              = 0xFF0F,
+    IOHIDPageAppleVendorFilteredEvent      = 0xFF50,
+    IOHIDPageAppleVendorMultitouch         = 0xFF60,
+    IOHIDPageAppleVendorDisplay            = 0xFF92,
+    IOHIDPageAppleVendorTopCase            = 0x00FF
 };
 
-typedef NS_ENUM( int64_t, HIDUsageAppleVendor )
+typedef NS_ENUM( int64_t, IOHIDUsageAppleVendor )
 {
-    HIDUsageAppleVendorTopCase            = 0x01,
-    HIDUsageAppleVendorDisplay            = 0x02,
-    HIDUsageAppleVendorAccelerometer      = 0x03,
-    HIDUsageAppleVendorAmbientLightSensor = 0x04,
-    HIDUsageAppleVendorTemperatureSensor  = 0x05,
-    HIDUsageAppleVendorKeyboard           = 0x06,
-    HIDUsageAppleVendorHeadset            = 0x07,
-    HIDUsageAppleVendorProximitySensor    = 0x08,
-    HIDUsageAppleVendorGyro               = 0x09,
-    HIDUsageAppleVendorCompass            = 0x0A,
-    HIDUsageAppleVendorDeviceManagement   = 0x0B,
-    HIDUsageAppleVendorTrackpad           = 0x0C,
-    HIDUsageAppleVendorTopCaseReserved    = 0x0D,
-    HIDUsageAppleVendorMotion             = 0x0E,
-    HIDUsageAppleVendorKeyboardBacklight  = 0x0F,
-    HIDUsageAppleVendorDeviceMotionLite   = 0x10,
-    HIDUsageAppleVendorForce              = 0x11,
-    HIDUsageAppleVendorBluetoothRadio     = 0x12,
-    HIDUsageAppleVendorOrb                = 0x13,
-    HIDUsageAppleVendorAccessoryBattery   = 0x14
+    IOHIDUsageAppleVendorTopCase            = 0x01,
+    IOHIDUsageAppleVendorDisplay            = 0x02,
+    IOHIDUsageAppleVendorAccelerometer      = 0x03,
+    IOHIDUsageAppleVendorAmbientLightSensor = 0x04,
+    IOHIDUsageAppleVendorTemperatureSensor  = 0x05,
+    IOHIDUsageAppleVendorKeyboard           = 0x06,
+    IOHIDUsageAppleVendorHeadset            = 0x07,
+    IOHIDUsageAppleVendorProximitySensor    = 0x08,
+    IOHIDUsageAppleVendorGyro               = 0x09,
+    IOHIDUsageAppleVendorCompass            = 0x0A,
+    IOHIDUsageAppleVendorDeviceManagement   = 0x0B,
+    IOHIDUsageAppleVendorTrackpad           = 0x0C,
+    IOHIDUsageAppleVendorTopCaseReserved    = 0x0D,
+    IOHIDUsageAppleVendorMotion             = 0x0E,
+    IOHIDUsageAppleVendorKeyboardBacklight  = 0x0F,
+    IOHIDUsageAppleVendorDeviceMotionLite   = 0x10,
+    IOHIDUsageAppleVendorForce              = 0x11,
+    IOHIDUsageAppleVendorBluetoothRadio     = 0x12,
+    IOHIDUsageAppleVendorOrb                = 0x13,
+    IOHIDUsageAppleVendorAccessoryBattery   = 0x14
 };
 
-typedef NS_ENUM( int64_t, HIDUsageAppleVendorPowerSensor )
+typedef NS_ENUM( int64_t, IOHIDUsageAppleVendorPowerSensor )
 {
-    HIDUsageAppleVendorPowerSensorPower   = 0x1,
-    HIDUsageAppleVendorPowerSensorCurrent = 0x2,
-    HIDUsageAppleVendorPowerSensorVoltage = 0x3
+    IOHIDUsageAppleVendorPowerSensorPower   = 0x1,
+    IOHIDUsageAppleVendorPowerSensorCurrent = 0x2,
+    IOHIDUsageAppleVendorPowerSensorVoltage = 0x3
 };
 
-typedef NS_ENUM( int64_t, HIDEvent )
+typedef NS_ENUM( int64_t, IOHIDEvent )
 {
     IOHIDEventTypeNULL                  = 0x00,
     IOHIDEventTypeVendorDefined         = 0x01,
@@ -121,5 +121,5 @@ typedef NS_ENUM( int64_t, HIDEvent )
 
 extern IOHIDEventSystemClientRef IOHIDEventSystemClientCreate( CFAllocatorRef );
 extern void                      IOHIDEventSystemClientSetMatching( IOHIDEventSystemClientRef, CFDictionaryRef );
-extern CFTypeRef                 IOHIDServiceClientCopyEvent( IOHIDServiceClientRef, HIDEvent, int64_t, int64_t );
+extern CFTypeRef                 IOHIDServiceClientCopyEvent( IOHIDServiceClientRef, IOHIDEvent, int64_t, int64_t );
 extern double                    IOHIDEventGetFloatValue( CFTypeRef, int64_t );
