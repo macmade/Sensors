@@ -106,7 +106,14 @@ NS_ASSUME_NONNULL_END
         [ self readSensors: SensorDataKindVoltage page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
         [ self readSensors: SensorDataKindCurrent page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
         
-        self.data = self.sensors.allValues;
+        dispatch_async
+        (
+            dispatch_get_main_queue(),
+            ^( void )
+            {
+                self.data = self.sensors.allValues;
+            }
+        );
     }
 }
 
