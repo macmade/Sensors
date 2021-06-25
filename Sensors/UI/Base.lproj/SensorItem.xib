@@ -20,9 +20,9 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="YpG-g1-XTw"/>
                     <connections>
-                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor" id="gFh-pb-kCf">
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor" id="EbR-ou-eai">
                             <dictionary key="options">
-                                <string key="NSValueTransformerName">SensorDataToImage</string>
+                                <string key="NSValueTransformerName">SensorIcon</string>
                             </dictionary>
                         </binding>
                     </connections>

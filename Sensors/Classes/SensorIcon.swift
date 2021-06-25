@@ -24,8 +24,8 @@
 
 import Cocoa
 
-@objc( SensorDataToImage )
-public class SensorDataToImage: ValueTransformer
+@objc( SensorIcon )
+public class SensorIcon: ValueTransformer
 {
     public override class func transformedValueClass() -> AnyClass
     {
@@ -46,10 +46,10 @@ public class SensorDataToImage: ValueTransformer
         
         switch data.kind
         {
-            case .thermal: return NSImage( named: "ThermalTemplate" )
-            case .power:   return NSImage( named: "PowerTemplate" )
-            case .voltage: return NSImage( named: "VoltageTemplate" )
-            case .current: return NSImage( named: "CurrentTemplate" )
+            case .thermal: return NSImage( named: "ThermalTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
+            case .power:   return NSImage( named: "PowerTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
+            case .voltage: return NSImage( named: "VoltageTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
+            case .current: return NSImage( named: "CurrentTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
         }
     }
 }

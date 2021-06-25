@@ -30,10 +30,73 @@ public class SensorGraphView: NSView
     
     public override func draw( _ rect: NSRect )
     {
+        self.drawBorder( in: rect )
+        self.drawBackground( in: rect )
+        
+        guard let sensor = self.sensor, sensor.values.count >= 2 else
+        {
+            return
+        }
+        
+        let values       = sensor.values.suffix( 50 ).map { CGFloat( $0.doubleValue ) }
+        var min: CGFloat = values.min() ?? 0
+        var max: CGFloat = values.max() ?? 0
+        
+        if( min == max )
+        {
+            return
+        }
+        
+        if sensor.kind == .thermal && min >= 0 && max <= 100
+        {
+            min = 0
+            max = 100
+        }
+        
+        self.drawGraph( in: rect.insetBy( dx: 10, dy: 10 ), values: values, min: min, max: max, color: Colors.color( for: sensor.kind ) )
+    }
+    
+    private func drawBorder( in rect: NSRect )
+    {
         let border       = NSBezierPath( roundedRect: rect.insetBy( dx: 1, dy: 1 ), xRadius: 10, yRadius: 10 )
         border.lineWidth = 1
         
         NSColor.gray.setStroke()
         border.stroke()
+    }
+    
+    private func drawBackground( in rect: NSRect )
+    {
+        let border = NSBezierPath( roundedRect: rect.insetBy( dx: 1, dy: 1 ), xRadius: 10, yRadius: 10 )
+        
+        NSColor.gray.withAlphaComponent( 0.2 ).setFill()
+        border.fill()
+    }
+    
+    private func drawGraph( in rect: NSRect, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    {
+        let path       = NSBezierPath()
+        path.lineWidth = 1
+        
+        for i in 0 ..< values.count
+        {
+            let value = values[ i ]
+            let dx    = rect.size.width / CGFloat( values.count - 1 )
+            let x     = rect.origin.x + CGFloat( i ) * dx
+            let v     = ( value - min ) / ( max - min )
+            let y     = rect.origin.y + v * rect.size.height
+            
+            if i == 0
+            {
+                path.move( to: NSPoint( x: x, y: y ) )
+            }
+            else
+            {
+                path.line( to: NSPoint( x: x, y: y ) )
+            }
+        }
+        
+        color.setStroke()
+        path.stroke()
     }
 }
