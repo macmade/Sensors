@@ -24,17 +24,17 @@
 
 import Cocoa
 
-@main class ApplicationDelegate: NSObject, NSApplicationDelegate
+@main public class ApplicationDelegate: NSObject, NSApplicationDelegate
 {
     @objc private dynamic var aboutWindowController = AboutWindowController()
     @objc private dynamic var mainWindowController  = MainWindowController()
     
-    func applicationDidFinishLaunching( _ notification: Notification )
+    public func applicationDidFinishLaunching( _ notification: Notification )
     {
         self.showMainWindow( nil )
     }
 
-    func applicationWillTerminate( _ notification: Notification )
+    public func applicationWillTerminate( _ notification: Notification )
     {}
     
     @IBAction public func showAboutWindow( _ sender: Any? )

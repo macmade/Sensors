@@ -28,7 +28,7 @@ public class SensorItem: NSCollectionViewItem
 {
     @objc public dynamic var sensor: SensorData?
     
-    override public func viewDidLoad()
+    public override func viewDidLoad()
     {
         super.viewDidLoad()
     }

@@ -24,7 +24,7 @@
 
 import Cocoa
 
-class MainWindowController: NSWindowController
+public class MainWindowController: NSWindowController
 {
     @objc private dynamic var sensors = Sensors.shared()
     
@@ -61,7 +61,7 @@ class MainWindowController: NSWindowController
         "MainWindowController"
     }
     
-    override public func windowDidLoad()
+    public override func windowDidLoad()
     {
         super.windowDidLoad()
     }
@@ -108,17 +108,17 @@ class MainWindowController: NSWindowController
 
 extension MainWindowController: NSCollectionViewDataSource
 {
-    func numberOfSections( in collectionView: NSCollectionView ) -> Int
+    public func numberOfSections( in collectionView: NSCollectionView ) -> Int
     {
         1
     }
     
-    func collectionView( _ collectionView: NSCollectionView, numberOfItemsInSection section: Int ) -> Int
+    public func collectionView( _ collectionView: NSCollectionView, numberOfItemsInSection section: Int ) -> Int
     {
         ( self.arrayController.arrangedObjects as? [ SensorData ] )?.count ?? 0
     }
     
-    func collectionView( _ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath ) -> NSCollectionViewItem
+    public func collectionView( _ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath ) -> NSCollectionViewItem
     {
         let item = collectionView.makeItem( withIdentifier: NSUserInterfaceItemIdentifier( rawValue: "SensorItem" ), for: indexPath )
         
