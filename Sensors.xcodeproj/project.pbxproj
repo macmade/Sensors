@@ -16,6 +16,8 @@
 		05646BFC268507CD00707676 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFB268507CD00707676 /* SensorData.swift */; };
 		05646BFE268508D200707676 /* Synchronizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFD268508D200707676 /* Synchronizable.swift */; };
 		05646C02268527CD00707676 /* Sensors.m in Sources */ = {isa = PBXBuildFile; fileRef = 05646C01268527CD00707676 /* Sensors.m */; };
+		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
+		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		05646C01268527CD00707676 /* Sensors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sensors.m; sourceTree = "<group>"; };
 		05646C03268527E400707676 /* Sensors-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Sensors-Bridging-Header.h"; sourceTree = "<group>"; };
 		05646C172685303D00707676 /* IOHID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHID.h; sourceTree = "<group>"; };
+		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
+		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 				05646C00268527CD00707676 /* Sensors.h */,
 				05646C01268527CD00707676 /* Sensors.m */,
 				05646BFD268508D200707676 /* Synchronizable.swift */,
+				05E0C31B268635C300D1D216 /* SensorItem.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 				05646BF02685058700707676 /* AboutWindowController.xib */,
 				05646BB12685020A00707676 /* MainMenu.xib */,
 				05646BF82685072900707676 /* MainWindowController.xib */,
+				05E0C31D268635F200D1D216 /* SensorItem.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -330,6 +336,7 @@
 			files = (
 				05646BB52685020A00707676 /* MainMenu.xib in Resources */,
 				05646BFA2685072900707676 /* MainWindowController.xib in Resources */,
+				05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */,
 				05646BF22685058700707676 /* AboutWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,6 +374,7 @@
 				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,
 				05646BFC268507CD00707676 /* SensorData.swift in Sources */,
 				05646C02268527CD00707676 /* Sensors.m in Sources */,
+				05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +403,14 @@
 				05646BF92685072900707676 /* Base */,
 			);
 			name = MainWindowController.xib;
+			sourceTree = "<group>";
+		};
+		05E0C31D268635F200D1D216 /* SensorItem.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05E0C31E268635F200D1D216 /* Base */,
+			);
+			name = SensorItem.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -40,6 +40,11 @@
                                                 <size key="itemSize" width="50" height="50"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <binding destination="k4f-4o-be4" name="content" keyPath="arrangedObjects" id="WfZ-ms-k8f"/>
+                                                <binding destination="k4f-4o-be4" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="WfZ-ms-k8f" id="JRi-HO-Ojp"/>
+                                                <outlet property="dataSource" destination="-2" id="BJq-MM-cYl"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                 </clipView>

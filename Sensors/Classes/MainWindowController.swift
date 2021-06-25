@@ -105,3 +105,35 @@ class MainWindowController: NSWindowController
         }
     }
 }
+
+extension MainWindowController: NSCollectionViewDataSource
+{
+    func numberOfSections( in collectionView: NSCollectionView ) -> Int
+    {
+        1
+    }
+    
+    func collectionView( _ collectionView: NSCollectionView, numberOfItemsInSection section: Int ) -> Int
+    {
+        ( self.arrayController.arrangedObjects as? [ SensorData ] )?.count ?? 0
+    }
+    
+    func collectionView( _ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath ) -> NSCollectionViewItem
+    {
+        let item = collectionView.makeItem( withIdentifier: NSUserInterfaceItemIdentifier( rawValue: "SensorItem" ), for: indexPath )
+        
+        /*
+        guard let item = item as? SensorItem, let sensors = self.arrayController.arrangedObjects as? [ SensorData ] else
+        {
+            return item
+        }
+        
+        if sensors.count > indexPath.item
+        {
+            item.sensor = sensors[ indexPath.item ]
+        }
+        */
+        
+        return item
+    }
+}

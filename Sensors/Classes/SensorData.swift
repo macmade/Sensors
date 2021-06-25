@@ -24,7 +24,7 @@
 
 import Foundation
 
-@objc class SensorData: NSObject, Synchronizable
+@objc public class SensorData: NSObject, Synchronizable
 {
     @objc( SensorDataKind )
     public enum Kind: Int, CustomStringConvertible
@@ -108,7 +108,7 @@ import Foundation
         }
     }
     
-    override var description: String
+    public override var description: String
     {
         let min = String( format: "%.2f", self.min?.doubleValue ?? 0 )
         let max = String( format: "%.2f", self.max?.doubleValue ?? 0 )
