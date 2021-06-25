@@ -67,5 +67,41 @@ class MainWindowController: NSWindowController
     }
     
     private func updateFilters()
-    {}
+    {
+        var predicates = [ NSPredicate ]()
+        
+        if self.showTemperature == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .thermal } )
+        }
+        
+        if self.showPower == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .power } )
+        }
+        
+        if self.showVoltage == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .voltage } )
+        }
+        
+        if self.showCurrent == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .current } )
+        }
+        
+        if let search = self.searchText, search.count > 0
+        {
+            predicates.append( NSPredicate( format: "name contains[c] %@", search ) )
+        }
+        
+        if predicates.count > 0
+        {
+            self.arrayController.filterPredicate = NSCompoundPredicate( andPredicateWithSubpredicates: predicates )
+        }
+        else
+        {
+            self.arrayController.filterPredicate = nil
+        }
+    }
 }

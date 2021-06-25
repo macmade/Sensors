@@ -148,7 +148,7 @@
             </view>
             <point key="canvasLocation" x="-110" y="144"/>
         </window>
-        <arrayController id="k4f-4o-be4">
+        <arrayController selectsInsertedObjects="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="k4f-4o-be4">
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="self.sensors.data" id="V1H-EA-tCm"/>
             </connections>

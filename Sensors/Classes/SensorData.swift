@@ -27,12 +27,23 @@ import Foundation
 @objc class SensorData: NSObject, Synchronizable
 {
     @objc( SensorDataKind )
-    public enum Kind: Int
+    public enum Kind: Int, CustomStringConvertible
     {
         case thermal
         case power
         case voltage
         case current
+        
+        public var description: String
+        {
+            switch self
+            {
+                case .thermal: return "thermal"
+                case .power:   return "power"
+                case .voltage: return "voltage"
+                case .current: return "current"
+            }
+        }
     }
     
     @objc public private( set ) dynamic var kind: Kind
@@ -100,6 +111,6 @@ import Foundation
         let min = String( format: "%.2f", self.min?.doubleValue ?? 0 )
         let max = String( format: "%.2f", self.max?.doubleValue ?? 0 )
         
-        return "\( super.description ): \( name ) (min: \( min ), max: \( max ))"
+        return "\( super.description ): \( self.name ) (\( self.kind ), min: \( min ), max: \( max ))"
     }
 }
