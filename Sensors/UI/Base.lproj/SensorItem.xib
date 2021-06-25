@@ -9,8 +9,62 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="245" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhs-tE-zrk">
+                    <rect key="frame" x="20" y="60" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="g2z-r1-gYP"/>
+                        <constraint firstAttribute="width" constant="20" id="kP1-0x-y1M"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="YpG-g1-XTw"/>
+                    <connections>
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor" id="gFh-pb-kCf">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">SensorDataToImage</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Vx7-2w-JY2">
+                    <rect key="frame" x="46" y="65" width="28" height="11"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" title="Label" id="4QE-tU-2iF">
+                        <font key="font" metaFont="miniSystem"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="ek2-AR-oS5" name="toolTip" keyPath="self.sensor.name" id="sk7-rh-Bgb"/>
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor.name" id="COB-ax-oMZ"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qyW-PJ-lOk">
+                    <rect key="frame" x="199" y="65" width="28" height="11"/>
+                    <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" title="Label" id="05S-DK-Pm8">
+                        <font key="font" metaFont="miniSystem"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="ek2-AR-oS5" name="toolTip" keyPath="self.sensor.name" id="RUP-1u-HBl"/>
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor" id="CUN-tY-gmS">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">LastSensorValue</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="qyW-PJ-lOk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Vx7-2w-JY2" secondAttribute="trailing" constant="8" symbolic="YES" id="37w-zR-zSG"/>
+                <constraint firstItem="Vx7-2w-JY2" firstAttribute="centerY" secondItem="Zhs-tE-zrk" secondAttribute="centerY" id="E6p-Sp-hhE"/>
+                <constraint firstItem="Zhs-tE-zrk" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="F4w-Ta-FMp"/>
+                <constraint firstItem="Zhs-tE-zrk" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="H4R-eE-jNf"/>
+                <constraint firstItem="qyW-PJ-lOk" firstAttribute="centerY" secondItem="Vx7-2w-JY2" secondAttribute="centerY" id="ZfP-Ip-Qp3"/>
+                <constraint firstItem="Vx7-2w-JY2" firstAttribute="leading" secondItem="Zhs-tE-zrk" secondAttribute="trailing" constant="8" symbolic="YES" id="pSn-l6-1WW"/>
+                <constraint firstAttribute="trailing" secondItem="qyW-PJ-lOk" secondAttribute="trailing" constant="20" symbolic="YES" id="zrr-cs-S3r"/>
+            </constraints>
             <point key="canvasLocation" x="27" y="125"/>
         </customView>
         <collectionViewItem id="ek2-AR-oS5" customClass="SensorItem" customModule="Sensors" customModuleProvider="target">
@@ -19,4 +73,7 @@
             </connections>
         </collectionViewItem>
     </objects>
+    <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
+    </resources>
 </document>

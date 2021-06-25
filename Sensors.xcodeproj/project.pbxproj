@@ -16,6 +16,12 @@
 		05646BFC268507CD00707676 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFB268507CD00707676 /* SensorData.swift */; };
 		05646BFE268508D200707676 /* Synchronizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFD268508D200707676 /* Synchronizable.swift */; };
 		05646C02268527CD00707676 /* Sensors.m in Sources */ = {isa = PBXBuildFile; fileRef = 05646C01268527CD00707676 /* Sensors.m */; };
+		0566B93C26864187006EE45A /* SensorDataToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B93B26864187006EE45A /* SensorDataToImage.swift */; };
+		0566B9422686438E006EE45A /* PowerTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B93E2686438E006EE45A /* PowerTemplate.pdf */; };
+		0566B9432686438E006EE45A /* VoltageTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B93F2686438E006EE45A /* VoltageTemplate.pdf */; };
+		0566B9442686438E006EE45A /* CurrentTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9402686438E006EE45A /* CurrentTemplate.pdf */; };
+		0566B9452686438E006EE45A /* ThermalTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9412686438E006EE45A /* ThermalTemplate.pdf */; };
+		0566B94726864492006EE45A /* LastSensorValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94626864492006EE45A /* LastSensorValue.swift */; };
 		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
@@ -80,6 +86,12 @@
 		05646C01268527CD00707676 /* Sensors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sensors.m; sourceTree = "<group>"; };
 		05646C03268527E400707676 /* Sensors-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Sensors-Bridging-Header.h"; sourceTree = "<group>"; };
 		05646C172685303D00707676 /* IOHID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOHID.h; sourceTree = "<group>"; };
+		0566B93B26864187006EE45A /* SensorDataToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataToImage.swift; sourceTree = "<group>"; };
+		0566B93E2686438E006EE45A /* PowerTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = PowerTemplate.pdf; sourceTree = "<group>"; };
+		0566B93F2686438E006EE45A /* VoltageTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = VoltageTemplate.pdf; sourceTree = "<group>"; };
+		0566B9402686438E006EE45A /* CurrentTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = CurrentTemplate.pdf; sourceTree = "<group>"; };
+		0566B9412686438E006EE45A /* ThermalTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ThermalTemplate.pdf; sourceTree = "<group>"; };
+		0566B94626864492006EE45A /* LastSensorValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSensorValue.swift; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +146,8 @@
 				05646C01268527CD00707676 /* Sensors.m */,
 				05646BFD268508D200707676 /* Synchronizable.swift */,
 				05E0C31B268635C300D1D216 /* SensorItem.swift */,
+				0566B93B26864187006EE45A /* SensorDataToImage.swift */,
+				0566B94626864492006EE45A /* LastSensorValue.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -141,6 +155,7 @@
 		05646BB02685020A00707676 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				0566B93D2686438E006EE45A /* Images */,
 				05646BF02685058700707676 /* AboutWindowController.xib */,
 				05646BB12685020A00707676 /* MainMenu.xib */,
 				05646BF82685072900707676 /* MainWindowController.xib */,
@@ -275,6 +290,17 @@
 			path = Scripts;
 			sourceTree = "<group>";
 		};
+		0566B93D2686438E006EE45A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0566B93E2686438E006EE45A /* PowerTemplate.pdf */,
+				0566B93F2686438E006EE45A /* VoltageTemplate.pdf */,
+				0566B9402686438E006EE45A /* CurrentTemplate.pdf */,
+				0566B9412686438E006EE45A /* ThermalTemplate.pdf */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,7 +361,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				05646BB52685020A00707676 /* MainMenu.xib in Resources */,
+				0566B9432686438E006EE45A /* VoltageTemplate.pdf in Resources */,
+				0566B9422686438E006EE45A /* PowerTemplate.pdf in Resources */,
 				05646BFA2685072900707676 /* MainWindowController.xib in Resources */,
+				0566B9452686438E006EE45A /* ThermalTemplate.pdf in Resources */,
+				0566B9442686438E006EE45A /* CurrentTemplate.pdf in Resources */,
 				05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */,
 				05646BF22685058700707676 /* AboutWindowController.xib in Resources */,
 			);
@@ -368,7 +398,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0566B93C26864187006EE45A /* SensorDataToImage.swift in Sources */,
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
+				0566B94726864492006EE45A /* LastSensorValue.swift in Sources */,
 				05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */,
 				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
 				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,

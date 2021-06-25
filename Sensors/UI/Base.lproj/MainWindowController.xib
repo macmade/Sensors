@@ -37,7 +37,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="760" height="384"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="jv5-sj-5QH">
-                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="itemSize" width="245" height="100"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>

@@ -64,6 +64,8 @@ public class MainWindowController: NSWindowController
     public override func windowDidLoad()
     {
         super.windowDidLoad()
+        
+        self.arrayController.sortDescriptors = [ NSSortDescriptor( key: "name", ascending: true, selector: #selector( NSString.localizedCaseInsensitiveCompare( _: ) ) ) ]
     }
     
     private func updateFilters()
@@ -122,17 +124,13 @@ extension MainWindowController: NSCollectionViewDataSource
     {
         let item = collectionView.makeItem( withIdentifier: NSUserInterfaceItemIdentifier( rawValue: "SensorItem" ), for: indexPath )
         
-        /*
-        guard let item = item as? SensorItem, let sensors = self.arrayController.arrangedObjects as? [ SensorData ] else
+        if let item = item as? SensorItem, let sensors = self.arrayController.arrangedObjects as? [ SensorData ]
         {
-            return item
+            if sensors.count > indexPath.item
+            {
+                item.sensor = sensors[ indexPath.item ]
+            }
         }
-        
-        if sensors.count > indexPath.item
-        {
-            item.sensor = sensors[ indexPath.item ]
-        }
-        */
         
         return item
     }
