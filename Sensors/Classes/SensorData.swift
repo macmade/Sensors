@@ -46,8 +46,9 @@ import Foundation
         }
     }
     
-    @objc public private( set ) dynamic var kind: Kind
-    @objc public private( set ) dynamic var name: String
+    @objc public private( set ) dynamic var kind:       Kind
+    @objc public private( set ) dynamic var name:       String
+    @objc public private( set ) dynamic var properties: [ String : Any ]?
     
     private var data: [ Double ] = []
     
@@ -85,10 +86,11 @@ import Foundation
         }
     }
     
-    @objc public init( kind: Kind, name: String )
+    @objc public init( kind: Kind, name: String, properties: [ String : Any ]? )
     {
-        self.kind = kind
-        self.name = name
+        self.kind       = kind
+        self.name       = name
+        self.properties = properties
     }
     
     @objc( addValue: )

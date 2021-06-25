@@ -27,6 +27,7 @@
 
 #import <IOKit/hidsystem/IOHIDEventSystemClient.h>
 #import <IOKit/hidsystem/IOHIDServiceClient.h>
+#import <IOKit/hid/IOHIDKeys.h>
 
 /* @see https://opensource.apple.com/source/IOHIDFamily/ */
 
@@ -122,4 +123,5 @@ typedef NS_ENUM( int64_t, IOHIDEvent )
 extern IOHIDEventSystemClientRef IOHIDEventSystemClientCreate( CFAllocatorRef );
 extern void                      IOHIDEventSystemClientSetMatching( IOHIDEventSystemClientRef, CFDictionaryRef );
 extern CFTypeRef                 IOHIDServiceClientCopyEvent( IOHIDServiceClientRef, IOHIDEvent, int64_t, int64_t );
+extern CFDictionaryRef           IOHIDServiceClientCopyProperties( IOHIDServiceClientRef, CFArrayRef );
 extern double                    IOHIDEventGetFloatValue( CFTypeRef, int64_t );

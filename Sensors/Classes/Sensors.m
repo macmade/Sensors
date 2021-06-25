@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - ( void )run __attribute__( ( noreturn ) );
 - ( void )readSensors: ( NSTimer * )timer;
 - ( void )readSensors: ( SensorDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client;
-- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind;
+- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind properties: ( nullable NSDictionary * )properties;
 
 @end
 
@@ -123,13 +123,15 @@ NS_ASSUME_NONNULL_END
         
         for( id o in services )
         {
-            IOHIDServiceClientRef service = ( __bridge IOHIDServiceClientRef )o;
-            CFTypeRef             event   = IOHIDServiceClientCopyEvent( service, eventType, 0, 0 );
-            NSString            * name    = CFBridgingRelease( IOHIDServiceClientCopyProperty( service, CFSTR( "Product" ) ) );
+            IOHIDServiceClientRef service    = ( __bridge IOHIDServiceClientRef )o;
+            CFTypeRef             event      = IOHIDServiceClientCopyEvent( service, eventType, 0, 0 );
+            NSString            * name       = CFBridgingRelease( IOHIDServiceClientCopyProperty( service, CFSTR( "Product" ) ) );
+            NSArray             * keys       = @[ @"IOClass", @"IOProviderClass", @"IONameMatch", @"Product", @"DeviceUsagePairs" ];
+            NSDictionary        * properties = CFBridgingRelease( IOHIDServiceClientCopyProperties( service, ( __bridge CFArrayRef )keys ) );
             
             if( name != nil && event != nil )
             {
-                [ self addSensorData: IOHIDEventGetFloatValue( event, eventType << 16 ) name: name kind: kind ];
+                [ self addSensorData: IOHIDEventGetFloatValue( event, eventType << 16 ) name: name kind: kind properties: properties ];
             }
             
             if( event != nil )
@@ -140,14 +142,14 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind
+- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind properties: ( nullable NSDictionary * )properties
 {
     NSString   * key  = [ NSString stringWithFormat: @"%llu.%@", ( uint64_t )kind, name ];
     SensorData * data = [ self.sensors objectForKey: key ];
     
     if( data == nil )
     {
-        data = [ [ SensorData alloc ] initWithKind: kind name: name ];
+        data = [ [ SensorData alloc ] initWithKind: kind name: name properties: properties ];
         
         [ self.sensors setObject: data forKey: key ];
     }
