@@ -24,6 +24,7 @@
 		0566B94926864627006EE45A /* SensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94826864627006EE45A /* SensorGraphView.swift */; };
 		0566B95326865B60006EE45A /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95226865B60006EE45A /* NSImage.swift */; };
 		0566B95526865C78006EE45A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95426865C78006EE45A /* Colors.swift */; };
+		0566B9622686B48E006EE45A /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9612686B48E006EE45A /* Icon.icns */; };
 		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
@@ -96,6 +97,7 @@
 		0566B94826864627006EE45A /* SensorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGraphView.swift; sourceTree = "<group>"; };
 		0566B95226865B60006EE45A /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		0566B95426865C78006EE45A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0566B9612686B48E006EE45A /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -300,6 +302,7 @@
 		0566B93D2686438E006EE45A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0566B9612686B48E006EE45A /* Icon.icns */,
 				0566B93F2686438E006EE45A /* VoltageTemplate.pdf */,
 				0566B9402686438E006EE45A /* CurrentTemplate.pdf */,
 				0566B9412686438E006EE45A /* ThermalTemplate.pdf */,
@@ -371,6 +374,7 @@
 				05646BFA2685072900707676 /* MainWindowController.xib in Resources */,
 				0566B9452686438E006EE45A /* ThermalTemplate.pdf in Resources */,
 				0566B9442686438E006EE45A /* CurrentTemplate.pdf in Resources */,
+				0566B9622686B48E006EE45A /* Icon.icns in Resources */,
 				05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */,
 				05646BF22685058700707676 /* AboutWindowController.xib in Resources */,
 			);
