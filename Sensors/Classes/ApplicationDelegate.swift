@@ -41,9 +41,14 @@ import GitHubUpdates
             self.updater.checkForUpdatesInBackground()
         }
     }
-
+    
     public func applicationWillTerminate( _ notification: Notification )
     {}
+    
+    public func applicationShouldTerminateAfterLastWindowClosed( _ sender: NSApplication ) -> Bool
+    {
+        true
+    }
     
     @IBAction public func showAboutWindow( _ sender: Any? )
     {

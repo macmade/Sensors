@@ -29,6 +29,7 @@
 		0566B96E2686B531006EE45A /* GitHubUpdates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0566B9692686B526006EE45A /* GitHubUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0566B97226874FD3006EE45A /* ArrayIsEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */; };
 		0566B97626875012006EE45A /* ArrayIsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */; };
+		0566B9802687A1E3006EE45A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97F2687A1E3006EE45A /* Preferences.swift */; };
 		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,7 @@
 		0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
 		0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsEmpty.swift; sourceTree = "<group>"; };
 		0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmpty.swift; sourceTree = "<group>"; };
+		0566B97F2687A1E3006EE45A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 				05646C172685303D00707676 /* IOHID.h */,
 				05646BF62685064C00707676 /* MainWindowController.swift */,
 				0566B95226865B60006EE45A /* NSImage.swift */,
+				0566B97F2687A1E3006EE45A /* Preferences.swift */,
 				05646BFB268507CD00707676 /* SensorData.swift */,
 				0566B94826864627006EE45A /* SensorGraphView.swift */,
 				0566B93B26864187006EE45A /* SensorIcon.swift */,
@@ -492,6 +495,7 @@
 			files = (
 				0566B93C26864187006EE45A /* SensorIcon.swift in Sources */,
 				0566B97626875012006EE45A /* ArrayIsNotEmpty.swift in Sources */,
+				0566B9802687A1E3006EE45A /* Preferences.swift in Sources */,
 				0566B95526865C78006EE45A /* Colors.swift in Sources */,
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
 				0566B94726864492006EE45A /* SensorValue.swift in Sources */,

@@ -48,6 +48,17 @@ public class MainWindowController: NSWindowController
         didSet { self.updateFilters() }
     }
     
+    @objc private dynamic var graphStyle = Preferences.shared.graphStyle.rawValue
+    {
+        didSet
+        {
+            if let style = Preferences.GraphStyle( rawValue: self.graphStyle )
+            {
+                Preferences.shared.graphStyle = style
+            }
+        }
+    }
+    
     @IBOutlet private var collectionView:  NSCollectionView!
     @IBOutlet private var arrayController: NSArrayController!
     

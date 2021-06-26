@@ -28,6 +28,28 @@ public class SensorGraphView: NSView
 {
     @objc public dynamic var sensor: SensorData?
     
+    private var graphStyleObserver: NSKeyValueObservation?
+    
+    public override init( frame: NSRect )
+    {
+        super.init( frame: frame )
+        
+        self.graphStyleObserver = Preferences.shared.observe( \.graphStyle )
+        {
+            [ weak self ] o, c in self?.needsDisplay = true
+        }
+    }
+    
+    required init?( coder: NSCoder )
+    {
+        super.init( coder: coder )
+        
+        self.graphStyleObserver = Preferences.shared.observe( \.graphStyle )
+        {
+            [ weak self ] o, c in self?.needsDisplay = true
+        }
+    }
+    
     public override func draw( _ rect: NSRect )
     {
         self.drawBorder( in: rect )
@@ -48,13 +70,26 @@ public class SensorGraphView: NSView
             max = 100
         }
         
-        self.drawGraph( in:     rect.insetBy( dx: 10, dy: 10 ),
-                        kind:   sensor.kind,
-                        values: values,
-                        min:    min,
-                        max:    max,
-                        color:  Colors.color( for: sensor.kind )
-        )
+        if Preferences.shared.graphStyle == .bars
+        {
+            self.drawBars( in:     rect.insetBy( dx: 10, dy: 10 ),
+                           kind:   sensor.kind,
+                           values: values,
+                           min:    min,
+                           max:    max,
+                           color:  Colors.color( for: sensor.kind )
+            )
+        }
+        else
+        {
+            self.drawGraph( in:     rect.insetBy( dx: 10, dy: 10 ),
+                            kind:   sensor.kind,
+                            values: values,
+                            min:    min,
+                            max:    max,
+                            color:  Colors.color( for: sensor.kind )
+            )
+        }
     }
     
     private func drawBorder( in rect: NSRect )
@@ -111,15 +146,26 @@ public class SensorGraphView: NSView
             }
         }
         
-        p2.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y ) )
-        p2.line( to: NSPoint( x: rect.origin.x, y: rect.origin.y ) )
+        p2.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y - 3 ) )
+        p2.line( to: NSPoint( x: rect.origin.x, y: rect.origin.y - 3 ) )
         p2.close()
         
-        let gradient = NSGradient( colors: [ color.withAlphaComponent( 0.25 ), color.withAlphaComponent( 0 ) ] )
-        
-        gradient?.draw( in: p2, angle: -90 )
+        if Preferences.shared.graphStyle == .gradient
+        {
+            let gradient = NSGradient( colors: [ color.withAlphaComponent( 0.25 ), color.withAlphaComponent( 0 ) ] )
+            
+            gradient?.draw( in: p2, angle: -90 )
+        }
+        else if Preferences.shared.graphStyle == .fill
+        {
+            color.setFill()
+            p2.fill()
+        }
         
         color.setStroke()
         p1.stroke()
     }
+    
+    private func drawBars( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    {}
 }
