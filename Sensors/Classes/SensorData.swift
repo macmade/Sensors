@@ -84,6 +84,19 @@ import Foundation
         }
     }
     
+    @objc public dynamic var last: NSNumber?
+    {
+        return self.synchronized
+        {
+            guard let last = self.data.last else
+            {
+                return nil
+            }
+            
+            return NSNumber( floatLiteral: last )
+        }
+    }
+    
     @objc public init( kind: Kind, name: String, properties: [ String : Any ]? )
     {
         self.kind       = kind
@@ -96,13 +109,21 @@ import Foundation
     {
         self.synchronized
         {
+            var data = self.data
+            
+            data.append( value )
+            
             self.willChangeValue( for: \.values )
             self.willChangeValue( for: \.min )
             self.willChangeValue( for: \.max )
-            self.data.append( value )
+            self.willChangeValue( for: \.last )
+            
+            self.data = data.suffix( 50 )
+            
             self.didChangeValue( for: \.values )
             self.didChangeValue( for: \.min )
             self.didChangeValue( for: \.max )
+            self.didChangeValue( for: \.last )
         }
     }
     

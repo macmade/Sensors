@@ -20,7 +20,7 @@
 		0566B9432686438E006EE45A /* VoltageTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B93F2686438E006EE45A /* VoltageTemplate.pdf */; };
 		0566B9442686438E006EE45A /* CurrentTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9402686438E006EE45A /* CurrentTemplate.pdf */; };
 		0566B9452686438E006EE45A /* ThermalTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9412686438E006EE45A /* ThermalTemplate.pdf */; };
-		0566B94726864492006EE45A /* LastSensorValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94626864492006EE45A /* LastSensorValue.swift */; };
+		0566B94726864492006EE45A /* SensorValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94626864492006EE45A /* SensorValue.swift */; };
 		0566B94926864627006EE45A /* SensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94826864627006EE45A /* SensorGraphView.swift */; };
 		0566B95326865B60006EE45A /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95226865B60006EE45A /* NSImage.swift */; };
 		0566B95526865C78006EE45A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95426865C78006EE45A /* Colors.swift */; };
@@ -92,7 +92,7 @@
 		0566B93F2686438E006EE45A /* VoltageTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = VoltageTemplate.pdf; sourceTree = "<group>"; };
 		0566B9402686438E006EE45A /* CurrentTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = CurrentTemplate.pdf; sourceTree = "<group>"; };
 		0566B9412686438E006EE45A /* ThermalTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ThermalTemplate.pdf; sourceTree = "<group>"; };
-		0566B94626864492006EE45A /* LastSensorValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSensorValue.swift; sourceTree = "<group>"; };
+		0566B94626864492006EE45A /* SensorValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorValue.swift; sourceTree = "<group>"; };
 		0566B94826864627006EE45A /* SensorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGraphView.swift; sourceTree = "<group>"; };
 		0566B95226865B60006EE45A /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		0566B95426865C78006EE45A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				05646BFD268508D200707676 /* Synchronizable.swift */,
 				05E0C31B268635C300D1D216 /* SensorItem.swift */,
 				0566B93B26864187006EE45A /* SensorIcon.swift */,
-				0566B94626864492006EE45A /* LastSensorValue.swift */,
+				0566B94626864492006EE45A /* SensorValue.swift */,
 				0566B94826864627006EE45A /* SensorGraphView.swift */,
 				0566B95226865B60006EE45A /* NSImage.swift */,
 				0566B95426865C78006EE45A /* Colors.swift */,
@@ -406,7 +406,7 @@
 				0566B93C26864187006EE45A /* SensorIcon.swift in Sources */,
 				0566B95526865C78006EE45A /* Colors.swift in Sources */,
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
-				0566B94726864492006EE45A /* LastSensorValue.swift in Sources */,
+				0566B94726864492006EE45A /* SensorValue.swift in Sources */,
 				05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */,
 				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
 				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,

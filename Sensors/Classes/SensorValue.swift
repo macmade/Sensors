@@ -24,8 +24,8 @@
 
 import Cocoa
 
-@objc( LastSensorValue )
-public class LastSensorValue: ValueTransformer
+@objc( SensorValue )
+public class SensorValue: ValueTransformer
 {
     public override class func transformedValueClass() -> AnyClass
     {
@@ -39,13 +39,11 @@ public class LastSensorValue: ValueTransformer
     
     public override func transformedValue( _ value: Any? ) -> Any?
     {
-        guard let data = value as? SensorData,
-              let last = data.values.last?.doubleValue
-        else
+        guard let n = value as? NSNumber else
         {
             return "--"
         }
         
-        return String( format: "%.02f", last )
+        return String( format: "%.02f", n.doubleValue )
     }
 }

@@ -38,14 +38,9 @@ public class SensorGraphView: NSView
             return
         }
         
-        let values       = sensor.values.suffix( 50 ).map { CGFloat( $0.doubleValue ) }
+        let values       = sensor.values.map { CGFloat( $0.doubleValue ) }
         var min: CGFloat = values.min() ?? 0
         var max: CGFloat = values.max() ?? 0
-        
-        if( min == max )
-        {
-            return
-        }
         
         if sensor.kind == .thermal && min >= 0 && max <= 100
         {
@@ -53,7 +48,13 @@ public class SensorGraphView: NSView
             max = 100
         }
         
-        self.drawGraph( in: rect.insetBy( dx: 10, dy: 10 ), values: values, min: min, max: max, color: Colors.color( for: sensor.kind ) )
+        self.drawGraph( in:     rect.insetBy( dx: 10, dy: 10 ),
+                        kind:   sensor.kind,
+                        values: values,
+                        min:    min,
+                        max:    max,
+                        color:  Colors.color( for: sensor.kind )
+        )
     }
     
     private func drawBorder( in rect: NSRect )
@@ -73,26 +74,34 @@ public class SensorGraphView: NSView
         border.fill()
     }
     
-    private func drawGraph( in rect: NSRect, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    private func drawGraph( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
     {
         let path       = NSBezierPath()
         path.lineWidth = 1
         
-        for i in 0 ..< values.count
+        if min == max && kind != .thermal
         {
-            let value = values[ i ]
-            let dx    = rect.size.width / CGFloat( values.count - 1 )
-            let x     = rect.origin.x + CGFloat( i ) * dx
-            let v     = ( value - min ) / ( max - min )
-            let y     = rect.origin.y + v * rect.size.height
-            
-            if i == 0
+            path.move( to: NSPoint( x: rect.origin.x, y: rect.origin.y + rect.size.height / 2 ) )
+            path.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height / 2 ) )
+        }
+        else
+        {
+            for i in 0 ..< values.count
             {
-                path.move( to: NSPoint( x: x, y: y ) )
-            }
-            else
-            {
-                path.line( to: NSPoint( x: x, y: y ) )
+                let value = values[ i ]
+                let dx    = rect.size.width / CGFloat( values.count - 1 )
+                let x     = rect.origin.x + CGFloat( i ) * dx
+                let v     = ( value - min ) / ( max - min )
+                let y     = rect.origin.y + v * rect.size.height
+                
+                if i == 0
+                {
+                    path.move( to: NSPoint( x: x, y: y ) )
+                }
+                else
+                {
+                    path.line( to: NSPoint( x: x, y: y ) )
+                }
             }
         }
         
