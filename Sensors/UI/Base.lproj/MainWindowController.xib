@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-rz-hcT">
+                    <visualEffectView blendingMode="behindWindow" material="underWindowBackground" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-rz-hcT">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
                         <subviews>
                             <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKe-JS-2Ui">
