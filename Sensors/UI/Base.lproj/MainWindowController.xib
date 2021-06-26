@@ -56,6 +56,13 @@
                                     <rect key="frame" x="743" y="1" width="16" height="372"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
+                                <connections>
+                                    <binding destination="-2" name="hidden" keyPath="self.sensors.data" id="CrI-nj-hKU">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">ArrayIsEmpty</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="X4f-ON-Yh7">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="86"/>
@@ -119,16 +126,63 @@
                                     <constraint firstAttribute="trailing" secondItem="0b0-bM-ppa" secondAttribute="trailing" constant="20" symbolic="YES" id="vhy-3U-orM"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DL0-ry-nBa" secondAttribute="trailing" constant="20" symbolic="YES" id="yDe-dg-UV7"/>
                                 </constraints>
+                                <connections>
+                                    <binding destination="-2" name="hidden" keyPath="self.sensors.data" id="oYT-Hj-xEu">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">ArrayIsEmpty</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Asg-vC-Nsi">
+                                <rect key="frame" x="252" y="90" width="296" height="320"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yFI-k2-eyH">
+                                        <rect key="frame" x="20" y="44" width="256" height="256"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="256" id="3bQ-I0-4D7"/>
+                                            <constraint firstAttribute="width" constant="256" id="wmc-Wj-n9C"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="ccv-7E-1yf"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caY-ih-a0p">
+                                        <rect key="frame" x="64" y="20" width="168" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="No sensor data available..." id="dA5-eI-Kva">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="yFI-k2-eyH" firstAttribute="leading" secondItem="Asg-vC-Nsi" secondAttribute="leading" constant="20" symbolic="YES" id="6hv-WO-Mp2"/>
+                                    <constraint firstItem="caY-ih-a0p" firstAttribute="centerX" secondItem="yFI-k2-eyH" secondAttribute="centerX" id="FCJ-Ar-PuC"/>
+                                    <constraint firstAttribute="bottom" secondItem="caY-ih-a0p" secondAttribute="bottom" constant="20" symbolic="YES" id="GPb-JF-OQU"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="caY-ih-a0p" secondAttribute="trailing" constant="20" symbolic="YES" id="aav-Ni-BKP"/>
+                                    <constraint firstAttribute="trailing" secondItem="yFI-k2-eyH" secondAttribute="trailing" constant="20" symbolic="YES" id="isW-X4-uYe"/>
+                                    <constraint firstItem="caY-ih-a0p" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Asg-vC-Nsi" secondAttribute="leading" constant="20" symbolic="YES" id="pxk-3O-W79"/>
+                                    <constraint firstItem="caY-ih-a0p" firstAttribute="top" secondItem="yFI-k2-eyH" secondAttribute="bottom" constant="8" symbolic="YES" id="vsg-hK-dIh"/>
+                                    <constraint firstItem="yFI-k2-eyH" firstAttribute="top" secondItem="Asg-vC-Nsi" secondAttribute="top" constant="20" symbolic="YES" id="woG-6u-Efg"/>
+                                </constraints>
+                                <connections>
+                                    <binding destination="-2" name="hidden" keyPath="self.sensors.data" id="nDO-gY-oWD">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">ArrayIsNotEmpty</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="X4f-ON-Yh7" firstAttribute="top" secondItem="aKe-JS-2Ui" secondAttribute="bottom" id="5IN-cs-jqm"/>
+                            <constraint firstItem="Asg-vC-Nsi" firstAttribute="centerX" secondItem="uRj-rz-hcT" secondAttribute="centerX" id="961-zO-gq7"/>
                             <constraint firstItem="aKe-JS-2Ui" firstAttribute="leading" secondItem="uRj-rz-hcT" secondAttribute="leading" constant="20" symbolic="YES" id="K0o-wa-efC"/>
                             <constraint firstAttribute="bottom" secondItem="X4f-ON-Yh7" secondAttribute="bottom" id="L6P-Pp-IP7"/>
                             <constraint firstAttribute="trailing" secondItem="X4f-ON-Yh7" secondAttribute="trailing" id="Lxr-7P-w7M"/>
                             <constraint firstAttribute="trailing" secondItem="aKe-JS-2Ui" secondAttribute="trailing" constant="20" symbolic="YES" id="RZP-rx-Xju"/>
                             <constraint firstItem="aKe-JS-2Ui" firstAttribute="top" secondItem="uRj-rz-hcT" secondAttribute="top" constant="30" id="b5q-1K-Vb2"/>
                             <constraint firstItem="X4f-ON-Yh7" firstAttribute="leading" secondItem="uRj-rz-hcT" secondAttribute="leading" id="ffA-eK-qjQ"/>
+                            <constraint firstItem="Asg-vC-Nsi" firstAttribute="centerY" secondItem="uRj-rz-hcT" secondAttribute="centerY" id="hRR-yE-RmG"/>
                         </constraints>
                     </visualEffectView>
                 </subviews>
@@ -147,4 +201,7 @@
             </connections>
         </arrayController>
     </objects>
+    <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
+    </resources>
 </document>

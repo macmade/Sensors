@@ -27,6 +27,8 @@
 		0566B9622686B48E006EE45A /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9612686B48E006EE45A /* Icon.icns */; };
 		0566B96D2686B531006EE45A /* GitHubUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0566B9692686B526006EE45A /* GitHubUpdates.framework */; };
 		0566B96E2686B531006EE45A /* GitHubUpdates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0566B9692686B526006EE45A /* GitHubUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0566B97226874FD3006EE45A /* ArrayIsEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */; };
+		0566B97626875012006EE45A /* ArrayIsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */; };
 		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
@@ -132,6 +134,8 @@
 		0566B95426865C78006EE45A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0566B9612686B48E006EE45A /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
+		0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsEmpty.swift; sourceTree = "<group>"; };
+		0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmpty.swift; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,18 +186,20 @@
 			children = (
 				05646BEE2685055F00707676 /* AboutWindowController.swift */,
 				05646BAF2685020A00707676 /* ApplicationDelegate.swift */,
+				0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */,
+				0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */,
+				0566B95426865C78006EE45A /* Colors.swift */,
 				05646C172685303D00707676 /* IOHID.h */,
 				05646BF62685064C00707676 /* MainWindowController.swift */,
+				0566B95226865B60006EE45A /* NSImage.swift */,
 				05646BFB268507CD00707676 /* SensorData.swift */,
+				0566B94826864627006EE45A /* SensorGraphView.swift */,
+				0566B93B26864187006EE45A /* SensorIcon.swift */,
+				05E0C31B268635C300D1D216 /* SensorItem.swift */,
 				05646C00268527CD00707676 /* Sensors.h */,
 				05646C01268527CD00707676 /* Sensors.m */,
-				05646BFD268508D200707676 /* Synchronizable.swift */,
-				05E0C31B268635C300D1D216 /* SensorItem.swift */,
-				0566B93B26864187006EE45A /* SensorIcon.swift */,
 				0566B94626864492006EE45A /* SensorValue.swift */,
-				0566B94826864627006EE45A /* SensorGraphView.swift */,
-				0566B95226865B60006EE45A /* NSImage.swift */,
-				0566B95426865C78006EE45A /* Colors.swift */,
+				05646BFD268508D200707676 /* Synchronizable.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -201,8 +207,8 @@
 		05646BB02685020A00707676 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				0566B93D2686438E006EE45A /* Images */,
 				05646BF02685058700707676 /* AboutWindowController.xib */,
+				0566B93D2686438E006EE45A /* Images */,
 				05646BB12685020A00707676 /* MainMenu.xib */,
 				05646BF82685072900707676 /* MainWindowController.xib */,
 				05E0C31D268635F200D1D216 /* SensorItem.xib */,
@@ -213,8 +219,8 @@
 		05646BB62685021500707676 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				05646C03268527E400707676 /* Sensors-Bridging-Header.h */,
 				05646BA4268501B400707676 /* Info.plist */,
+				05646C03268527E400707676 /* Sensors-Bridging-Header.h */,
 				05646BA5268501B400707676 /* Sensors.entitlements */,
 			);
 			name = "Supporting Files";
@@ -339,10 +345,10 @@
 		0566B93D2686438E006EE45A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				0566B9612686B48E006EE45A /* Icon.icns */,
-				0566B93F2686438E006EE45A /* VoltageTemplate.pdf */,
 				0566B9402686438E006EE45A /* CurrentTemplate.pdf */,
+				0566B9612686B48E006EE45A /* Icon.icns */,
 				0566B9412686438E006EE45A /* ThermalTemplate.pdf */,
+				0566B93F2686438E006EE45A /* VoltageTemplate.pdf */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0566B93C26864187006EE45A /* SensorIcon.swift in Sources */,
+				0566B97626875012006EE45A /* ArrayIsNotEmpty.swift in Sources */,
 				0566B95526865C78006EE45A /* Colors.swift in Sources */,
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
 				0566B94726864492006EE45A /* SensorValue.swift in Sources */,
@@ -496,6 +503,7 @@
 				0566B95326865B60006EE45A /* NSImage.swift in Sources */,
 				05646C02268527CD00707676 /* Sensors.m in Sources */,
 				05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */,
+				0566B97226874FD3006EE45A /* ArrayIsEmpty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
