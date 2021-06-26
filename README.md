@@ -12,7 +12,9 @@ Sensors
 
 ### About
 
-...
+A macOS application displaying the thermal, voltage and current sensor values.
+
+![Menu](Assets/Screenshot.png "Menu")
 
 License
 -------
