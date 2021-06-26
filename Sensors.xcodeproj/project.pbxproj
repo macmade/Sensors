@@ -25,9 +25,42 @@
 		0566B95326865B60006EE45A /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95226865B60006EE45A /* NSImage.swift */; };
 		0566B95526865C78006EE45A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95426865C78006EE45A /* Colors.swift */; };
 		0566B9622686B48E006EE45A /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0566B9612686B48E006EE45A /* Icon.icns */; };
+		0566B96D2686B531006EE45A /* GitHubUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0566B9692686B526006EE45A /* GitHubUpdates.framework */; };
+		0566B96E2686B531006EE45A /* GitHubUpdates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0566B9692686B526006EE45A /* GitHubUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05E0C31C268635C300D1D216 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		05E0C31F268635F200D1D216 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0566B9682686B526006EE45A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05F82B251EF32EA700EC8A93;
+			remoteInfo = GitHubUpdates;
+		};
+		0566B96A2686B526006EE45A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0555EBA01EF3DDA10016167F;
+			remoteInfo = Relauncher;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0566B96F2686B531006EE45A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0566B96E2686B531006EE45A /* GitHubUpdates.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		05646B9A268501B300707676 /* Sensors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sensors.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +131,7 @@
 		0566B95226865B60006EE45A /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		0566B95426865C78006EE45A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0566B9612686B48E006EE45A /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0566B96D2686B531006EE45A /* GitHubUpdates.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,9 +151,11 @@
 		05646B91268501B300707676 = {
 			isa = PBXGroup;
 			children = (
+				0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */,
 				05646BB7268503D300707676 /* xcconfig */,
 				05646B9C268501B300707676 /* Sensors */,
 				05646B9B268501B300707676 /* Products */,
+				0566B96C2686B531006EE45A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,6 +347,22 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		0566B9642686B526006EE45A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0566B9692686B526006EE45A /* GitHubUpdates.framework */,
+				0566B96B2686B526006EE45A /* Relauncher */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0566B96C2686B531006EE45A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -321,6 +374,7 @@
 				05646B97268501B300707676 /* Frameworks */,
 				05646BED268503FE00707676 /* ShellScript */,
 				05646B98268501B300707676 /* Resources */,
+				0566B96F2686B531006EE45A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -357,12 +411,35 @@
 			mainGroup = 05646B91268501B300707676;
 			productRefGroup = 05646B9B268501B300707676 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0566B9642686B526006EE45A /* Products */;
+					ProjectRef = 0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				05646B99268501B300707676 /* Sensors */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0566B9692686B526006EE45A /* GitHubUpdates.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GitHubUpdates.framework;
+			remoteRef = 0566B9682686B526006EE45A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0566B96B2686B526006EE45A /* Relauncher */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Relauncher;
+			remoteRef = 0566B96A2686B526006EE45A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		05646B98268501B300707676 /* Resources */ = {

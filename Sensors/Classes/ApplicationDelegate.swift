@@ -23,15 +23,23 @@
  ******************************************************************************/
 
 import Cocoa
+import GitHubUpdates
 
 @main public class ApplicationDelegate: NSObject, NSApplicationDelegate
 {
     @objc private dynamic var aboutWindowController = AboutWindowController()
     @objc private dynamic var mainWindowController  = MainWindowController()
     
+    @IBOutlet private var updater: GitHubUpdater!
+    
     public func applicationDidFinishLaunching( _ notification: Notification )
     {
         self.showMainWindow( nil )
+        
+        DispatchQueue.main.asyncAfter( deadline: .now() + .seconds( 5 ) )
+        {
+            self.updater.checkForUpdatesInBackground()
+        }
     }
 
     public func applicationWillTerminate( _ notification: Notification )
@@ -74,5 +82,10 @@ import Cocoa
             
             default: NSSound.beep()
         }
+    }
+    
+    @IBAction public func checkForUpdates( _ sender: Any? )
+    {
+        self.updater.checkForUpdates( sender )
     }
 }
