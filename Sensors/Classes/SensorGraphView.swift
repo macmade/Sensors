@@ -76,13 +76,17 @@ public class SensorGraphView: NSView
     
     private func drawGraph( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
     {
-        let path       = NSBezierPath()
-        path.lineWidth = 1
+        let p1       = NSBezierPath()
+        let p2       = NSBezierPath()
+        p1.lineWidth = 1
+        p2.lineWidth = 0
         
         if min == max && kind != .thermal
         {
-            path.move( to: NSPoint( x: rect.origin.x, y: rect.origin.y + rect.size.height / 2 ) )
-            path.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height / 2 ) )
+            p1.move( to: NSPoint( x: rect.origin.x, y: rect.origin.y + rect.size.height / 2 ) )
+            p1.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height / 2 ) )
+            p2.move( to: NSPoint( x: rect.origin.x, y: rect.origin.y + rect.size.height / 2 ) )
+            p2.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height / 2 ) )
         }
         else
         {
@@ -96,16 +100,26 @@ public class SensorGraphView: NSView
                 
                 if i == 0
                 {
-                    path.move( to: NSPoint( x: x, y: y ) )
+                    p1.move( to: NSPoint( x: x, y: y ) )
+                    p2.move( to: NSPoint( x: x, y: y ) )
                 }
                 else
                 {
-                    path.line( to: NSPoint( x: x, y: y ) )
+                    p1.line( to: NSPoint( x: x, y: y ) )
+                    p2.line( to: NSPoint( x: x, y: y ) )
                 }
             }
         }
         
+        p2.line( to: NSPoint( x: rect.origin.x + rect.size.width, y: rect.origin.y ) )
+        p2.line( to: NSPoint( x: rect.origin.x, y: rect.origin.y ) )
+        p2.close()
+        
+        let gradient = NSGradient( colors: [ color.withAlphaComponent( 0.25 ), color.withAlphaComponent( 0 ) ] )
+        
+        gradient?.draw( in: p2, angle: -90 )
+        
         color.setStroke()
-        path.stroke()
+        p1.stroke()
     }
 }
