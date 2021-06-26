@@ -31,8 +31,8 @@ public class Colors
         switch kind
         {
             case .thermal: return NSColor.systemOrange
-            case .voltage: return NSColor.systemTeal
-            case .current: return NSColor.systemPurple
+            case .voltage: return NSColor.systemPurple
+            case .current: return NSColor.systemTeal
         }
     }
     
