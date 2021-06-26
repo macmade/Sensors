@@ -34,6 +34,21 @@ public class Preferences: NSObject
         case bars
     }
     
+    @objc public dynamic var lastStart: Date?
+    {
+        get
+        {
+            UserDefaults.standard.object( forKey: "LastStart" ) as? Date
+        }
+        
+        set( value )
+        {
+            self.willChangeValue( for: \.graphStyle )
+            UserDefaults.standard.set( value, forKey: "LastStart" )
+            self.didChangeValue( for: \.graphStyle )
+        }
+    }
+    
     @objc public dynamic var graphStyle: GraphStyle
     {
         get

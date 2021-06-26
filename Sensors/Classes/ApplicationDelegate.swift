@@ -36,6 +36,8 @@ import GitHubUpdates
     {
         self.showMainWindow( nil )
         
+        Preferences.shared.lastStart = Date()
+        
         DispatchQueue.main.asyncAfter( deadline: .now() + .seconds( 5 ) )
         {
             self.updater.checkForUpdatesInBackground()
@@ -63,7 +65,7 @@ import GitHubUpdates
     
     @IBAction public func showMainWindow( _ sender: Any? )
     {
-        if self.mainWindowController.window?.isVisible == false
+        if Preferences.shared.lastStart == nil
         {
             self.mainWindowController.window?.layoutIfNeeded()
             self.mainWindowController.window?.center()
