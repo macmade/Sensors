@@ -72,7 +72,7 @@ public class SensorGraphView: NSView
         
         if Preferences.shared.graphStyle == .bars
         {
-            self.drawBars( in:     rect.insetBy( dx: 10, dy: 10 ),
+            self.drawBars( in:     rect,
                            kind:   sensor.kind,
                            values: values,
                            min:    min,
@@ -94,6 +94,11 @@ public class SensorGraphView: NSView
     
     private func drawBorder( in rect: NSRect )
     {
+        if Preferences.shared.graphStyle == .bars
+        {
+            return
+        }
+        
         let border       = NSBezierPath( roundedRect: rect.insetBy( dx: 1, dy: 1 ), xRadius: 10, yRadius: 10 )
         border.lineWidth = 1
         
@@ -103,10 +108,30 @@ public class SensorGraphView: NSView
     
     private func drawBackground( in rect: NSRect )
     {
-        let border = NSBezierPath( roundedRect: rect.insetBy( dx: 1, dy: 1 ), xRadius: 10, yRadius: 10 )
-        
-        NSColor.gray.withAlphaComponent( 0.2 ).setFill()
-        border.fill()
+        if Preferences.shared.graphStyle == .bars
+        {
+            let c = 15
+            let h = rect.size.height / CGFloat( c )
+            let n = rect.size.width / h
+            
+            for i in 0 ..< Int( n )
+            {
+                for j in 0 ..< c
+                {
+                    let square = NSRect( x: rect.origin.x + h * CGFloat( i ), y: rect.origin.y + h * CGFloat( j ), width: h, height: h ).insetBy( dx: 1, dy: 1 )
+                    
+                    NSColor.gray.withAlphaComponent( 0.2 ).setFill()
+                    square.fill()
+                }
+            }
+        }
+        else
+        {
+            let border = NSBezierPath( roundedRect: rect.insetBy( dx: 1, dy: 1 ), xRadius: 10, yRadius: 10 )
+            
+            NSColor.gray.withAlphaComponent( 0.2 ).setFill()
+            border.fill()
+        }
     }
     
     private func drawGraph( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
@@ -167,5 +192,35 @@ public class SensorGraphView: NSView
     }
     
     private func drawBars( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
-    {}
+    {
+        let c = 15
+        let h = rect.size.height / CGFloat( c )
+        let n = rect.size.width / h
+        
+        let values = Array( values.suffix( Int( n ) ) )
+        
+        for i in 0 ..< Int( n )
+        {
+            if i >= values.count
+            {
+                return
+            }
+            
+            let v = values[ i ]
+            let p = ( v - min ) / ( max - min )
+            
+            for j in 0 ..< c
+            {
+                if CGFloat( j ) / CGFloat( c ) > p
+                {
+                    break
+                }
+                
+                let square = NSRect( x: rect.origin.x + h * CGFloat( i ), y: rect.origin.y + h * CGFloat( j ), width: h, height: h ).insetBy( dx: 1, dy: 1 )
+                
+                color.setFill()
+                square.fill()
+            }
+        }
+    }
 }
