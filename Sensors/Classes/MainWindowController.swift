@@ -33,11 +33,6 @@ public class MainWindowController: NSWindowController
         didSet { self.updateFilters() }
     }
     
-    @objc private dynamic var showPower = true
-    {
-        didSet { self.updateFilters() }
-    }
-    
     @objc private dynamic var showVoltage = true
     {
         didSet { self.updateFilters() }
@@ -75,11 +70,6 @@ public class MainWindowController: NSWindowController
         if self.showTemperature == false
         {
             predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .thermal } )
-        }
-        
-        if self.showPower == false
-        {
-            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .power } )
         }
         
         if self.showVoltage == false

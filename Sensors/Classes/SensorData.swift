@@ -30,7 +30,6 @@ import Foundation
     public enum Kind: Int, CustomStringConvertible
     {
         case thermal
-        case power
         case voltage
         case current
         
@@ -39,7 +38,6 @@ import Foundation
             switch self
             {
                 case .thermal: return "thermal"
-                case .power:   return "power"
                 case .voltage: return "voltage"
                 case .current: return "current"
             }

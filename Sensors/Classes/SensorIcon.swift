@@ -47,7 +47,6 @@ public class SensorIcon: ValueTransformer
         switch data.kind
         {
             case .thermal: return NSImage( named: "ThermalTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
-            case .power:   return NSImage( named: "PowerTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
             case .voltage: return NSImage( named: "VoltageTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
             case .current: return NSImage( named: "CurrentTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
         }

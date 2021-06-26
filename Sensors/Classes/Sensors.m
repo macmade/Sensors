@@ -102,7 +102,6 @@ NS_ASSUME_NONNULL_END
     if( client != nil )
     {
         [ self readSensors: SensorDataKindThermal page: IOHIDPageAppleVendor            usage: IOHIDUsageAppleVendorTemperatureSensor  event: IOHIDEventTypeTemperature client: client ];
-        [ self readSensors: SensorDataKindPower   page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorPower   event: IOHIDEventTypePower       client: client ];
         [ self readSensors: SensorDataKindVoltage page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
         [ self readSensors: SensorDataKindCurrent page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
         

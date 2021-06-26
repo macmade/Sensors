@@ -85,18 +85,8 @@
                                             <binding destination="-2" name="value" keyPath="self.showTemperature" id="IqV-HK-3FM"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="apn-Dt-z1Z">
-                                        <rect key="frame" x="127" y="19" width="64" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Power" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4bM-kt-J9b">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.showPower" id="28v-0p-pG2"/>
-                                        </connections>
-                                    </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YH9-KV-isM">
-                                        <rect key="frame" x="197" y="19" width="72" height="18"/>
+                                        <rect key="frame" x="127" y="19" width="72" height="18"/>
                                         <buttonCell key="cell" type="check" title="Voltage" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Kn-WX-eN1">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -106,7 +96,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DL0-ry-nBa">
-                                        <rect key="frame" x="275" y="19" width="72" height="18"/>
+                                        <rect key="frame" x="205" y="19" width="72" height="18"/>
                                         <buttonCell key="cell" type="check" title="Current" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WBA-tr-bDK">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -117,17 +107,15 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="YH9-KV-isM" firstAttribute="leading" secondItem="apn-Dt-z1Z" secondAttribute="trailing" constant="8" symbolic="YES" id="1mE-BZ-tnv"/>
                                     <constraint firstItem="0b0-bM-ppa" firstAttribute="leading" secondItem="X4f-ON-Yh7" secondAttribute="leading" constant="20" symbolic="YES" id="7Hg-zM-lO0"/>
-                                    <constraint firstItem="YH9-KV-isM" firstAttribute="centerY" secondItem="apn-Dt-z1Z" secondAttribute="centerY" id="Jgn-Uq-L5Q"/>
+                                    <constraint firstItem="YH9-KV-isM" firstAttribute="centerY" secondItem="CWx-dr-5aC" secondAttribute="centerY" id="DiY-62-WNM"/>
                                     <constraint firstAttribute="bottom" secondItem="CWx-dr-5aC" secondAttribute="bottom" constant="20" symbolic="YES" id="Jzi-b5-KAO"/>
                                     <constraint firstItem="0b0-bM-ppa" firstAttribute="top" secondItem="X4f-ON-Yh7" secondAttribute="top" constant="20" symbolic="YES" id="MLt-9Q-NWw"/>
-                                    <constraint firstItem="apn-Dt-z1Z" firstAttribute="leading" secondItem="CWx-dr-5aC" secondAttribute="trailing" constant="8" symbolic="YES" id="MaH-kQ-OH9"/>
                                     <constraint firstItem="DL0-ry-nBa" firstAttribute="centerY" secondItem="YH9-KV-isM" secondAttribute="centerY" id="UFB-Be-d69"/>
                                     <constraint firstItem="CWx-dr-5aC" firstAttribute="top" secondItem="0b0-bM-ppa" secondAttribute="bottom" constant="8" symbolic="YES" id="WkJ-Ke-Bqu"/>
-                                    <constraint firstItem="apn-Dt-z1Z" firstAttribute="centerY" secondItem="CWx-dr-5aC" secondAttribute="centerY" id="dzM-ba-Ywj"/>
                                     <constraint firstItem="CWx-dr-5aC" firstAttribute="leading" secondItem="X4f-ON-Yh7" secondAttribute="leading" constant="20" symbolic="YES" id="kHN-fy-wU3"/>
                                     <constraint firstItem="DL0-ry-nBa" firstAttribute="leading" secondItem="YH9-KV-isM" secondAttribute="trailing" constant="8" symbolic="YES" id="kXC-gz-rYd"/>
+                                    <constraint firstItem="YH9-KV-isM" firstAttribute="leading" secondItem="CWx-dr-5aC" secondAttribute="trailing" constant="8" symbolic="YES" id="sOb-Yn-u3A"/>
                                     <constraint firstAttribute="trailing" secondItem="0b0-bM-ppa" secondAttribute="trailing" constant="20" symbolic="YES" id="vhy-3U-orM"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DL0-ry-nBa" secondAttribute="trailing" constant="20" symbolic="YES" id="yDe-dg-UV7"/>
                                 </constraints>
