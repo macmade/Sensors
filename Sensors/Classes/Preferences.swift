@@ -43,9 +43,9 @@ public class Preferences: NSObject
         
         set( value )
         {
-            self.willChangeValue( for: \.graphStyle )
+            self.willChangeValue( for: \.lastStart )
             UserDefaults.standard.set( value, forKey: "LastStart" )
-            self.didChangeValue( for: \.graphStyle )
+            self.didChangeValue( for: \.lastStart )
         }
     }
     
