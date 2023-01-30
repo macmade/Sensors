@@ -26,7 +26,7 @@ import Cocoa
 
 public class MainWindowController: NSWindowController
 {
-    @objc private dynamic var sensors = Sensors.shared()
+    @objc private dynamic var sensors = Sensors()
 
     @objc private dynamic var showTemperature = true
     {
@@ -39,6 +39,16 @@ public class MainWindowController: NSWindowController
     }
 
     @objc private dynamic var showCurrent = true
+    {
+        didSet { self.updateFilters() }
+    }
+
+    @objc private dynamic var showIOHID = true
+    {
+        didSet { self.updateFilters() }
+    }
+
+    @objc private dynamic var showSMC = true
     {
         didSet { self.updateFilters() }
     }
@@ -91,6 +101,16 @@ public class MainWindowController: NSWindowController
         if self.showCurrent == false
         {
             predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .current } )
+        }
+
+        if self.showIOHID == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.source != .hid } )
+        }
+
+        if self.showSMC == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.source != .smc } )
         }
 
         if let search = self.searchText, search.count > 0
