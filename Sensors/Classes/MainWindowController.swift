@@ -80,17 +80,17 @@ public class MainWindowController: NSWindowController
 
         if self.showTemperature == false
         {
-            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .thermal } )
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .thermal } )
         }
 
         if self.showVoltage == false
         {
-            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .voltage } )
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .voltage } )
         }
 
         if self.showCurrent == false
         {
-            predicates.append( NSPredicate { o, i in ( o as? SensorData )?.kind != .current } )
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .current } )
         }
 
         if let search = self.searchText, search.count > 0
@@ -118,14 +118,14 @@ extension MainWindowController: NSCollectionViewDataSource
 
     public func collectionView( _ collectionView: NSCollectionView, numberOfItemsInSection section: Int ) -> Int
     {
-        ( self.arrayController.arrangedObjects as? [ SensorData ] )?.count ?? 0
+        ( self.arrayController.arrangedObjects as? [ SensorHistoryData ] )?.count ?? 0
     }
 
     public func collectionView( _ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath ) -> NSCollectionViewItem
     {
         let item = self.collectionView.makeItem( withIdentifier: NSUserInterfaceItemIdentifier( rawValue: "SensorItem" ), for: indexPath )
 
-        if let item = item as? SensorItem, let sensors = self.arrayController.arrangedObjects as? [ SensorData ]
+        if let item = item as? SensorItem, let sensors = self.arrayController.arrangedObjects as? [ SensorHistoryData ]
         {
             if sensors.count > indexPath.item
             {

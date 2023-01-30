@@ -26,11 +26,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SensorData;
+@class SensorHistoryData;
 
 @interface Sensors: NSObject
 
-@property( atomic, readwrite, strong ) NSArray< SensorData * > * data;
+@property( atomic, readwrite, strong ) NSArray< SensorHistoryData * > * data;
 
 + ( instancetype )shared;
 

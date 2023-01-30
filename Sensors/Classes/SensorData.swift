@@ -24,9 +24,9 @@
 
 import Foundation
 
-@objc public class SensorData: NSObject, Synchronizable
+@objc public class SensorHistoryData: NSObject, Synchronizable
 {
-    @objc( SensorDataKind )
+    @objc( SensorHistoryDataKind )
     public enum Kind: Int, CustomStringConvertible
     {
         case thermal

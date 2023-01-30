@@ -26,7 +26,7 @@ import Cocoa
 
 public class Colors
 {
-    public class func color( for kind: SensorData.Kind ) -> NSColor
+    public class func color( for kind: SensorHistoryData.Kind ) -> NSColor
     {
         switch kind
         {

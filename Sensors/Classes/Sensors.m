@@ -30,12 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Sensors()
 
-@property( nonatomic, readwrite, strong ) NSMutableDictionary< NSString *, SensorData * > * sensors;
+@property( nonatomic, readwrite, strong ) NSMutableDictionary< NSString *, SensorHistoryData * > * sensors;
 
 - ( void )run __attribute__( ( noreturn ) );
 - ( void )readSensors: ( NSTimer * )timer;
-- ( void )readSensors: ( SensorDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client;
-- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind properties: ( nullable NSDictionary * )properties;
+- ( void )readSensors: ( SensorHistoryDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client;
+- ( void )addSensorHistoryData: ( double )value name: ( NSString * )name kind: ( SensorHistoryDataKind )kind properties: ( nullable NSDictionary * )properties;
 
 @end
 
@@ -101,9 +101,9 @@ NS_ASSUME_NONNULL_END
     
     if( client != nil )
     {
-        [ self readSensors: SensorDataKindThermal page: IOHIDPageAppleVendor            usage: IOHIDUsageAppleVendorTemperatureSensor  event: IOHIDEventTypeTemperature client: client ];
-        [ self readSensors: SensorDataKindVoltage page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
-        [ self readSensors: SensorDataKindCurrent page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorHistoryDataKindThermal page: IOHIDPageAppleVendor            usage: IOHIDUsageAppleVendorTemperatureSensor  event: IOHIDEventTypeTemperature client: client ];
+        [ self readSensors: SensorHistoryDataKindVoltage page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorVoltage event: IOHIDEventTypePower       client: client ];
+        [ self readSensors: SensorHistoryDataKindCurrent page: IOHIDPageAppleVendorPowerSensor usage: IOHIDUsageAppleVendorPowerSensorCurrent event: IOHIDEventTypePower       client: client ];
         
         dispatch_async
         (
@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-- ( void )readSensors: ( SensorDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client
+- ( void )readSensors: ( SensorHistoryDataKind )kind page: ( IOHIDPage )page usage: ( NSInteger )usage event: ( IOHIDEvent )eventType client: ( IOHIDEventSystemClientRef )client
 {
     NSDictionary * filter =
     @{
@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_END
             
             if( name != nil && event != nil )
             {
-                [ self addSensorData: IOHIDEventGetFloatValue( event, eventType << 16 ) name: name kind: kind properties: properties ];
+                [ self addSensorHistoryData: IOHIDEventGetFloatValue( event, eventType << 16 ) name: name kind: kind properties: properties ];
             }
             
             if( event != nil )
@@ -150,14 +150,14 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-- ( void )addSensorData: ( double )value name: ( NSString * )name kind: ( SensorDataKind )kind properties: ( nullable NSDictionary * )properties
+- ( void )addSensorHistoryData: ( double )value name: ( NSString * )name kind: ( SensorHistoryDataKind )kind properties: ( nullable NSDictionary * )properties
 {
-    NSString   * key  = [ NSString stringWithFormat: @"%llu.%@", ( uint64_t )kind, name ];
-    SensorData * data = [ self.sensors objectForKey: key ];
+    NSString          * key  = [ NSString stringWithFormat: @"%llu.%@", ( uint64_t )kind, name ];
+    SensorHistoryData * data = [ self.sensors objectForKey: key ];
     
     if( data == nil )
     {
-        data = [ [ SensorData alloc ] initWithKind: kind name: name properties: properties ];
+        data = [ [ SensorHistoryData alloc ] initWithKind: kind name: name properties: properties ];
         
         [ self.sensors setObject: data forKey: key ];
     }

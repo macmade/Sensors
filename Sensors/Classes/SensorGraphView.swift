@@ -26,7 +26,7 @@ import Cocoa
 
 public class SensorGraphView: NSView
 {
-    @objc public dynamic var sensor: SensorData?
+    @objc public dynamic var sensor: SensorHistoryData?
 
     private var graphStyleObserver: NSKeyValueObservation?
 
@@ -137,7 +137,7 @@ public class SensorGraphView: NSView
         }
     }
 
-    private func drawGraph( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    private func drawGraph( in rect: NSRect, kind: SensorHistoryData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
     {
         let p1       = NSBezierPath()
         let p2       = NSBezierPath()
@@ -194,7 +194,7 @@ public class SensorGraphView: NSView
         p1.stroke()
     }
 
-    private func drawBars( in rect: NSRect, kind: SensorData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    private func drawBars( in rect: NSRect, kind: SensorHistoryData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
     {
         let c = 15
         let h = rect.size.height / CGFloat( c )

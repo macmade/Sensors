@@ -39,7 +39,7 @@ public class SensorIcon: ValueTransformer
 
     public override func transformedValue( _ value: Any? ) -> Any?
     {
-        guard let data = value as? SensorData
+        guard let data = value as? SensorHistoryData
         else
         {
             return nil
