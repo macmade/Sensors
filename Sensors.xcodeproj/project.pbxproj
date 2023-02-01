@@ -187,7 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				05646BAD2685020A00707676 /* Classes */,
-				05646BB02685020A00707676 /* UI */,
+				0566B93D2686438E006EE45A /* Images */,
 				05646BB62685021500707676 /* Supporting Files */,
 			);
 			path = Sensors;
@@ -196,43 +196,22 @@
 		05646BAD2685020A00707676 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				05FB304D2988615A003EECA0 /* IOHID */,
-				05FB30542988615A003EECA0 /* SMC */,
 				05646BEE2685055F00707676 /* AboutWindowController.swift */,
+				05646BF02685058700707676 /* AboutWindowController.xib */,
 				05646BAF2685020A00707676 /* ApplicationDelegate.swift */,
-				0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */,
-				0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */,
-				0566B95426865C78006EE45A /* Colors.swift */,
-				05646BF62685064C00707676 /* SensorsWindowController.swift */,
-				0566B95226865B60006EE45A /* NSImage.swift */,
+				05FB304D2988615A003EECA0 /* IOHID */,
 				0566B97F2687A1E3006EE45A /* Preferences.swift */,
-				05646BFB268507CD00707676 /* SensorHistoryData.swift */,
-				0566B94826864627006EE45A /* SensorGraphView.swift */,
-				0566B93B26864187006EE45A /* SensorIcon.swift */,
-				05E0C31B268635C300D1D216 /* SensorItem.swift */,
-				05646C01268527CD00707676 /* Sensors.swift */,
-				0566B94626864492006EE45A /* SensorValue.swift */,
-				05646BFD268508D200707676 /* Synchronizable.swift */,
+				05FB308A298A64A6003EECA0 /* SensorsWindow */,
+				05FB30542988615A003EECA0 /* SMC */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		05646BB02685020A00707676 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				05646BF02685058700707676 /* AboutWindowController.xib */,
-				0566B93D2686438E006EE45A /* Images */,
-				05646BB12685020A00707676 /* MainMenu.xib */,
-				05646BF82685072900707676 /* SensorsWindowController.xib */,
-				05E0C31D268635F200D1D216 /* SensorItem.xib */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		05646BB62685021500707676 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				05646BA4268501B400707676 /* Info.plist */,
+				05646BB12685020A00707676 /* MainMenu.xib */,
 				05646C03268527E400707676 /* Sensors-Bridging-Header.h */,
 				05646BA5268501B400707676 /* Sensors.entitlements */,
 			);
@@ -402,6 +381,27 @@
 				05FB30582988615A003EECA0 /* SMC-Internal.h */,
 			);
 			path = SMC;
+			sourceTree = "<group>";
+		};
+		05FB308A298A64A6003EECA0 /* SensorsWindow */ = {
+			isa = PBXGroup;
+			children = (
+				0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */,
+				0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */,
+				0566B95426865C78006EE45A /* Colors.swift */,
+				0566B95226865B60006EE45A /* NSImage.swift */,
+				0566B94826864627006EE45A /* SensorGraphView.swift */,
+				05646BFB268507CD00707676 /* SensorHistoryData.swift */,
+				0566B93B26864187006EE45A /* SensorIcon.swift */,
+				05E0C31B268635C300D1D216 /* SensorItem.swift */,
+				05E0C31D268635F200D1D216 /* SensorItem.xib */,
+				05646C01268527CD00707676 /* Sensors.swift */,
+				05646BF62685064C00707676 /* SensorsWindowController.swift */,
+				05646BF82685072900707676 /* SensorsWindowController.xib */,
+				0566B94626864492006EE45A /* SensorValue.swift */,
+				05646BFD268508D200707676 /* Synchronizable.swift */,
+			);
+			path = SensorsWindow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
