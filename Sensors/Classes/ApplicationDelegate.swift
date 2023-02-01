@@ -29,7 +29,7 @@ import GitHubUpdates
 public class ApplicationDelegate: NSObject, NSApplicationDelegate
 {
     @objc private dynamic var aboutWindowController = AboutWindowController()
-    @objc private dynamic var mainWindowController  = MainWindowController()
+    @objc private dynamic var mainWindowController  = SensorsWindowController()
 
     @IBOutlet private var updater: GitHubUpdater!
 

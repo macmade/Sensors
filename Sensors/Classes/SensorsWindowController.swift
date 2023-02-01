@@ -24,33 +24,53 @@
 
 import Cocoa
 
-public class MainWindowController: NSWindowController
+public class SensorsWindowController: NSWindowController
 {
     @objc private dynamic var sensors = Sensors()
 
-    @objc private dynamic var showTemperature = true
+    @objc private dynamic var showTemperature = UserDefaults.standard.object( forKey: "sensorsWindowShowTemperature" ) as? Bool ?? true
     {
-        didSet { self.updateFilters() }
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showTemperature, forKey: "sensorsWindowShowTemperature" )
+        }
     }
 
-    @objc private dynamic var showVoltage = true
+    @objc private dynamic var showVoltage =  UserDefaults.standard.object( forKey: "sensorsWindowShowVoltage" ) as? Bool ?? true
     {
-        didSet { self.updateFilters() }
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showVoltage, forKey: "sensorsWindowShowVoltage" )
+        }
     }
 
-    @objc private dynamic var showCurrent = true
+    @objc private dynamic var showCurrent =  UserDefaults.standard.object( forKey: "sensorsWindowShowCurrent" ) as? Bool ?? true
     {
-        didSet { self.updateFilters() }
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showCurrent, forKey: "sensorsWindowShowCurrent" )
+        }
     }
 
-    @objc private dynamic var showIOHID = true
+    @objc private dynamic var showIOHID =  UserDefaults.standard.object( forKey: "sensorsWindowShowIOHID" ) as? Bool ?? true
     {
-        didSet { self.updateFilters() }
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showIOHID, forKey: "sensorsWindowShowIOHID" )
+        }
     }
 
-    @objc private dynamic var showSMC = true
+    @objc private dynamic var showSMC =  UserDefaults.standard.object( forKey: "sensorsWindowShowSMC" ) as? Bool ?? true
     {
-        didSet { self.updateFilters() }
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showSMC, forKey: "sensorsWindowShowSMC" )
+        }
     }
 
     @objc private dynamic var searchText: String?
@@ -58,14 +78,11 @@ public class MainWindowController: NSWindowController
         didSet { self.updateFilters() }
     }
 
-    @objc private dynamic var graphStyle = Preferences.shared.graphStyle.rawValue
+    @objc private dynamic var graphStyle = UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" )
     {
         didSet
         {
-            if let style = Preferences.GraphStyle( rawValue: self.graphStyle )
-            {
-                Preferences.shared.graphStyle = style
-            }
+            UserDefaults.standard.set( self.graphStyle, forKey: "sensorsWindowGraphStyle" )
         }
     }
 
@@ -74,7 +91,7 @@ public class MainWindowController: NSWindowController
 
     public override var windowNibName: NSNib.Name?
     {
-        "MainWindowController"
+        "SensorsWindowController"
     }
 
     public override func windowDidLoad()
@@ -82,6 +99,8 @@ public class MainWindowController: NSWindowController
         super.windowDidLoad()
 
         self.arrayController.sortDescriptors = [ NSSortDescriptor( key: "name", ascending: true, selector: #selector( NSString.localizedCaseInsensitiveCompare( _: ) ) ) ]
+
+        self.updateFilters()
     }
 
     private func updateFilters()
@@ -129,7 +148,7 @@ public class MainWindowController: NSWindowController
     }
 }
 
-extension MainWindowController: NSCollectionViewDataSource
+extension SensorsWindowController: NSCollectionViewDataSource
 {
     public func numberOfSections( in collectionView: NSCollectionView ) -> Int
     {

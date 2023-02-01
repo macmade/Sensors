@@ -26,17 +26,26 @@ import Cocoa
 
 public class SensorGraphView: NSView
 {
+    @objc
+    public enum GraphStyle: Int
+    {
+        case gradient
+        case line
+        case fill
+        case bars
+    }
+
     @objc public dynamic var sensor: SensorHistoryData?
 
-    private var graphStyleObserver: NSKeyValueObservation?
+    private var defaultsObserver: Any?
 
     public override init( frame: NSRect )
     {
         super.init( frame: frame )
 
-        self.graphStyleObserver = Preferences.shared.observe( \.graphStyle )
+        self.defaultsObserver = NotificationCenter.default.addObserver( forName: UserDefaults.didChangeNotification, object: nil, queue: nil )
         {
-            [ weak self ] o, c in self?.needsDisplay = true
+            [ weak self ] _ in self?.needsDisplay = true
         }
     }
 
@@ -44,16 +53,18 @@ public class SensorGraphView: NSView
     {
         super.init( coder: coder )
 
-        self.graphStyleObserver = Preferences.shared.observe( \.graphStyle )
+        self.defaultsObserver = NotificationCenter.default.addObserver( forName: UserDefaults.didChangeNotification, object: nil, queue: nil )
         {
-            [ weak self ] o, c in self?.needsDisplay = true
+            [ weak self ] _ in self?.needsDisplay = true
         }
     }
 
     public override func draw( _ rect: NSRect )
     {
-        self.drawBorder( in: rect )
-        self.drawBackground( in: rect )
+        let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" ) ) ?? .bars
+
+        self.drawBorder( in: rect, style: style )
+        self.drawBackground( in: rect, style: style )
 
         guard let sensor = self.sensor, sensor.values.count >= 2
         else
@@ -71,7 +82,7 @@ public class SensorGraphView: NSView
             max = 100
         }
 
-        if Preferences.shared.graphStyle == .bars
+        if style == .bars
         {
             self.drawBars(
                 in:     rect,
@@ -90,14 +101,15 @@ public class SensorGraphView: NSView
                 values: values,
                 min:    min,
                 max:    max,
-                color:  Colors.color( for: sensor.kind )
+                color:  Colors.color( for: sensor.kind ),
+                style:  style
             )
         }
     }
 
-    private func drawBorder( in rect: NSRect )
+    private func drawBorder( in rect: NSRect, style: GraphStyle )
     {
-        if Preferences.shared.graphStyle == .bars
+        if style == .bars
         {
             return
         }
@@ -109,9 +121,9 @@ public class SensorGraphView: NSView
         border.stroke()
     }
 
-    private func drawBackground( in rect: NSRect )
+    private func drawBackground( in rect: NSRect, style: GraphStyle )
     {
-        if Preferences.shared.graphStyle == .bars
+        if style == .bars
         {
             let c = 15
             let h = rect.size.height / CGFloat( c )
@@ -137,7 +149,7 @@ public class SensorGraphView: NSView
         }
     }
 
-    private func drawGraph( in rect: NSRect, kind: SensorHistoryData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    private func drawGraph( in rect: NSRect, kind: SensorHistoryData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor, style: GraphStyle )
     {
         let p1       = NSBezierPath()
         let p2       = NSBezierPath()
@@ -178,13 +190,13 @@ public class SensorGraphView: NSView
         p2.line( to: NSPoint( x: rect.origin.x, y: rect.origin.y - 3 ) )
         p2.close()
 
-        if Preferences.shared.graphStyle == .gradient
+        if style == .gradient
         {
             let gradient = NSGradient( colors: [ color.withAlphaComponent( 0.25 ), color.withAlphaComponent( 0 ) ] )
 
             gradient?.draw( in: p2, angle: -90 )
         }
-        else if Preferences.shared.graphStyle == .fill
+        else if style == .fill
         {
             color.setFill()
             p2.fill()

@@ -26,15 +26,6 @@ import Foundation
 
 public class Preferences: NSObject
 {
-    @objc
-    public enum GraphStyle: Int
-    {
-        case gradient
-        case line
-        case fill
-        case bars
-    }
-
     @objc public dynamic var lastStart: Date?
     {
         get
@@ -47,21 +38,6 @@ public class Preferences: NSObject
             self.willChangeValue( for: \.lastStart )
             UserDefaults.standard.set( value, forKey: "LastStart" )
             self.didChangeValue( for: \.lastStart )
-        }
-    }
-
-    @objc public dynamic var graphStyle: GraphStyle
-    {
-        get
-        {
-            GraphStyle( rawValue: UserDefaults.standard.integer( forKey: "GraphStyle" ) ) ?? .gradient
-        }
-
-        set( value )
-        {
-            self.willChangeValue( for: \.graphStyle )
-            UserDefaults.standard.set( value.rawValue, forKey: "GraphStyle" )
-            self.didChangeValue( for: \.graphStyle )
         }
     }
 

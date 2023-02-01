@@ -11,8 +11,8 @@
 		05646BB52685020A00707676 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BB12685020A00707676 /* MainMenu.xib */; };
 		05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BEE2685055F00707676 /* AboutWindowController.swift */; };
 		05646BF22685058700707676 /* AboutWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF02685058700707676 /* AboutWindowController.xib */; };
-		05646BF72685064C00707676 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BF62685064C00707676 /* MainWindowController.swift */; };
-		05646BFA2685072900707676 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* MainWindowController.xib */; };
+		05646BF72685064C00707676 /* SensorsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BF62685064C00707676 /* SensorsWindowController.swift */; };
+		05646BFA2685072900707676 /* SensorsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* SensorsWindowController.xib */; };
 		05646BFC268507CD00707676 /* SensorHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFB268507CD00707676 /* SensorHistoryData.swift */; };
 		05646BFE268508D200707676 /* Synchronizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BFD268508D200707676 /* Synchronizable.swift */; };
 		05646C02268527CD00707676 /* Sensors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646C01268527CD00707676 /* Sensors.swift */; };
@@ -121,8 +121,8 @@
 		05646BEB268503D300707676 /* Debug - zld.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug - zld.xcconfig"; sourceTree = "<group>"; };
 		05646BEE2685055F00707676 /* AboutWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		05646BF12685058700707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AboutWindowController.xib; sourceTree = "<group>"; };
-		05646BF62685064C00707676 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		05646BF92685072900707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindowController.xib; sourceTree = "<group>"; };
+		05646BF62685064C00707676 /* SensorsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorsWindowController.swift; sourceTree = "<group>"; };
+		05646BF92685072900707676 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorsWindowController.xib; sourceTree = "<group>"; };
 		05646BFB268507CD00707676 /* SensorHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorHistoryData.swift; sourceTree = "<group>"; };
 		05646BFD268508D200707676 /* Synchronizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synchronizable.swift; sourceTree = "<group>"; };
 		05646C01268527CD00707676 /* Sensors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensors.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 				0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */,
 				0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */,
 				0566B95426865C78006EE45A /* Colors.swift */,
-				05646BF62685064C00707676 /* MainWindowController.swift */,
+				05646BF62685064C00707676 /* SensorsWindowController.swift */,
 				0566B95226865B60006EE45A /* NSImage.swift */,
 				0566B97F2687A1E3006EE45A /* Preferences.swift */,
 				05646BFB268507CD00707676 /* SensorHistoryData.swift */,
@@ -223,7 +223,7 @@
 				05646BF02685058700707676 /* AboutWindowController.xib */,
 				0566B93D2686438E006EE45A /* Images */,
 				05646BB12685020A00707676 /* MainMenu.xib */,
-				05646BF82685072900707676 /* MainWindowController.xib */,
+				05646BF82685072900707676 /* SensorsWindowController.xib */,
 				05E0C31D268635F200D1D216 /* SensorItem.xib */,
 			);
 			path = UI;
@@ -489,7 +489,7 @@
 			files = (
 				05646BB52685020A00707676 /* MainMenu.xib in Resources */,
 				0566B9432686438E006EE45A /* VoltageTemplate.pdf in Resources */,
-				05646BFA2685072900707676 /* MainWindowController.xib in Resources */,
+				05646BFA2685072900707676 /* SensorsWindowController.xib in Resources */,
 				0566B9452686438E006EE45A /* ThermalTemplate.pdf in Resources */,
 				0566B9442686438E006EE45A /* CurrentTemplate.pdf in Resources */,
 				0566B9622686B48E006EE45A /* Icon.icns in Resources */,
@@ -534,7 +534,7 @@
 				05646BB42685020A00707676 /* ApplicationDelegate.swift in Sources */,
 				0566B94726864492006EE45A /* SensorValue.swift in Sources */,
 				05646BEF2685055F00707676 /* AboutWindowController.swift in Sources */,
-				05646BF72685064C00707676 /* MainWindowController.swift in Sources */,
+				05646BF72685064C00707676 /* SensorsWindowController.swift in Sources */,
 				05646BFE268508D200707676 /* Synchronizable.swift in Sources */,
 				05FB305C2988615A003EECA0 /* SMCData.swift in Sources */,
 				05646BFC268507CD00707676 /* SensorHistoryData.swift in Sources */,
@@ -567,12 +567,12 @@
 			name = AboutWindowController.xib;
 			sourceTree = "<group>";
 		};
-		05646BF82685072900707676 /* MainWindowController.xib */ = {
+		05646BF82685072900707676 /* SensorsWindowController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				05646BF92685072900707676 /* Base */,
 			);
-			name = MainWindowController.xib;
+			name = SensorsWindowController.xib;
 			sourceTree = "<group>";
 		};
 		05E0C31D268635F200D1D216 /* SensorItem.xib */ = {
