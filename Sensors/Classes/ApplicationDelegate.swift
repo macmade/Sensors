@@ -37,7 +37,7 @@ public class ApplicationDelegate: NSObject, NSApplicationDelegate
     {
         self.showMainWindow( nil )
 
-        Preferences.shared.lastStart = Date()
+        UserDefaults.standard.set( NSDate(), forKey: "lastStart" )
 
         DispatchQueue.main.asyncAfter( deadline: .now() + .seconds( 5 ) )
         {
@@ -68,7 +68,7 @@ public class ApplicationDelegate: NSObject, NSApplicationDelegate
     @IBAction
     public func showMainWindow( _ sender: Any? )
     {
-        if Preferences.shared.lastStart == nil
+        if UserDefaults.standard.object( forKey: "lastStart" ) == nil
         {
             self.mainWindowController.window?.layoutIfNeeded()
             self.mainWindowController.window?.center()
