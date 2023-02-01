@@ -185,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				05646BAD2685020A00707676 /* Classes */,
-				0566B93D2686438E006EE45A /* Images */,
 				05646BB62685021500707676 /* Supporting Files */,
 			);
 			path = Sensors;
@@ -207,6 +206,7 @@
 		05646BB62685021500707676 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0566B9612686B48E006EE45A /* Icon.icns */,
 				05646BA4268501B400707676 /* Info.plist */,
 				05646BB12685020A00707676 /* MainMenu.xib */,
 				05646C03268527E400707676 /* Sensors-Bridging-Header.h */,
@@ -335,7 +335,6 @@
 			isa = PBXGroup;
 			children = (
 				0566B9402686438E006EE45A /* CurrentTemplate.pdf */,
-				0566B9612686B48E006EE45A /* Icon.icns */,
 				0566B9412686438E006EE45A /* ThermalTemplate.pdf */,
 				0566B93F2686438E006EE45A /* VoltageTemplate.pdf */,
 			);
@@ -386,6 +385,7 @@
 				0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */,
 				0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */,
 				0566B95426865C78006EE45A /* Colors.swift */,
+				0566B93D2686438E006EE45A /* Images */,
 				0566B95226865B60006EE45A /* NSImage.swift */,
 				0566B94826864627006EE45A /* SensorGraphView.swift */,
 				05646BFB268507CD00707676 /* SensorHistoryData.swift */,
