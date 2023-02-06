@@ -103,6 +103,11 @@ public class SensorsWindowController: NSWindowController
         self.updateFilters()
     }
 
+    public func stop( completion: ( () -> Void )? )
+    {
+        self.sensors.stop( completion: completion )
+    }
+
     private func updateFilters()
     {
         var predicates = [ NSPredicate ]()
