@@ -108,6 +108,9 @@
 		0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmpty.swift; sourceTree = "<group>"; };
 		058B8E8F299436D900263FE9 /* SensorsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SensorsKit.xcodeproj; path = Submodules/SensorsKit/SensorsKit.xcodeproj; sourceTree = "<group>"; };
 		058B8EA22994383300263FE9 /* SensorsUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SensorsUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		058B8EEB2994419B00263FE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		058B8EED2994419B00263FE9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		058B8EEE2994419B00263FE9 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +130,9 @@
 		05646B91268501B300707676 = {
 			isa = PBXGroup;
 			children = (
+				058B8EEE2994419B00263FE9 /* CODE_OF_CONDUCT.md */,
+				058B8EED2994419B00263FE9 /* LICENSE */,
+				058B8EEB2994419B00263FE9 /* README.md */,
 				058B8E8F299436D900263FE9 /* SensorsKit.xcodeproj */,
 				05646BB7268503D300707676 /* xcconfig */,
 				058B8EA32994383300263FE9 /* SensorsUI */,

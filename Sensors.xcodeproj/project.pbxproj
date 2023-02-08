@@ -112,6 +112,9 @@
 		0566B9612686B48E006EE45A /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
 		058B8EC82994392E00263FE9 /* SensorsUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SensorsUI.xcodeproj; sourceTree = "<group>"; };
+		058B8EE52994419200263FE9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		058B8EE92994419200263FE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		058B8EEA2994419200263FE9 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,9 @@
 		05646B91268501B300707676 = {
 			isa = PBXGroup;
 			children = (
+				058B8EEA2994419200263FE9 /* CODE_OF_CONDUCT.md */,
+				058B8EE52994419200263FE9 /* LICENSE */,
+				058B8EE92994419200263FE9 /* README.md */,
 				058B8EC82994392E00263FE9 /* SensorsUI.xcodeproj */,
 				0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */,
 				05646BB7268503D300707676 /* xcconfig */,
