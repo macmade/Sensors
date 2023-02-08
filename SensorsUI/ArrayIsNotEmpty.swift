@@ -1,7 +1,7 @@
 /*******************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2022, Jean-David Gadina - www.xs-labs.com
+ * Copyright (c) 2023, Jean-David Gadina - www.xs-labs.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the Software), to deal
@@ -24,8 +24,8 @@
 
 import Cocoa
 
-@objc( ArrayIsEmpty )
-public class ArrayIsEmpty: ValueTransformer
+@objc( ArrayIsNotEmpty )
+public class ArrayIsNotEmpty: ValueTransformer
 {
     public override class func transformedValueClass() -> AnyClass
     {
@@ -42,9 +42,9 @@ public class ArrayIsEmpty: ValueTransformer
         guard let array = value as? NSArray
         else
         {
-            return NSNumber( booleanLiteral: true )
+            return NSNumber( booleanLiteral: false )
         }
 
-        return NSNumber( booleanLiteral: array.count == 0 )
+        return NSNumber( booleanLiteral: array.count > 0 )
     }
 }

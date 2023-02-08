@@ -1,7 +1,7 @@
 /*******************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2022, Jean-David Gadina - www.xs-labs.com
+ * Copyright (c) 2023, Jean-David Gadina - www.xs-labs.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the Software), to deal
@@ -24,27 +24,24 @@
 
 import Cocoa
 
-@objc( ArrayIsNotEmpty )
-public class ArrayIsNotEmpty: ValueTransformer
+public extension NSImage
 {
-    public override class func transformedValueClass() -> AnyClass
+    func tinted( with color: NSColor ) -> NSImage
     {
-        NSNumber.self
-    }
-
-    public override class func allowsReverseTransformation() -> Bool
-    {
-        false
-    }
-
-    public override func transformedValue( _ value: Any? ) -> Any?
-    {
-        guard let array = value as? NSArray
+        guard let copy = self.copy() as? NSImage
         else
         {
-            return NSNumber( booleanLiteral: false )
+            return self
         }
 
-        return NSNumber( booleanLiteral: array.count > 0 )
+        copy.isTemplate = false
+        let rect        = NSRect( origin: NSZeroPoint, size: copy.size )
+
+        copy.lockFocus()
+        color.set()
+        rect.fill( using: .sourceAtop )
+        copy.unlockFocus()
+
+        return copy
     }
 }
