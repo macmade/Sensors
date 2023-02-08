@@ -1,7 +1,7 @@
 /*******************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2022, Jean-David Gadina - www.xs-labs.com
+ * Copyright (c) 2023, Jean-David Gadina - www.xs-labs.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the Software), to deal
@@ -23,6 +23,7 @@
  ******************************************************************************/
 
 import Cocoa
+import SensorsKit
 
 @objc( SensorIcon )
 public class SensorIcon: ValueTransformer
@@ -50,6 +51,8 @@ public class SensorIcon: ValueTransformer
             case .thermal: return NSImage( named: "ThermalTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
             case .voltage: return NSImage( named: "VoltageTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
             case .current: return NSImage( named: "CurrentTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
+
+            @unknown default: return nil
         }
     }
 }
