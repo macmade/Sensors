@@ -56,6 +56,15 @@ public class SensorsWindowController: NSWindowController
         }
     }
 
+    @objc private dynamic var showAmbiantLight =  UserDefaults.standard.object( forKey: "sensorsWindowShowAmbiantLight" ) as? Bool ?? true
+    {
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showAmbiantLight, forKey: "sensorsWindowShowAmbiantLight" )
+        }
+    }
+
     @objc private dynamic var showIOHID =  UserDefaults.standard.object( forKey: "sensorsWindowShowIOHID" ) as? Bool ?? true
     {
         didSet
@@ -135,6 +144,11 @@ public class SensorsWindowController: NSWindowController
         if self.showCurrent == false
         {
             predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .current } )
+        }
+
+        if self.showAmbiantLight == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .ambiantLight } )
         }
 
         if self.showIOHID == false

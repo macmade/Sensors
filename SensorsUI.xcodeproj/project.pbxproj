@@ -23,6 +23,7 @@
 		058B8EBD2994386E00263FE9 /* VoltageTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0566B93F2686438E006EE45A /* VoltageTemplate.pdf */; };
 		058B8EBE2994387900263FE9 /* SensorsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058B8E96299436D900263FE9 /* SensorsKit.framework */; };
 		058B8EBF2994387900263FE9 /* SensorsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 058B8E96299436D900263FE9 /* SensorsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05BDE9EE29944B9D00B0B888 /* AmbiantLightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05BDE9EC29944B9D00B0B888 /* AmbiantLightTemplate.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		058B8EEB2994419B00263FE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		058B8EED2994419B00263FE9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		058B8EEE2994419B00263FE9 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		05BDE9EC29944B9D00B0B888 /* AmbiantLightTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = AmbiantLightTemplate.pdf; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -268,6 +270,7 @@
 		0566B93D2686438E006EE45A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				05BDE9EC29944B9D00B0B888 /* AmbiantLightTemplate.pdf */,
 				0566B9402686438E006EE45A /* CurrentTemplate.pdf */,
 				0566B9412686438E006EE45A /* ThermalTemplate.pdf */,
 				0566B93F2686438E006EE45A /* VoltageTemplate.pdf */,
@@ -398,6 +401,7 @@
 				058B8EBA2994386B00263FE9 /* SensorItem.xib in Resources */,
 				058B8EBD2994386E00263FE9 /* VoltageTemplate.pdf in Resources */,
 				058B8EB92994386B00263FE9 /* SensorsWindowController.xib in Resources */,
+				05BDE9EE29944B9D00B0B888 /* AmbiantLightTemplate.pdf in Resources */,
 				058B8EBB2994386E00263FE9 /* CurrentTemplate.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
