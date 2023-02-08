@@ -48,11 +48,17 @@ public class SensorIcon: ValueTransformer
 
         switch data.kind
         {
-            case .thermal: return NSImage( named: "ThermalTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
-            case .voltage: return NSImage( named: "VoltageTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
-            case .current: return NSImage( named: "CurrentTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
+            case .thermal:      return self.image( named: "ThermalTemplate"      )?.tinted( with: Colors.color( for: data.kind ) )
+            case .voltage:      return self.image( named: "VoltageTemplate"      )?.tinted( with: Colors.color( for: data.kind ) )
+            case .current:      return self.image( named: "CurrentTemplate"      )?.tinted( with: Colors.color( for: data.kind ) )
+            case .ambiantLight: return self.image( named: "AmbiantLightTemplate" )?.tinted( with: Colors.color( for: data.kind ) )
 
             @unknown default: return nil
         }
+    }
+
+    private func image( named name: String ) -> NSImage?
+    {
+        Bundle( for: SensorIcon.self ).image( forResource: name )
     }
 }
