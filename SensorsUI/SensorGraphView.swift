@@ -37,6 +37,12 @@ public class SensorGraphView: NSView
     }
 
     @objc public dynamic var sensor: SensorHistoryData?
+    {
+        didSet
+        {
+            self.needsDisplay = true
+        }
+    }
 
     private var defaultsObserver: Any?
 
@@ -62,6 +68,7 @@ public class SensorGraphView: NSView
 
     public override func draw( _ rect: NSRect )
     {
+        let rect  = self.bounds
         let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" ) ) ?? .bars
 
         self.drawBorder( in: rect, style: style )
