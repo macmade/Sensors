@@ -181,6 +181,11 @@ public class SensorGraphView: NSView
                 let v     = ( value - min ) / ( max - min )
                 let y     = rect.origin.y + v * rect.size.height
 
+                if x.isNaN || y.isNaN
+                {
+                    return
+                }
+
                 if i == 0
                 {
                     p1.move( to: NSPoint( x: x, y: y ) )
