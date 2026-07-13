@@ -49,6 +49,7 @@ public class SensorIcon: ValueTransformer
         switch data.kind
         {
             case .thermal:      return self.image( named: "ThermalTemplate"      )?.tinted( with: Colors.color( for: data.kind ) )
+            case .rpm:          return self.image( named: "FanTemplate"          )?.tinted(with: Colors.color(for: data.kind ) )
             case .voltage:      return self.image( named: "VoltageTemplate"      )?.tinted( with: Colors.color( for: data.kind ) )
             case .current:      return self.image( named: "CurrentTemplate"      )?.tinted( with: Colors.color( for: data.kind ) )
             case .ambiantLight: return self.image( named: "AmbiantLightTemplate" )?.tinted( with: Colors.color( for: data.kind ) )

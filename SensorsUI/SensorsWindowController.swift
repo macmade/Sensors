@@ -65,6 +65,15 @@ public class SensorsWindowController: NSWindowController
         }
     }
 
+    @objc private dynamic var showFanSpeed =  UserDefaults.standard.object( forKey: "sensorsWindowShowFanSpeed" ) as? Bool ?? true
+    {
+        didSet
+        {
+            self.updateFilters()
+            UserDefaults.standard.set( self.showFanSpeed, forKey: "sensorsWindowShowFanSpeed" )
+        }
+    }
+
     @objc private dynamic var showIOHID =  UserDefaults.standard.object( forKey: "sensorsWindowShowIOHID" ) as? Bool ?? true
     {
         didSet
@@ -149,6 +158,11 @@ public class SensorsWindowController: NSWindowController
         if self.showAmbiantLight == false
         {
             predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .ambiantLight } )
+        }
+
+        if self.showFanSpeed == false
+        {
+            predicates.append( NSPredicate { o, i in ( o as? SensorHistoryData )?.kind != .rpm } )
         }
 
         if self.showIOHID == false
