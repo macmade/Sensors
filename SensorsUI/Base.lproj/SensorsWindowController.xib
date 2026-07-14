@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +19,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="800" height="515"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1496" height="933"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1710" height="1073"/>
             <value key="minSize" type="size" width="800" height="515"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="515"/>
@@ -29,13 +29,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="515"/>
                         <subviews>
                             <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKe-JS-2Ui">
-                                <rect key="frame" x="20" y="132" width="760" height="353"/>
+                                <rect key="frame" x="20" y="142" width="760" height="343"/>
                                 <clipView key="contentView" drawsBackground="NO" id="zVN-hJ-YmX">
-                                    <rect key="frame" x="0.0" y="0.0" width="760" height="353"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="760" height="343"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView id="d8j-id-ziA">
-                                            <rect key="frame" x="0.0" y="0.0" width="760" height="353"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="760" height="343"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="jv5-sj-5QH">
                                                 <size key="itemSize" width="245" height="120"/>
@@ -54,7 +54,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="F9Y-Pq-ygs">
-                                    <rect key="frame" x="744" y="0.0" width="16" height="303"/>
+                                    <rect key="frame" x="743" y="0.0" width="17" height="343"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <connections>
@@ -66,10 +66,10 @@
                                 </connections>
                             </scrollView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="X4f-ON-Yh7">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="132"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="142"/>
                                 <subviews>
-                                    <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b0-bM-ppa">
-                                        <rect key="frame" x="20" y="90" width="760" height="22"/>
+                                    <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b0-bM-ppa">
+                                        <rect key="frame" x="20" y="98" width="760" height="24"/>
                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="m6w-FG-kg5">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -84,7 +84,7 @@
                                         </connections>
                                     </searchField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CWx-dr-5aC">
-                                        <rect key="frame" x="72" y="51" width="103" height="18"/>
+                                        <rect key="frame" x="72" y="58" width="99" height="16"/>
                                         <buttonCell key="cell" type="check" title="Temperature" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lZo-Np-2Ev">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -94,7 +94,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YH9-KV-isM">
-                                        <rect key="frame" x="181" y="51" width="72" height="18"/>
+                                        <rect key="frame" x="179" y="58" width="68" height="16"/>
                                         <buttonCell key="cell" type="check" title="Voltage" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Kn-WX-eN1">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -104,7 +104,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DL0-ry-nBa">
-                                        <rect key="frame" x="259" y="51" width="72" height="18"/>
+                                        <rect key="frame" x="255" y="58" width="68" height="16"/>
                                         <buttonCell key="cell" type="check" title="Current" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WBA-tr-bDK">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -113,8 +113,8 @@
                                             <binding destination="-2" name="value" keyPath="self.showCurrent" id="McY-1z-eLE"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wh8-P7-8p4">
-                                        <rect key="frame" x="610" y="52" width="79" height="16"/>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wh8-P7-8p4">
+                                        <rect key="frame" x="595" y="58" width="79" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Graph Style:" id="6Ty-8X-UI6">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -122,10 +122,10 @@
                                         </textFieldCell>
                                     </textField>
                                     <popUpButton wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b2Z-bC-lIL">
-                                        <rect key="frame" x="692" y="46" width="92" height="25"/>
+                                        <rect key="frame" x="680" y="54" width="100" height="24"/>
                                         <popUpButtonCell key="cell" type="push" title="Gradient" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="UpT-Zz-emE" id="ToP-qb-kLc">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="bNn-yW-MVT">
                                                 <items>
                                                     <menuItem title="Gradient" state="on" id="UpT-Zz-emE"/>
@@ -140,7 +140,7 @@
                                         </connections>
                                     </popUpButton>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AZ7-l5-9da">
-                                        <rect key="frame" x="18" y="21" width="62" height="18"/>
+                                        <rect key="frame" x="20" y="24" width="58" height="16"/>
                                         <buttonCell key="cell" type="check" title="IOHID" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="B30-xT-MxH">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -150,7 +150,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wQZ-5m-sLD">
-                                        <rect key="frame" x="86" y="21" width="55" height="18"/>
+                                        <rect key="frame" x="86" y="24" width="51" height="16"/>
                                         <buttonCell key="cell" type="check" title="SMC" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lBw-Xe-W5E">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -159,8 +159,8 @@
                                             <binding destination="-2" name="value" keyPath="self.showSMC" id="vG2-nh-ynR"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AW4-o1-MSW">
-                                        <rect key="frame" x="637" y="22" width="52" height="16"/>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AW4-o1-MSW">
+                                        <rect key="frame" x="622" y="24" width="52" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Sort by:" id="Zhd-oD-x9y">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -168,10 +168,10 @@
                                         </textFieldCell>
                                     </textField>
                                     <popUpButton wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YK3-dt-Gbg">
-                                        <rect key="frame" x="692" y="16" width="92" height="25"/>
+                                        <rect key="frame" x="680" y="20" width="100" height="24"/>
                                         <popUpButtonCell key="cell" type="push" title="Name" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="hmc-dx-TSW" id="zN2-s4-vqC">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="WXZ-C2-QB6">
                                                 <items>
                                                     <menuItem title="Name" state="on" id="hmc-dx-TSW"/>
@@ -184,17 +184,17 @@
                                         </connections>
                                     </popUpButton>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-vg-auZ">
-                                        <rect key="frame" x="337" y="51" width="111" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Ambiant Light" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bE7-Y7-akv">
+                                        <rect key="frame" x="331" y="58" width="107" height="16"/>
+                                        <buttonCell key="cell" type="check" title="Ambient Light" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bE7-Y7-akv">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="-2" name="value" keyPath="self.showAmbiantLight" id="ZS7-L0-tjW"/>
+                                            <binding destination="-2" name="value" keyPath="self.showAmbientLight" id="sAx-p8-EZy"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e11-jk-0ae">
-                                        <rect key="frame" x="18" y="51" width="48" height="18"/>
+                                        <rect key="frame" x="20" y="58" width="44" height="16"/>
                                         <buttonCell key="cell" type="check" title="Fan" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="HPT-Ka-ZPv">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -268,7 +268,7 @@
                                                     <binding destination="-2" name="animate" keyPath="self.sensors.loading" id="dyi-wq-mTf"/>
                                                 </connections>
                                             </progressIndicator>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caY-ih-a0p">
+                                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caY-ih-a0p">
                                                 <rect key="frame" x="44" y="21" width="168" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="No sensor data available..." id="dA5-eI-Kva">
                                                     <font key="font" metaFont="system"/>
@@ -279,7 +279,7 @@
                                                     <binding destination="-2" name="hidden" keyPath="self.sensors.loading" id="RA3-Mq-TR1"/>
                                                 </connections>
                                             </textField>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b8F-vc-SdM">
+                                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b8F-vc-SdM">
                                                 <rect key="frame" x="68" y="0.0" width="120" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Reading sensors..." id="ieL-sj-MN9">
                                                     <font key="font" metaFont="system"/>

@@ -35,7 +35,7 @@ public class Colors
             case .rpm:          return NSColor.systemBlue
             case .voltage:      return NSColor.systemPurple
             case .current:      return NSColor.systemTeal
-            case .ambiantLight: return NSColor.systemYellow
+            case .ambientLight: return NSColor.systemYellow
 
             @unknown default: return NSColor.clear
         }
