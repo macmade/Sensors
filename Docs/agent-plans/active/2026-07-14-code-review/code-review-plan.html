@@ -313,7 +313,7 @@
         <div class="tags">
             <span class="sev sev-low">Finding 2 · Low</span>
             <span class="cat">stability / lifecycle</span>
-            <span class="capsule status-notstarted">Not started</span>
+            <span class="capsule status-completed">Completed</span>
         </div>
     </div>
     <p class="loc"><code>SensorsUI/SensorGraphView.swift:47, 53–57, 63–67</code> (no <code>deinit</code>)</p>
@@ -325,11 +325,44 @@
         <li>Optional (evaluate): narrow the observation so the view only invalidates on the relevant graph-style key rather than any defaults change.</li>
         <li>Confirm the graph still redraws when the graph style changes in preferences.</li>
     </ul>
-    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
-    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
-    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-15</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li>Added a <code>deinit</code> to <code>SensorGraphView</code> that removes the stored block-based observer: <code>guard let defaultsObserver = self.defaultsObserver else { return }</code> then <code>NotificationCenter.default.removeObserver( defaultsObserver )</code>. Only one initializer runs per instance and both write the token into the same <code>defaultsObserver</code> property, so removing that single token fully unregisters the observer regardless of which init ran.</li>
+        <li>Used <code>guard … else { return }</code> (early return) rather than <code>if let</code>, matching the file's own style in <code>draw(_:)</code> and the project convention.</li>
+        <li>No behavioral change while the view is alive: the observer is still installed by the initializers and the graph still redraws on a relevant defaults change; <code>deinit</code> only runs at teardown. Because the observer block captures <code>[weak self]</code>, there is no retain cycle and no use-after-free — the leak being fixed was a lingering <em>registration</em> (the view kept observing and redrawing on every app-wide defaults write for its whole lifetime), not a strong reference to the view.</li>
+        <li>Built the <code>SensorsUI</code> target via <code>xcodebuild</code> — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Automated review loop:</strong> 1 round, converged immediately — no Critical/High/Medium findings, no regressions. Reviewer confirmed the teardown is correct/sufficient, uses the right token-based API, and is free of retain-cycle/threading hazards.</li>
+        <li><strong>Optional "narrow the observation" task — evaluated, surfaced to the user, then implemented at the user's request.</strong> The graph reads only the <code>sensorsWindowGraphStyle</code> default in <code>draw(_:)</code>, so the broad <code>UserDefaults.didChangeNotification</code> observer redrew on every unrelated defaults write. Since that notification carries no key info and can't be filtered, narrowing required switching to key-specific KVO.</li>
+        <li><strong>Post-review change (user request — switch to key-specific KVO):</strong> replaced the block-based broad observer with classic KVO on the single <code>sensorsWindowGraphStyle</code> key. Added a <code>private static let graphStyleDefaultsKey</code> constant (de-duplicating the literal, now used by both the observation and <code>draw(_:)</code>); both initializers call a shared <code>observeGraphStyleDefault()</code> helper that does <code>UserDefaults.standard.addObserver( self, forKeyPath: … , options: [], context: nil )</code>; <code>deinit</code> now does the matching <code>removeObserver</code>; and an overridden <code>observeValue(forKeyPath:…)</code> sets <code>needsDisplay = true</code> when the key matches, forwarding everything else to <code>super</code>.</li>
+        <li><strong>Verified before implementing (per "don't assume framework behavior"):</strong> (a) the graph-style default is written via the standard setter <code>UserDefaults.standard.set(…, forKey: "sensorsWindowGraphStyle")</code> in <code>SensorsWindowController</code> (line 113), an in-process write, so KVO fires and redraw-on-style-change is preserved; (b) UserDefaults' KVO contract (add/remove balanced exactly once; keys-with-periods are nested paths — ours has none; cross-process writes don't fire KVO — irrelevant here) via Apple's KVO guide and the XS-Labs "Better NSUserDefaults with Swift" article.</li>
+        <li>Rebuilt after the KVO switch — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Second automated review loop (on the KVO change):</strong> 1 round, converged immediately — no Critical/High/Medium findings. Reviewer confirmed the add/remove balance has no crash path (<code>deinit</code> doesn't run on a failed <code>init?</code>), KVO fires for the in-process setter (no regression), the view depends on no other defaults key (narrowing is correct), the leak is fixed, and there is no new threading risk. Only two Info/Low notes (see Automated review).</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>Teardown correct &amp; sufficient for both initializers</strong> — Info (correctness) — <em>Confirmed, no action.</em></li>
+        <li><strong>Correct token-based <code>removeObserver(_:)</code> API for a block observer</strong> — Info (API contract) — <em>Confirmed.</em></li>
+        <li><strong>No retain cycle / dangling-block / threading hazard in <code>deinit</code></strong> — Info (memory/threading) — <em>Confirmed.</em> <code>[weak self]</code> plus <code>removeObserver</code> rule out use-after-free.</li>
+        <li><strong>No regression while the view is alive</strong> — Info (regression check) — <em>Confirmed.</em></li>
+        <li><strong><code>if let</code> vs early-return style</strong> — Info (style) — <em>Fixed.</em> Switched to <code>guard … else { return }</code> to match the file convention.</li>
+        <li><strong>Observer block sets <code>needsDisplay</code> off-main if defaults are written off-main</strong> — Info (threading) — <em>Deferred (pre-existing, out of scope).</em> Not introduced by this change; flagged for awareness only.</li>
+    </ul>
+    <p><span class="label">Automated review</span> <em>(second round — on the KVO change)</em></p>
+    <ul>
+        <li><strong>addObserver/removeObserver balance — no crash path</strong> — Info (correctness/lifecycle) — <em>Confirmed.</em> Exactly one registration per fully-constructed instance and one <code>deinit</code> removal; a failed <code>init?(coder:)</code> does not run <code>deinit</code>, so there is no unbalanced <code>removeObserver</code>.</li>
+        <li><strong>KVO fires for the in-process setter — redraw-on-style-change preserved</strong> — Info (regression check) — <em>Confirmed.</em></li>
+        <li><strong>Narrowing is correct — view depends on no other defaults key</strong> — Info (correctness) — <em>Confirmed.</em> The only <code>UserDefaults</code> read in the file is the graph style; narrowing removes spurious redraws.</li>
+        <li><strong>Observer leak fixed; no retain cycle</strong> — Info (memory) — <em>Confirmed.</em> KVO retains neither party; the old <code>[weak self]</code> block is correctly gone.</li>
+        <li><strong>No KVO <code>context</code> pointer (keyPath matching only)</strong> — Low (KVO best practice) — <em>Deferred / surfaced to user.</em> Guarding on <code>keyPath ==</code> and forwarding to <code>super</code> is safe here (this class makes one registration and no AppKit superclass observes this key on <code>UserDefaults.standard</code>). Apple's textbook pattern is a unique <code>context</code> pointer; the reviewer calls it a robustness nit, not a bug. Left for the user to decide.</li>
+        <li><strong><code>needsDisplay</code> set on the posting thread</strong> — Info (threading) — <em>No action.</em> Equivalent to the old <code>queue: nil</code> block behavior; the write is main-thread in practice. No new risk.</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li><strong>Decision:</strong> Yes — narrow the observation to the <code>sensorsWindowGraphStyle</code> key. <em>Acted on: replaced the broad <code>UserDefaults.didChangeNotification</code> block observer with key-specific KVO on that one default (see Implementation notes). Verified first that the graph-style default is written through the standard <code>UserDefaults</code> setters so KVO fires.</em></li>
+        <li><strong>Approval:</strong> "Looks good." Reviewed and accepted. The optional KVO <code>context</code>-pointer robustness nit was surfaced and declined — the keyPath match is kept.</li>
+    </ul>
 </div>
 
 <!-- M4 -->

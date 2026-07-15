@@ -44,26 +44,41 @@ public class SensorGraphView: NSView
         }
     }
 
-    private var defaultsObserver: Any?
+    private static let graphStyleDefaultsKey = "sensorsWindowGraphStyle"
 
     public override init( frame: NSRect )
     {
         super.init( frame: frame )
-
-        self.defaultsObserver = NotificationCenter.default.addObserver( forName: UserDefaults.didChangeNotification, object: nil, queue: nil )
-        {
-            [ weak self ] _ in self?.needsDisplay = true
-        }
+        self.observeGraphStyleDefault()
     }
 
     required init?( coder: NSCoder )
     {
         super.init( coder: coder )
+        self.observeGraphStyleDefault()
+    }
 
-        self.defaultsObserver = NotificationCenter.default.addObserver( forName: UserDefaults.didChangeNotification, object: nil, queue: nil )
+    deinit
+    {
+        UserDefaults.standard.removeObserver( self, forKeyPath: Self.graphStyleDefaultsKey )
+    }
+
+    private func observeGraphStyleDefault()
+    {
+        UserDefaults.standard.addObserver( self, forKeyPath: Self.graphStyleDefaultsKey, options: [], context: nil )
+    }
+
+    public override func observeValue( forKeyPath keyPath: String?, of object: Any?, change: [ NSKeyValueChangeKey: Any ]?, context: UnsafeMutableRawPointer? )
+    {
+        guard keyPath == Self.graphStyleDefaultsKey
+        else
         {
-            [ weak self ] _ in self?.needsDisplay = true
+            super.observeValue( forKeyPath: keyPath, of: object, change: change, context: context )
+
+            return
         }
+
+        self.needsDisplay = true
     }
 
     public override func draw( _ rect: NSRect )
@@ -76,7 +91,7 @@ public class SensorGraphView: NSView
             return
         }
 
-        let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" ) ) ?? .bars
+        let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: Self.graphStyleDefaultsKey ) ) ?? .bars
 
         self.drawBorder( in: rect, style: style )
         self.drawBackground( in: rect, style: style )
