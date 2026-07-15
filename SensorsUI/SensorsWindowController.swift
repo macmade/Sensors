@@ -211,9 +211,9 @@ extension SensorsWindowController: NSCollectionViewDataSource
         ( self.arrayController.arrangedObjects as? [ SensorHistoryData ] )?.count ?? 0
     }
 
-    public func collectionView( _ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath ) -> NSCollectionViewItem
+    public func collectionView( _ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath ) -> NSCollectionViewItem
     {
-        let item = self.collectionView.makeItem( withIdentifier: NSUserInterfaceItemIdentifier( rawValue: "SensorItem" ), for: indexPath )
+        let item = collectionView.makeItem( withIdentifier: NSUserInterfaceItemIdentifier( rawValue: "SensorItem" ), for: indexPath )
 
         if let item = item as? SensorItem, let sensors = self.arrayController.arrangedObjects as? [ SensorHistoryData ]
         {

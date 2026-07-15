@@ -372,7 +372,7 @@
         <div class="tags">
             <span class="sev sev-low">Finding 4 · Low</span>
             <span class="cat">style / maintainability</span>
-            <span class="capsule status-notstarted">Not started</span>
+            <span class="capsule status-completed">Completed</span>
         </div>
     </div>
     <p class="loc"><code>SensorsUI/SensorsWindowController.swift:214</code></p>
@@ -384,11 +384,27 @@
         <li>Use the passed-in <code>collectionView</code> parameter for <code>makeItem(withIdentifier:for:)</code> instead of the outlet.</li>
         <li>Confirm cells still populate correctly (data source wired via File's Owner in the XIB).</li>
     </ul>
-    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
-    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
-    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-15</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li>Renamed the first parameter's internal name from the copy/paste mash-up <code>itemForRepresentedObjectAtcollectionView</code> back to <code>collectionView</code>, and switched the body from <code>self.collectionView.makeItem(…)</code> (the outlet) to <code>collectionView.makeItem(…)</code> (the passed-in parameter). Two-line change in <code>SensorsWindowController.swift:214,216</code>.</li>
+        <li>No runtime behavior change: in Swift the Obj-C selector is derived from the argument <em>labels</em> (<code>collectionView(_:itemForRepresentedObjectAt:)</code>), not the internal parameter names, so the selector was already correct and the method was always matched by AppKit — the old code simply ignored the parameter and used the outlet. The restored signature now matches the sibling data-source methods (<code>numberOfSections(in:)</code>, <code>collectionView(_:numberOfItemsInSection:)</code>).</li>
+        <li>Verified the passed-in parameter and the outlet are the same instance: the XIB has exactly one collection view, wired as both the File's Owner <code>collectionView</code> outlet and as the data source's collection view. So <code>collectionView.makeItem(…)</code> is equivalent to <code>self.collectionView.makeItem(…)</code>, and using the parameter is the more robust, conventional form.</li>
+        <li>Built the <code>SensorsUI</code> target via <code>xcodebuild</code> — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Automated review loop:</strong> 1 round, converged immediately — no Critical/High/Medium findings, no regressions. Reviewer independently inspected the XIB wiring and confirmed the selector is unchanged and cells still populate.</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>Selector/protocol conformance unchanged</strong> — Info (Obj-C bridging) — <em>Confirmed, no action.</em> Selector <code>collectionView:itemForRepresentedObjectAt:</code> is identical before and after; the required data-source method is still matched.</li>
+        <li><strong>Parameter and outlet are the same collection-view instance</strong> — Info (behavioral equivalence) — <em>Confirmed via the XIB.</em> No behavior change; using the parameter is the conventional/robust form.</li>
+        <li><strong>Shadowing resolves correctly</strong> — Info (correctness) — <em>Confirmed.</em> The parameter shadows the outlet only in this method; <code>self.arrayController</code> and the inner <code>if let</code> are unaffected.</li>
+        <li><strong>Style consistency</strong> — Info (style) — <em>Confirmed.</em> No force-unwrap; the signature now matches the sibling data-source methods.</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li>User reviewed and approved: "Looks good." No changes requested.</li>
+    </ul>
 </div>
 
 <!-- M5 -->
