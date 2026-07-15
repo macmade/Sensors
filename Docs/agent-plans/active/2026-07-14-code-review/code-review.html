@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensors — Code Review</title>
+<style>
+    :root {
+        --bg:        #14161a;
+        --panel:     #1c1f26;
+        --panel-2:   #23272f;
+        --border:    #2e333d;
+        --text:      #e6e9ef;
+        --muted:     #9aa3b2;
+        --accent:    #6ea8fe;
+        --code-bg:   #0f1115;
+        --code-text: #d5dae4;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        padding: 0 0 5rem 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        font-size: 16px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+    header.page {
+        border-bottom: 1px solid var(--border);
+        padding: 2.5rem 0 1.5rem 0;
+        margin-bottom: 2rem;
+    }
+    h1 { font-size: 2rem; margin: 0 0 0.25rem 0; letter-spacing: -0.02em; }
+    h2 {
+        font-size: 1.35rem;
+        margin: 2.5rem 0 1rem 0;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--border);
+    }
+    h3 { font-size: 1.1rem; margin: 0 0 0.5rem 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .meta { color: var(--muted); font-size: 0.95rem; }
+    .meta strong { color: var(--text); }
+    p { margin: 0.6rem 0; }
+    code {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 0.12em 0.4em;
+        border-radius: 5px;
+        font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.86em;
+    }
+    pre {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 1rem 1.1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.84em;
+        line-height: 1.5;
+    }
+    pre code { background: none; padding: 0; }
+    .summary-box {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem;
+    }
+    .counts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .count-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    .count-pill .n { font-weight: 700; }
+    .finding {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem;
+        margin: 1.1rem 0;
+    }
+    .finding-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.4rem;
+    }
+    .finding-head h3 { margin: 0; }
+    .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+    .capsule {
+        display: inline-block;
+        padding: 0.16rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+    }
+    .sev-critical { background: #d7263d; }
+    .sev-high     { background: #e8590c; }
+    .sev-medium   { background: #e0a800; color: #1a1400; }
+    .sev-low      { background: #1f6feb; }
+    .sev-info     { background: #6b7280; }
+    .cat {
+        display: inline-block;
+        padding: 0.16rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        white-space: nowrap;
+    }
+    .loc { color: var(--muted); font-size: 0.86rem; margin: 0.1rem 0 0.7rem 0; }
+    .loc code { font-size: 0.9em; }
+    .label { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin: 0.9rem 0 0.2rem 0; }
+    ul { margin: 0.5rem 0; padding-left: 1.3rem; }
+    li { margin: 0.25rem 0; }
+    .regression-badge {
+        display: inline-block;
+        background: #4b1d1d;
+        color: #ffb4b4;
+        border: 1px solid #7a2c2c;
+        border-radius: 6px;
+        padding: 0.05rem 0.5rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    .note { color: var(--muted); }
+    footer.page { border-top: 1px solid var(--border); margin-top: 3rem; padding-top: 1.2rem; color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="page">
+    <h1>Sensors — Code Review</h1>
+    <p class="meta"><strong>Generated:</strong> 2026-07-14</p>
+    <p class="meta"><strong>Scope:</strong> Whole repository — the application target (<code>Sensors/</code>) and the UI framework target (<code>SensorsUI/</code>). The <code>Submodules/</code> trees (SensorsKit, IOHIDKit, SMCKit, GitHubUpdates, xcconfig) are separate Git repositories referenced by gitlink; they were read for context on the data-flow and threading model but are treated as out of scope and carry no findings here.</p>
+</header>
+
+<h2>Summary</h2>
+<div class="summary-box">
+    <p>The reviewed code — the app shell and the SwiftUI-adjacent AppKit UI framework — is small, clean, and internally consistent. Naming, formatting, licensing headers, and the Cocoa-bindings architecture (array controller + value transformers + KVO-driven <code>SensorHistoryData</code>) are all coherent, and the underlying <code>SensorsKit</code> data layer is carefully documented and thread-safe. No critical or high-severity defects were found in the reviewed scope.</p>
+    <p>The most significant issue is a <strong>latent crash in the graph rendering</strong>: the "bars" style computes a column count by dividing by a height-derived value and converting the result to <code>Int</code>, which traps when the view is drawn at zero height (<code>Int(infinity)</code> / <code>Int(nan)</code>). This is the same class of scroll-time drawing crash that commit <code>f154b91</code> patched for the line/gradient path, but the bars and background paths were never guarded. The remaining items are a never-removed notification observer, a couple of edge-case rendering glitches, and minor style/robustness nits.</p>
+    <div class="counts">
+        <span class="count-pill"><span class="n">0</span> Critical</span>
+        <span class="count-pill"><span class="n">0</span> High</span>
+        <span class="count-pill"><span class="n">1</span> Medium</span>
+        <span class="count-pill"><span class="n">3</span> Low</span>
+        <span class="count-pill"><span class="n">4</span> Info</span>
+    </div>
+</div>
+
+<h2>Notes</h2>
+<ul>
+    <li><strong>Key components reviewed:</strong> <code>ApplicationDelegate</code>, <code>AboutWindowController</code>, <code>SensorsWindowController</code> (filtering / sorting / collection-view data source), <code>SensorItem</code>, <code>SensorGraphView</code> (all drawing paths), the four <code>ValueTransformer</code>s (<code>SensorValue</code>, <code>SensorIcon</code>, <code>ArrayIsEmpty</code>, <code>ArrayIsNotEmpty</code>), <code>NSImage.tinted</code>, and <code>Colors</code>.</li>
+    <li><strong>Data flow (for context):</strong> <code>SensorsKit.Sensors</code> polls IOHID + SMC once per second on a dedicated background thread, accumulates into <code>SensorHistoryData</code> (thread-safe via <code>Synchronizable</code>), and republishes the sorted <code>data</code> array on the main queue. The UI binds to it through an <code>NSArrayController</code>; each cell's <code>SensorGraphView</code> renders the rolling 50-value window.</li>
+    <li><strong>Assumption:</strong> the <code>@objc(...)</code>-named value transformers are resolved by Cocoa Bindings via their Objective-C class name (no explicit <code>ValueTransformer.setValueTransformer</code> registration exists); this matches the shipping behavior of v1.2.2 and is not treated as a defect.</li>
+    <li><strong>Not covered:</strong> the XIB layouts (beyond binding/outlet wiring), the submodule source, and build configuration in the <code>.xcodeproj</code> files.</li>
+</ul>
+
+<h2>Findings</h2>
+
+<!-- ============ MEDIUM ============ -->
+<div class="finding">
+    <div class="finding-head">
+        <h3>1. Graph "bars"/background rendering can trap on <code>Int(infinity)</code> / <code>Int(nan)</code> at zero height</h3>
+        <div class="tags">
+            <span class="capsule sev-medium">Medium</span>
+            <span class="cat">crash / stability</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:136–141</code> (background), <code>SensorsUI/SensorGraphView.swift:224–230</code> (bars)</p>
+    <p><span class="label">Description</span>
+    Both the bars background and the bars foreground derive a column count from the view height and then convert it to an <code>Int</code> for a range loop:</p>
+    <pre><code>let c = 15
+let h = rect.size.height / CGFloat( c )   // 0 when the view height is 0
+let n = rect.size.width / h                // width / 0  ->  +infinity  (or 0/0 -> NaN)
+
+for i in 0 ..&lt; Int( n )                    // Int(+infinity) / Int(NaN)  ->  fatal trap</code></pre>
+    <p>In Swift, converting a non-finite <code>Double</code>/<code>CGFloat</code> to <code>Int</code> with the <code>Int(_:)</code> initializer is a hard runtime trap ("… cannot be converted to Int because it is either infinite or NaN"). When <code>rect.size.height == 0</code>, <code>h</code> is <code>0</code>; if the width is non-zero the division yields <code>+infinity</code>, and if the width is also zero it yields <code>NaN</code> — either way <code>Int(n)</code> crashes the app.</p>
+    <p>This is reachable: <code>draw(_:)</code> uses <code>self.bounds</code>, and collection-view items are laid out and redrawn during scrolling and resize, where a transient zero-height geometry is plausible. This is exactly the scenario behind commit <code>f154b91</code> ("Fixed a crash when scrolling in the sensors view"), but that fix only added a NaN guard to the line/gradient path in <code>drawGraph</code> (lines&nbsp;184–187). The bars path and the background path have no equivalent guard, so in the bars style the crash class remains open.</p>
+    <p class="note">Note: the default style is gradient (stored default <code>0</code>), so this only bites users who have selected the bars style — which is why it likely hasn't been reported.</p>
+    <p><span class="label">Recommendation</span>
+    Guard against a degenerate rect before dividing, e.g. early-return from <code>draw(_:)</code> / the bars helpers when <code>rect.size.height</code> or <code>rect.size.width</code> is not positive, or use the failable <code>Int(exactly:)</code> / clamp <code>n</code> to a finite non-negative value. A single <code>guard rect.width &gt; 0, rect.height &gt; 0 else { return }</code> at the top of <code>draw(_:)</code> covers all drawing paths uniformly.</p>
+</div>
+
+<!-- ============ LOW ============ -->
+<div class="finding">
+    <div class="finding-head">
+        <h3>2. <code>UserDefaults.didChangeNotification</code> observer is never removed</h3>
+        <div class="tags">
+            <span class="capsule sev-low">Low</span>
+            <span class="cat">stability / lifecycle</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:47, 53–57, 63–67</code> (no <code>deinit</code>)</p>
+    <p><span class="label">Description</span>
+    Both initializers register a block-based observer and stash the opaque token in <code>defaultsObserver</code>, but the class has no <code>deinit</code> and never calls <code>NotificationCenter.default.removeObserver(_:)</code>. Block-based observers registered with <code>addObserver(forName:object:queue:using:)</code> must be explicitly removed; otherwise the notification center retains the token and the block for the lifetime of the process. The <code>[weak self]</code> capture correctly prevents a retain cycle and prevents use-after-free, so this is not a crash — but every <code>SensorGraphView</code> ever instantiated keeps observing forever, and each fires on <em>every</em> app-wide defaults write (including unrelated writes such as the filter toggles and <code>lastStart</code>), redundantly invalidating the view. The leak is bounded by the collection view's reuse pool, so impact is modest.</p>
+    <p><span class="label">Recommendation</span>
+    Add a <code>deinit</code> that removes the stored token: <code>if let o = self.defaultsObserver { NotificationCenter.default.removeObserver(o) }</code>. Optionally narrow the trigger by observing only the relevant key rather than redrawing on any defaults change.</p>
+</div>
+
+<div class="finding">
+    <div class="finding-head">
+        <h3>3. A constant sensor renders as full bars (NaN not handled in the bars path)</h3>
+        <div class="tags">
+            <span class="capsule sev-low">Low</span>
+            <span class="cat">correctness / UI</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:238, 242</code></p>
+    <p><span class="label">Description</span>
+    In <code>drawBars</code>, the fill fraction is <code>let p = ( v - min ) / ( max - min )</code>. When every sample in the window is equal (a perfectly flat sensor — common for idle voltages/fans), <code>min == max</code>, so this is <code>0.0 / 0.0 == NaN</code>. The break condition <code>CGFloat( j ) / CGFloat( c ) &gt; p</code> is always <code>false</code> for a <code>NaN</code> right-hand side, so the inner loop never breaks and draws all 15 squares — i.e. a flat reading is displayed as a maxed-out bar column. The line/gradient path avoids this by special-casing <code>min == max</code> (lines 167–173), but the bars path has no such guard.</p>
+    <p><span class="label">Recommendation</span>
+    Handle <code>max == min</code> explicitly in <code>drawBars</code> (e.g. render a single baseline/mid row, mirroring <code>drawGraph</code>), or clamp <code>p</code> to <code>0</code> when the range is zero.</p>
+</div>
+
+<div class="finding">
+    <div class="finding-head">
+        <h3>4. Malformed first-parameter name in the collection-view data-source method</h3>
+        <div class="tags">
+            <span class="capsule sev-low">Low</span>
+            <span class="cat">style / maintainability</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorsWindowController.swift:214</code></p>
+    <p><span class="label">Description</span>
+    The method is declared as:</p>
+    <pre><code>public func collectionView( _ itemForRepresentedObjectAtcollectionView: NSCollectionView,
+                            itemForRepresentedObjectAt indexPath: IndexPath ) -&gt; NSCollectionViewItem</code></pre>
+    <p>The first parameter's internal name is a copy/paste mash-up (<code>itemForRepresentedObjectAtcollectionView</code>). This is <em>not</em> a functional bug: the Objective-C selector is still <code>collectionView:itemForRepresentedObjectAt:</code> (the internal name doesn't affect it), the data source is wired to File's Owner in the XIB, and the body uses the <code>self.collectionView</code> outlet rather than the passed argument — so it works. But the signature reads as an accidental rename, is confusing, and is fragile against future edits.</p>
+    <p><span class="label">Recommendation</span>
+    Restore the conventional signature <code>collectionView( _ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath )</code> and use the passed-in <code>collectionView</code> parameter.</p>
+</div>
+
+<!-- ============ INFO ============ -->
+<div class="finding">
+    <div class="finding-head">
+        <h3>5. Force-unwrapped <code>updater</code> IBOutlet</h3>
+        <div class="tags">
+            <span class="capsule sev-info">Info</span>
+            <span class="cat">style / convention</span>
+        </div>
+    </div>
+    <p class="loc"><code>Sensors/Classes/ApplicationDelegate.swift:35</code></p>
+    <p><span class="label">Description</span>
+    <code>@IBOutlet private var updater: GitHubUpdater!</code> is an implicitly-unwrapped optional, dereferenced in <code>applicationDidFinishLaunching</code> and <code>checkForUpdates</code>. If the outlet is ever disconnected in the XIB, this traps. The project's own coding conventions call out avoiding force-unwrap even for <code>IBOutlet</code>s. Practically low-risk since the outlet is wired in <code>MainMenu.xib</code>, but flagged for consistency with the stated convention.</p>
+    <p><span class="label">Recommendation</span>
+    Prefer a weak optional outlet with graceful handling (<code>self.updater?.checkForUpdatesInBackground()</code>), or document the deliberate exception.</p>
+</div>
+
+<div class="finding">
+    <div class="finding-head">
+        <h3>6. <code>SensorValue</code> uses a fixed, non-localized <code>%.02f</code> for every kind</h3>
+        <div class="tags">
+            <span class="capsule sev-info">Info</span>
+            <span class="cat">UI / formatting</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorValue.swift:48</code></p>
+    <p><span class="label">Description</span>
+    All sensor values are formatted with <code>String(format: "%.02f", …)</code>. This is fine for temperatures/volts/amps, but the same two-decimal, non-localized format is applied to fan speed (RPM) and ambient light — where fractional digits are meaningless (e.g. <code>2100.00</code> RPM) — and it ignores the user's locale decimal separator. Since the transformer receives the value only (no kind), it can't adapt per kind today.</p>
+    <p><span class="label">Recommendation</span>
+    Consider a <code>NumberFormatter</code> (locale-aware) and/or per-kind precision; RPM in particular reads better as an integer. Low priority / cosmetic.</p>
+</div>
+
+<div class="finding">
+    <div class="finding-head">
+        <h3>7. Inconsistent default for the graph style fallback</h3>
+        <div class="tags">
+            <span class="capsule sev-info">Info</span>
+            <span class="cat">robustness</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:72</code></p>
+    <p><span class="label">Description</span>
+    <code>GraphStyle( rawValue: UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" ) ) ?? .bars</code>. The stored default for an unset key is <code>0</code>, which is <code>.gradient</code>, so a fresh install renders gradients — but the failure fallback (for an out-of-range stored value) is <code>.bars</code>. The two "defaults" disagree, and given finding&nbsp;1, silently falling back to <code>.bars</code> steers toward the more crash-prone path. Minor.</p>
+    <p><span class="label">Recommendation</span>
+    Make the fallback match the intended default (<code>?? .gradient</code>) for consistency.</p>
+</div>
+
+<div class="finding">
+    <div class="finding-head">
+        <h3>8. No unit tests for the <code>Sensors</code> / <code>SensorsUI</code> targets</h3>
+        <div class="tags">
+            <span class="capsule sev-info">Info</span>
+            <span class="cat">test coverage</span>
+        </div>
+    </div>
+    <p class="loc">Repository-wide (<code>Sensors/</code>, <code>SensorsUI/</code>)</p>
+    <p><span class="label">Description</span>
+    The <code>SensorsKit</code> submodule has a solid test suite, but the app and UI-framework targets in this repository have none. The pure, side-effect-free logic here is testable in isolation — e.g. the graph min/max/NaN handling, the filter-predicate assembly in <code>updateFilters</code>, and the value transformers. The rendering-crash class in finding&nbsp;1 is precisely the kind of thing a small unit test over the geometry math would pin down.</p>
+    <p><span class="label">Recommendation</span>
+    Add focused tests for the value transformers and the graph geometry helpers (extracting the pure math from <code>draw</code> if needed).</p>
+</div>
+
+<h2>Strengths</h2>
+<ul>
+    <li><strong>Consistent, readable style</strong> throughout — aligned assignments, early returns, one type per file, uniform license headers, and clear naming.</li>
+    <li><strong>Careful concurrency in the data layer</strong> — <code>SensorHistoryData</code> serializes buffer access via <code>Synchronizable</code>, publishes on the main queue, and uses <code>[weak self]</code> in the polling thread/timer so the object can be torn down by <code>deinit</code> without leaking the run loop.</li>
+    <li><strong>Deterministic ordering</strong> — the fixed <code>en_US</code> locale plus a total-order tie-break in <code>Sensors.sorted</code> keeps rows from shuffling between polling passes.</li>
+    <li><strong>Prior crash awareness</strong> — the NaN guard added in <code>f154b91</code> shows the drawing edge cases are understood; finding&nbsp;1 is simply the remaining, unguarded sibling of that same fix.</li>
+    <li><strong>Clean bindings architecture</strong> — array controller, value transformers, and KVO-observable model keep the controllers thin.</li>
+</ul>
+
+<footer class="page">
+    Sensors — Code Review · Generated 2026-07-14 · Scope: whole repository (application + UI framework targets; submodules excluded).
+</footer>
+
+</div>
+</body>
+</html>

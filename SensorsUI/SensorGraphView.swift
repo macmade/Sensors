@@ -68,7 +68,14 @@ public class SensorGraphView: NSView
 
     public override func draw( _ rect: NSRect )
     {
-        let rect  = self.bounds
+        let rect = self.bounds
+
+        guard rect.size.width > 0, rect.size.height > 0
+        else
+        {
+            return
+        }
+
         let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" ) ) ?? .bars
 
         self.drawBorder( in: rect, style: style )
@@ -135,9 +142,9 @@ public class SensorGraphView: NSView
         {
             let c = 15
             let h = rect.size.height / CGFloat( c )
-            let n = rect.size.width / h
+            let n = Self.columnCount( width: rect.size.width, cellSize: h )
 
-            for i in 0 ..< Int( n )
+            for i in 0 ..< n
             {
                 for j in 0 ..< c
                 {
@@ -223,11 +230,11 @@ public class SensorGraphView: NSView
     {
         let c = 15
         let h = rect.size.height / CGFloat( c )
-        let n = rect.size.width / h
+        let n = Self.columnCount( width: rect.size.width, cellSize: h )
 
-        let values = Array( values.suffix( Int( n ) ) )
+        let values = Array( values.suffix( n ) )
 
-        for i in 0 ..< Int( n )
+        for i in 0 ..< n
         {
             if i >= values.count
             {
@@ -250,5 +257,24 @@ public class SensorGraphView: NSView
                 square.fill()
             }
         }
+    }
+
+    private static func columnCount( width: CGFloat, cellSize: CGFloat ) -> Int
+    {
+        guard width.isFinite, cellSize.isFinite, cellSize > 0
+        else
+        {
+            return 0
+        }
+
+        let count = width / cellSize
+
+        guard count.isFinite, count > 0
+        else
+        {
+            return 0
+        }
+
+        return Int( count )
     }
 }

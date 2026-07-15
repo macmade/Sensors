@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensors — Code Review Implementation Plan</title>
+<style>
+    :root {
+        --bg:        #14161a;
+        --panel:     #1c1f26;
+        --panel-2:   #23272f;
+        --border:    #2e333d;
+        --text:      #e6e9ef;
+        --muted:     #9aa3b2;
+        --accent:    #6ea8fe;
+        --code-bg:   #0f1115;
+        --code-text: #d5dae4;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        padding: 0 0 5rem 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        font-size: 16px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+    header.page {
+        border-bottom: 1px solid var(--border);
+        padding: 2.5rem 0 1.5rem 0;
+        margin-bottom: 2rem;
+    }
+    h1 { font-size: 2rem; margin: 0 0 0.25rem 0; letter-spacing: -0.02em; }
+    h2 {
+        font-size: 1.35rem;
+        margin: 2.5rem 0 1rem 0;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--border);
+    }
+    h3 { font-size: 1.1rem; margin: 0 0 0.5rem 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .meta { color: var(--muted); font-size: 0.95rem; }
+    .meta strong { color: var(--text); }
+    p { margin: 0.6rem 0; }
+    code {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 0.12em 0.4em;
+        border-radius: 5px;
+        font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.86em;
+    }
+    pre {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 1rem 1.1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.84em;
+        line-height: 1.5;
+    }
+    pre code { background: none; padding: 0; }
+    .box {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem;
+    }
+    .qa { margin: 0.8rem 0; }
+    .qa .q { font-weight: 600; }
+    .qa .a { color: var(--muted); margin: 0.15rem 0 0 0; }
+    .qa .a strong { color: var(--text); }
+    .milestone {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.2rem 1.4rem;
+        margin: 1.1rem 0;
+    }
+    .milestone-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.4rem;
+    }
+    .milestone-head h3 { margin: 0; }
+    .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+    .capsule {
+        display: inline-block;
+        padding: 0.18rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .status-notstarted { background: #6b7280; color: #fff; }
+    .status-inprogress { background: #e0a800; color: #1a1400; }
+    .status-completed  { background: #2ea043; color: #fff; }
+    .cat {
+        display: inline-block;
+        padding: 0.16rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        white-space: nowrap;
+    }
+    .sev {
+        display: inline-block;
+        padding: 0.16rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+    }
+    .sev-medium { background: #e0a800; color: #1a1400; }
+    .sev-low    { background: #1f6feb; }
+    .sev-info   { background: #6b7280; }
+    .label { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin: 0.9rem 0 0.2rem 0; }
+    .loc { color: var(--muted); font-size: 0.86rem; margin: 0.1rem 0 0.7rem 0; }
+    ul { margin: 0.5rem 0; padding-left: 1.3rem; }
+    li { margin: 0.25rem 0; }
+    ul.tasks { list-style: none; padding-left: 0.2rem; }
+    ul.tasks li { margin: 0.3rem 0; }
+    ul.tasks li::before { content: "\2610"; margin-right: 0.55rem; color: var(--muted); }
+    .fieldval { color: var(--muted); }
+    .empty { color: var(--muted); font-style: italic; }
+    .kv { margin: 0.15rem 0; }
+    .kv .k { color: var(--muted); font-weight: 600; display: inline-block; min-width: 6.5rem; }
+    footer.page { border-top: 1px solid var(--border); margin-top: 3rem; padding-top: 1.2rem; color: var(--muted); font-size: 0.85rem; }
+    .phase-title { font-size: 1.05rem; color: var(--accent); margin: 2rem 0 0.4rem 0; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="page">
+    <h1>Sensors — Code Review Implementation Plan</h1>
+    <p class="meta"><strong>Generated:</strong> 2026-07-14</p>
+    <p class="meta"><strong>Source:</strong> <code>Docs/agent-plans/active/2026-07-14-code-review/code-review.html</code></p>
+</header>
+
+<h2>Overview</h2>
+<div class="box">
+    <p>This plan turns the 2026-07-14 code review into small, independently reviewable and committable milestones. The review found no critical or high-severity defects; the work here hardens the graph-rendering paths against degenerate geometry (the one Medium finding), cleans up a handful of Low-severity correctness/lifecycle issues, and then takes on the Info-level items the user elected to pursue in full: per-kind, locale-aware value formatting and a brand-new unit-test target.</p>
+    <p>The approach is to land the smallest, highest-value fixes first (crash guard, then the other localized defects), each as its own commit, and to defer the two larger efforts — the value-formatting rework and the test target — to the end. Where a milestone touches an <code>.xcodeproj</code>, the project files are kept in sync and the build/tests are driven through <code>xcodebuild</code>, per the project conventions. The <code>Submodules/</code> trees (SensorsKit, etc.) remain out of scope; any change that would require touching a submodule is called out as an open question for the user rather than assumed.</p>
+</div>
+
+<h2>Questions &amp; answers</h2>
+<div class="box">
+    <div class="qa">
+        <p class="q">1. The Sensors and SensorsUI targets have no unit tests (no test target exists in either <code>.xcodeproj</code>). How should the plan handle finding 8?</p>
+        <p class="a"><strong>Answer:</strong> Add a test target and tests — create a new unit-test target (kept in sync in the <code>.xcodeproj</code>) and add focused tests for the value transformers and the extracted graph geometry math.</p>
+    </div>
+    <div class="qa">
+        <p class="q">2. <code>SensorValue</code> formats every kind with a fixed non-localized <code>%.02f</code>, and the transformer only receives the value (no kind). How far should the plan go on finding 6?</p>
+        <p class="a"><strong>Answer:</strong> Full per-kind formatting — rework so the value pipeline knows the kind and formats per-kind (e.g. integer RPM) and locale-aware, even though it is the larger change.</p>
+    </div>
+    <div class="qa">
+        <p class="q">3. The <code>updater</code> IBOutlet is a force-unwrapped (implicitly-unwrapped) optional, which the project conventions say to avoid. How should the plan treat finding 5?</p>
+        <p class="a"><strong>Answer:</strong> Fix it to a weak/optional outlet with graceful handling (<code>self.updater?.…</code>), per the no-force-unwrap convention.</p>
+    </div>
+</div>
+
+<h2>Notes</h2>
+<div class="box">
+    <p><span class="label">Key files</span></p>
+    <ul>
+        <li><code>SensorsUI/SensorGraphView.swift</code> — all drawing paths; findings 1, 2, 3, 7.</li>
+        <li><code>SensorsUI/SensorsWindowController.swift</code> — collection-view data source; finding 4 (line 214).</li>
+        <li><code>SensorsUI/SensorValue.swift</code> — value transformer; finding 6.</li>
+        <li><code>Sensors/Classes/ApplicationDelegate.swift</code> — <code>updater</code> outlet; finding 5 (line 35).</li>
+    </ul>
+    <p><span class="label">Project layout &amp; build</span></p>
+    <ul>
+        <li>Two separate Xcode projects exist: <code>Sensors.xcodeproj</code> (app) and <code>SensorsUI.xcodeproj</code> (UI framework). There is no <code>.xcworkspace</code> and no Swift package manifest. Most findings live in the <code>SensorsUI</code> target; only finding 5 is in the <code>Sensors</code> target.</li>
+        <li>Per project conventions, build and run tests via <code>xcodebuild</code> (not <code>swift build</code>/<code>swift test</code>). Any test target added in a milestone must be committed as part of the corresponding <code>.xcodeproj</code> changes.</li>
+    </ul>
+    <p><span class="label">Conventions to follow</span></p>
+    <ul>
+        <li>Swift style already in the repo: aligned <code>=</code>, early returns, one type per file, no force-unwrap, prefer <code>let</code>, avoid raw loops where a higher-order function reads better, uniform MIT license header on new files.</li>
+        <li>Keep changes in scope — no unrelated refactors or reformatting.</li>
+    </ul>
+    <p><span class="label">Assumptions &amp; risks</span></p>
+    <ul>
+        <li><strong>Submodule boundary (finding 6):</strong> <code>SensorHistoryData.Kind</code> lives in the <code>SensorsKit</code> submodule. Per-kind formatting must be implemented on the <code>SensorsUI</code> side (the UI already has the kind at the cell/model level). If the cleanest solution appears to need a submodule change, stop and ask the user before touching the submodule.</li>
+        <li><strong>Bindings behavior (finding 6):</strong> the current <code>SensorValue</code> transformer is wired in the XIB against the numeric value only. Moving to per-kind formatting likely changes how the formatted string is produced (e.g. a computed property on the UI cell/model, or a kind-aware formatting helper) and may require re-wiring a binding in the XIB. Verify the value column still renders correctly after the change.</li>
+        <li><strong>Default graph style:</strong> stored default <code>0</code> is <code>.gradient</code>; finding 7 aligns the out-of-range fallback with that intended default.</li>
+    </ul>
+</div>
+
+<h2>Milestones</h2>
+
+<div class="phase-title">Phase 1 — Rendering defects</div>
+
+<!-- M1 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M1. Guard the graph drawing paths against degenerate geometry</h3>
+        <div class="tags">
+            <span class="sev sev-medium">Finding 1 · Medium</span>
+            <span class="cat">crash / stability</span>
+            <span class="capsule status-completed">Completed</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:136–141</code> (background), <code>:224–230</code> (bars)</p>
+    <p><span class="label">Goal</span>
+    Eliminate the latent trap where a zero-height (or zero-width) rect makes <code>rect.width / h</code> non-finite and <code>Int(n)</code> crashes. This is the unguarded sibling of the NaN fix from commit <code>f154b91</code> and only affects users on the bars style, which is why it has gone unreported.</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Add a single early return at the top of <code>draw(_:)</code> — <code>guard rect.width &gt; 0, rect.height &gt; 0 else { return }</code> — so every drawing path (border, background, bars, graph) is covered uniformly.</li>
+        <li>As defense-in-depth, guard the column-count computation in <code>drawBackground</code> and <code>drawBars</code> so a non-finite <code>n</code> can never reach <code>Int(n)</code> (e.g. compute a clamped, finite, non-negative count; avoid the failing <code>Int(_:)</code> path).</li>
+        <li>Confirm the existing gradient/line/fill path behaviour is unchanged.</li>
+        <li>Build the <code>SensorsUI</code> target with <code>xcodebuild</code> and smoke-test scrolling/resize in the app on the bars style.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-15</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li>Added a single early return at the top of <code>draw(_:)</code> — <code>guard rect.size.width &gt; 0, rect.size.height &gt; 0 else { return }</code> — right after <code>let rect = self.bounds</code>, so every drawing path (border, background, bars, graph) is uniformly protected against a degenerate rect.</li>
+        <li>Added a private static helper <code>columnCount(width:cellSize:)</code> that returns a clamped, finite, non-negative <code>Int</code> and replaces the two <code>rect.size.width / h</code> → <code>Int(n)</code> sites in <code>drawBackground</code> and <code>drawBars</code>. It guards against non-finite inputs (<code>width</code>/<code>cellSize</code>) and non-positive <code>cellSize</code>, then re-checks the quotient is finite and positive, so a non-finite <code>n</code> can never reach <code>Int(_:)</code>. This also removes a secondary trap: a negative <code>Int(n)</code> would have made the range <code>0 ..&lt; Int(n)</code> crash.</li>
+        <li>Semantics preserved for all real geometry: for finite, positive <code>width</code>/<code>cellSize</code> the helper truncates toward zero exactly as the old <code>Int(width / h)</code> did, and the extracted <code>values.suffix(n)</code> / loop bounds are unchanged. Gradient/line/fill paths in <code>drawGraph</code> were not touched.</li>
+        <li>Built the <code>SensorsUI</code> target via <code>xcodebuild -project SensorsUI.xcodeproj -scheme SensorsUI -configuration Debug build</code> — <strong>BUILD SUCCEEDED</strong>. (SourceKit briefly reported a stale "No such module 'SensorsKit'" until the dependency was built; the actual compile is clean.)</li>
+        <li><strong>Automated review loop:</strong> 1 round, converged immediately — the reviewer confirmed the change is semantically identical to the prior code for all normal inputs and found no Critical/High/Medium issues and no regressions. Only Low/Info items remain (see Automated review).</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>Residual <code>Int(_:)</code> trap on finite overflow</strong> — Low (stability) — <em>Deferred.</em> The helper still calls <code>Int(count)</code>, which would trap for a finite <code>count</code> outside <code>Int</code>'s range (magnitude ≥ 2⁶³). Unreachable with any real <code>NSView</code> geometry (needs an aspect ratio ≈ 6×10¹⁷), so the crash guard is effective in practice, but the defense-in-depth against the <code>Int(_:)</code> path is not fully airtight. Left for the user to decide whether to add a magnitude clamp.</li>
+        <li><strong>Semantic equivalence / no regression</strong> — Info (correctness) — <em>Confirmed, no action.</em> Verified the new helper returns the same value as the old <code>Int(width / h)</code> for every finite, positive input and is strictly safer for degenerate/negative ones.</li>
+        <li><strong>Missing doc comment on new private helper</strong> — Info (style) — <em>Deferred.</em> No doc comment on <code>columnCount</code>, but every other private method in the file is likewise undocumented; adding one only here would be inconsistent and out of scope for this fix.</li>
+        <li><strong>Incidental whitespace change</strong> — Info (style) — <em>No action.</em> <code>let rect  = self.bounds</code> lost its extra alignment space; it is a single assignment with nothing to align to, so the edit is harmless.</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li>User reviewed the milestone and approved: "Looks good." No changes requested; the Low/Info findings were surfaced and left as-is.</li>
+    </ul>
+</div>
+
+<!-- M2 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M2. Fix flat-sensor rendering in the bars path (NaN fill fraction)</h3>
+        <div class="tags">
+            <span class="sev sev-low">Finding 3 · Low</span>
+            <span class="cat">correctness / UI</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:238, 242</code></p>
+    <p><span class="label">Goal</span>
+    When every sample is equal (a flat sensor — common for idle voltages/fans), <code>p = (v - min) / (max - min)</code> is <code>0/0 == NaN</code>, the break condition is always false, and all 15 squares draw — a flat reading shows as a maxed-out column. Mirror the <code>min == max</code> special-casing that <code>drawGraph</code> already has (lines 167–173).</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>In <code>drawBars</code>, handle <code>max == min</code> explicitly — render a single baseline/mid row (mirroring <code>drawGraph</code>), or clamp <code>p</code> to <code>0</code> when the range is zero.</li>
+        <li>Keep consistency with <code>drawGraph</code>'s <code>kind != .thermal</code> handling where relevant, so thermal sensors still behave as before.</li>
+        <li>Verify a constant sensor now renders as a flat/empty column rather than a full one; verify a varying sensor is unchanged.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<div class="phase-title">Phase 2 — Lifecycle &amp; style cleanups</div>
+
+<!-- M3 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M3. Remove the UserDefaults observer on deinit</h3>
+        <div class="tags">
+            <span class="sev sev-low">Finding 2 · Low</span>
+            <span class="cat">stability / lifecycle</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:47, 53–57, 63–67</code> (no <code>deinit</code>)</p>
+    <p><span class="label">Goal</span>
+    Both initializers register a block-based <code>UserDefaults.didChangeNotification</code> observer and stash the token, but there is no <code>deinit</code> and the token is never removed. The <code>[weak self]</code> capture prevents a crash, but every view instance keeps observing forever and redraws on <em>every</em> app-wide defaults write. Remove the observer on teardown, and optionally narrow the trigger.</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Add a <code>deinit</code> that removes the stored token: <code>if let o = self.defaultsObserver { NotificationCenter.default.removeObserver(o) }</code>.</li>
+        <li>Optional (evaluate): narrow the observation so the view only invalidates on the relevant graph-style key rather than any defaults change.</li>
+        <li>Confirm the graph still redraws when the graph style changes in preferences.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<!-- M4 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M4. Restore the conventional collection-view data-source signature</h3>
+        <div class="tags">
+            <span class="sev sev-low">Finding 4 · Low</span>
+            <span class="cat">style / maintainability</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorsWindowController.swift:214</code></p>
+    <p><span class="label">Goal</span>
+    The method's first parameter internal name is a copy/paste mash-up (<code>itemForRepresentedObjectAtcollectionView</code>). It works today (selector unchanged; body uses the <code>self.collectionView</code> outlet), but reads as an accidental rename and is fragile. Restore the standard signature and use the passed-in parameter.</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Rename to <code>collectionView( _ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath )</code>.</li>
+        <li>Use the passed-in <code>collectionView</code> parameter for <code>makeItem(withIdentifier:for:)</code> instead of the outlet.</li>
+        <li>Confirm cells still populate correctly (data source wired via File's Owner in the XIB).</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<!-- M5 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M5. Align the graph-style fallback with the intended default</h3>
+        <div class="tags">
+            <span class="sev sev-info">Finding 7 · Info</span>
+            <span class="cat">robustness</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorGraphView.swift:72</code></p>
+    <p><span class="label">Goal</span>
+    The stored default for an unset key is <code>0</code> (<code>.gradient</code>), but the out-of-range fallback is <code>.bars</code> — the two "defaults" disagree, and falling back to <code>.bars</code> steers toward the more crash-prone path. Make the fallback consistent.</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Change the fallback to <code>?? .gradient</code> so it matches the intended default.</li>
+        <li>Sanity-check that a fresh install and an out-of-range stored value both render gradient.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<!-- M6 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M6. Replace the force-unwrapped <code>updater</code> outlet with graceful handling</h3>
+        <div class="tags">
+            <span class="sev sev-info">Finding 5 · Info</span>
+            <span class="cat">style / convention</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc"><code>Sensors/Classes/ApplicationDelegate.swift:35</code></p>
+    <p><span class="label">Goal</span>
+    <code>@IBOutlet private var updater: GitHubUpdater!</code> is an implicitly-unwrapped optional dereferenced in <code>applicationDidFinishLaunching</code> and <code>checkForUpdates</code>; it traps if the outlet is ever disconnected. Bring it in line with the project's no-force-unwrap convention (chosen answer: fix to optional).</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Change the outlet to a weak optional (<code>@IBOutlet private weak var updater: GitHubUpdater?</code>) and update all use sites to optional-chained calls (<code>self.updater?.checkForUpdatesInBackground()</code>, etc.).</li>
+        <li>Verify the outlet is still connected in <code>MainMenu.xib</code> and that "Check for Updates" still works.</li>
+        <li>Build the <code>Sensors</code> app target with <code>xcodebuild</code>.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<div class="phase-title">Phase 3 — Larger improvements</div>
+
+<!-- M7 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M7. Per-kind, locale-aware sensor value formatting</h3>
+        <div class="tags">
+            <span class="sev sev-info">Finding 6 · Info</span>
+            <span class="cat">UI / formatting</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc"><code>SensorsUI/SensorValue.swift:48</code> (and the value binding for the cell)</p>
+    <p><span class="label">Goal</span>
+    All values are formatted with a fixed, non-localized <code>String(format: "%.02f", …)</code>. This is wrong for fan speed (RPM) and ambient light, where fractional digits are meaningless (e.g. <code>2100.00</code> RPM), and it ignores the user's locale decimal separator. The transformer only receives the value, so per-kind precision requires making the kind available at formatting time. Implement full per-kind, locale-aware formatting.</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Decide the mechanism (open design question — resolve before coding): a kind-aware formatting helper used by a computed "formatted value" property on the UI-side cell/model that already has the <code>kind</code>, replacing the value-only <code>SensorValue</code> transformer binding. Keep <code>SensorHistoryData</code> (submodule) untouched; if a submodule change seems necessary, stop and ask the user.</li>
+        <li>Introduce per-kind precision: integer for RPM (fan) and ambient light; two fractional digits for thermal/voltage/current (or as appropriate per kind).</li>
+        <li>Use a locale-aware <code>NumberFormatter</code> (respecting the decimal separator) rather than <code>String(format:)</code>.</li>
+        <li>Preserve the current <code>"--"</code> fallback for a missing/non-numeric value.</li>
+        <li>Re-wire the XIB binding if the formatting moves off the <code>SensorValue</code> transformer; verify the value column renders correctly for each kind.</li>
+        <li>Keep the formatting logic pure/testable so M8 can cover it.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<!-- M8 -->
+<div class="milestone">
+    <div class="milestone-head">
+        <h3>M8. Add a unit-test target and focused tests</h3>
+        <div class="tags">
+            <span class="sev sev-info">Finding 8 · Info</span>
+            <span class="cat">test coverage</span>
+            <span class="capsule status-notstarted">Not started</span>
+        </div>
+    </div>
+    <p class="loc">Repository-wide (<code>Sensors/</code>, <code>SensorsUI/</code>)</p>
+    <p><span class="label">Goal</span>
+    Neither the app nor the UI-framework target has any tests, though the pure, side-effect-free logic here is testable in isolation. Add a test target and cover the highest-value pure logic — the value transformers, the new per-kind formatting from M7, and the graph geometry/NaN math from M1–M2.</p>
+    <p><span class="label">Tasks</span></p>
+    <ul class="tasks">
+        <li>Create a unit-test target for <code>SensorsUI</code> (a <code>SensorsUITests</code> target) in <code>SensorsUI.xcodeproj</code>, committed together with the project changes; keep the project file consistent.</li>
+        <li>To make the graph math testable, extract the pure geometry helpers from <code>draw</code>/<code>drawBars</code>/<code>drawBackground</code> (column count, fill fraction, degenerate-rect handling) into small free functions/static methods — coordinated with M1/M2.</li>
+        <li>Add tests for the value transformers: <code>ArrayIsEmpty</code>, <code>ArrayIsNotEmpty</code>, and the new per-kind/locale-aware formatting (M7), including the <code>"--"</code> fallback.</li>
+        <li>Add tests for the geometry math: zero/negative rect returns no columns (no trap), flat sensor (<code>min == max</code>) yields a clamped fraction, normal ranges map as expected.</li>
+        <li>Run the suite via <code>xcodebuild test</code> and confirm it passes.</li>
+        <li>Note: whether the <code>Sensors</code> app target also warrants its own test target (e.g. for <code>ApplicationDelegate</code>) is optional; the transformer/geometry logic lives in <code>SensorsUI</code>, so start there.</li>
+    </ul>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
+    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
+    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+</div>
+
+<h2>Appendix — Finding-to-milestone map</h2>
+<div class="box">
+    <ul>
+        <li><strong>Finding 1</strong> (Medium — bars/background zero-height trap) → <strong>M1</strong></li>
+        <li><strong>Finding 2</strong> (Low — observer never removed) → <strong>M3</strong></li>
+        <li><strong>Finding 3</strong> (Low — flat sensor renders as full bars) → <strong>M2</strong></li>
+        <li><strong>Finding 4</strong> (Low — malformed parameter name) → <strong>M4</strong></li>
+        <li><strong>Finding 5</strong> (Info — force-unwrapped <code>updater</code> outlet) → <strong>M6</strong></li>
+        <li><strong>Finding 6</strong> (Info — fixed non-localized value format) → <strong>M7</strong></li>
+        <li><strong>Finding 7</strong> (Info — inconsistent style fallback) → <strong>M5</strong></li>
+        <li><strong>Finding 8</strong> (Info — no unit tests) → <strong>M8</strong></li>
+    </ul>
+    <p class="note fieldval">Milestones are ordered by severity and effort (defects first, larger efforts last), not by finding number; the map above reconciles the two.</p>
+</div>
+
+<footer class="page">
+    Sensors — Code Review Implementation Plan · Generated 2026-07-14 · Source: code-review.html (2026-07-14 review, whole-repository scope; submodules excluded).
+</footer>
+
+</div>
+</body>
+</html>
