@@ -258,7 +258,7 @@
         <div class="tags">
             <span class="sev sev-low">Finding 3 · Low</span>
             <span class="cat">correctness / UI</span>
-            <span class="capsule status-notstarted">Not started</span>
+            <span class="capsule status-completed">Completed</span>
         </div>
     </div>
     <p class="loc"><code>SensorsUI/SensorGraphView.swift:238, 242</code></p>
@@ -270,11 +270,38 @@
         <li>Keep consistency with <code>drawGraph</code>'s <code>kind != .thermal</code> handling where relevant, so thermal sensors still behave as before.</li>
         <li>Verify a constant sensor now renders as a flat/empty column rather than a full one; verify a varying sensor is unchanged.</li>
     </ul>
-    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
-    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
-    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-15</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li>Single-line fix in <code>drawBars</code>: changed <code>let p = ( v - min ) / ( max - min )</code> to <code>let p = min == max &amp;&amp; kind != .thermal ? 0 : ( v - min ) / ( max - min )</code>. This mirrors the exact <code>min == max, kind != .thermal</code> special-case already in <code>drawGraph</code> (line 174), and clamps the fill fraction to <code>0</code> for a flat non-thermal sensor.</li>
+        <li>Effect: a flat non-thermal sensor now draws a single baseline row (the inner loop breaks after <code>j = 0</code> since <code>1/15 &gt; 0</code>), instead of the previous <code>0/0 == NaN</code> that made the <code>&gt;</code> break condition always false and filled all 15 squares (the "maxed-out column" bug).</li>
+        <li>Chose <code>p = 0</code> (baseline row) over mirroring <code>drawGraph</code>'s mid-height line, per the milestone's "flat/empty column" intent — a bottom baseline reads unambiguously as "flat", whereas a half-filled column could be misread as a real half-scale value.</li>
+        <li>No regression: when <code>min != max</code> the ternary is false and <code>p</code> is the exact prior expression (varying sensors unchanged); in-range flat thermal already arrives with <code>min</code>/<code>max</code> forced to <code>0</code>/<code>100</code> in <code>draw(_:)</code>, so <code>min != max</code> and it renders proportionally as before.</li>
+        <li>Built the <code>SensorsUI</code> target via <code>xcodebuild</code> — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Automated review loop:</strong> 1 round, converged immediately — no Critical/High/Medium findings, no regressions. Only Info confirmations plus one Low pre-existing edge case (see Automated review).</li>
+        <li><strong>Post-review change (user request):</strong> dropped the <code>&amp;&amp; kind != .thermal</code> guard so the flat clamp now applies to every kind — <code>let p = min == max ? 0 : ( v - min ) / ( max - min )</code>. This closes the flat-thermal-out-of-range NaN case (reviewer Finding 5) instead of deferring it. Rebuilt the <code>SensorsUI</code> target — <strong>BUILD SUCCEEDED</strong>. Side note for the user: <code>drawBars</code>'s <code>kind</code> parameter is now unused (it was only referenced by the removed guard); flagged for a decision rather than removed unilaterally.</li>
+        <li><strong>Post-review change (user request):</strong> raised the fixed thermal scale from 0–100&nbsp;°C to 0–120&nbsp;°C in <code>draw(_:)</code> (<code>max &lt;= 120</code> / <code>max = 120</code>), keeping the conditional flip to auto-scale for readings above 120&nbsp;°C. This keeps hot CPU/GPU readings (which routinely pass 100&nbsp;°C) on the stable absolute scale. This is a small design change beyond the original code-review findings, made at the user's request. Rebuilt — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Post-review change (user request):</strong> removed the now-unused <code>kind</code> parameter from <code>drawBars</code> and its call site in <code>draw(_:)</code>, so the signature reflects what the function actually uses. Rebuilt — <strong>BUILD SUCCEEDED</strong>.</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>NaN maxed-column bug resolved</strong> — Info (correctness) — <em>Confirmed, no action.</em> Verified a flat non-thermal sensor now draws exactly one baseline row; the pre-change NaN filled all 15 squares.</li>
+        <li><strong>Operator precedence parses as intended</strong> — Info (correctness) — <em>Confirmed.</em> Swift ranks <code>==</code>/<code>!=</code> above <code>&amp;&amp;</code> above <code>?:</code>, so the expression groups as <code>((min == max) &amp;&amp; (kind != .thermal)) ? 0 : (…)</code>. Reviewer suggested optional explicit parentheses for readability (surfaced to the user).</li>
+        <li><strong>No regression on varying / in-range-thermal paths</strong> — Info (regression check) — <em>Confirmed.</em> Both are byte-for-byte unchanged.</li>
+        <li><strong>Flat thermal OUTSIDE [0,100] still renders a NaN maxed column</strong> — Low (correctness / cross-path consistency) — <em>Fixed (on user request).</em> Originally deferred, but the user noted the plan's goal is to fix bugs, so this was resolved by dropping the <code>&amp;&amp; kind != .thermal</code> guard: the clamp is now <code>let p = min == max ? 0 : ( v - min ) / ( max - min )</code>, applied to every kind. A flat thermal reading outside [0,100] (constant &gt;100&nbsp;°C or &lt;0&nbsp;°C) now draws a single baseline row like any other flat sensor, instead of a NaN-filled maxed column. In-range flat thermal is unaffected (it still arrives with <code>min</code>/<code>max</code> forced to <code>0</code>/<code>100</code>, so <code>min != max</code>).</li>
+        <li><strong>Baseline vs mid-height representation</strong> — Info (design) — <em>No action.</em> Reviewer endorses <code>p = 0</code> as satisfying the milestone intent, noting the intentional cross-style visual difference (bars baseline row vs graph mid line).</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li><strong>Q:</strong> Why is there a special case for thermal? <em>(Question about the work — answered in the conversation; no code change made pending the user's decision.)</em></li>
+        <li><strong>Q:</strong> What if temperature is higher than 100? <em>(Question about the work — answered in the conversation; no code change made pending the user's decision.)</em></li>
+        <li><strong>Feedback:</strong> The goal is to fix bugs — why leave one? The leftover flat-thermal-out-of-range NaN case should be fixed, not deferred. <em>Acted on: removed the <code>kind != .thermal</code> guard so the flat clamp applies to every kind.</em></li>
+        <li><strong>Q:</strong> Should we increase the max range for temperature (the fixed 0–100 scale)? <em>(Design question raised during review — answered in the conversation; this is beyond M2's bug-fix scope, so no code change made pending the user's decision.)</em></li>
+        <li><strong>Decision:</strong> Raise the fixed thermal scale to <strong>0–120&nbsp;°C</strong>, keeping the existing conditional flip (a reading above 120 still switches to auto-scale). <em>Acted on: updated the thermal clamp in <code>draw(_:)</code> from <code>max &lt;= 100 { … max = 100 }</code> to <code>max &lt;= 120 { … max = 120 }</code>.</em></li>
+        <li><strong>Approval:</strong> "Looks good." Reviewed and accepted. The now-unused <code>kind:</code> parameter on <code>drawBars</code> was surfaced and initially left in place.</li>
+        <li><strong>Follow-up request:</strong> Remove the unused <code>kind</code> parameter. <em>Acted on: dropped <code>kind: SensorHistoryData.Kind</code> from the <code>drawBars</code> signature and removed the <code>kind: sensor.kind</code> argument at its call site in <code>draw(_:)</code>.</em></li>
+    </ul>
 </div>
 
 <div class="phase-title">Phase 2 — Lifecycle &amp; style cleanups</div>

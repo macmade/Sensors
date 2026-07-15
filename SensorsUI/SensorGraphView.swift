@@ -91,17 +91,16 @@ public class SensorGraphView: NSView
         var min: CGFloat = values.min() ?? 0
         var max: CGFloat = values.max() ?? 0
 
-        if sensor.kind == .thermal, min >= 0, max <= 100
+        if sensor.kind == .thermal, min >= 0, max <= 120
         {
             min = 0
-            max = 100
+            max = 120
         }
 
         if style == .bars
         {
             self.drawBars(
                 in:     rect,
-                kind:   sensor.kind,
                 values: values,
                 min:    min,
                 max:    max,
@@ -226,7 +225,7 @@ public class SensorGraphView: NSView
         p1.stroke()
     }
 
-    private func drawBars( in rect: NSRect, kind: SensorHistoryData.Kind, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
+    private func drawBars( in rect: NSRect, values: [ CGFloat ], min: CGFloat, max: CGFloat, color: NSColor )
     {
         let c = 15
         let h = rect.size.height / CGFloat( c )
@@ -242,7 +241,7 @@ public class SensorGraphView: NSView
             }
 
             let v = values[ i ]
-            let p = ( v - min ) / ( max - min )
+            let p = min == max ? 0 : ( v - min ) / ( max - min )
 
             for j in 0 ..< c
             {
