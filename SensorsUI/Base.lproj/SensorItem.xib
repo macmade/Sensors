@@ -48,11 +48,7 @@
                     </textFieldCell>
                     <connections>
                         <binding destination="ek2-AR-oS5" name="toolTip" keyPath="self.sensor.name" id="RUP-1u-HBl"/>
-                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor.last" id="671-ZR-hc1">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">SensorValue</string>
-                            </dictionary>
-                        </binding>
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.formattedLast" id="671-ZR-hc1"/>
                     </connections>
                 </textField>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSC-DH-60t">
@@ -74,11 +70,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor.min" id="Hz7-WE-4XS">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">SensorValue</string>
-                            </dictionary>
-                        </binding>
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.formattedMin" id="Hz7-WE-4XS"/>
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PeT-bn-qut">
@@ -97,11 +89,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.sensor.max" id="q5h-49-6GI">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">SensorValue</string>
-                            </dictionary>
-                        </binding>
+                        <binding destination="ek2-AR-oS5" name="value" keyPath="self.formattedMax" id="q5h-49-6GI"/>
                     </connections>
                 </textField>
             </subviews>

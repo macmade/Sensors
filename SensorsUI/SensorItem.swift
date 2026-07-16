@@ -35,6 +35,42 @@ public class SensorItem: NSCollectionViewItem
         }
     }
 
+    /// The current reading, formatted per-kind and localized (or `"--"`).
+    @objc public dynamic var formattedLast: String
+    {
+        SensorValueFormatter.string( for: self.sensor?.last, kind: self.sensor?.kind )
+    }
+
+    /// The minimum reading, formatted per-kind and localized (or `"--"`).
+    @objc public dynamic var formattedMin: String
+    {
+        SensorValueFormatter.string( for: self.sensor?.min, kind: self.sensor?.kind )
+    }
+
+    /// The maximum reading, formatted per-kind and localized (or `"--"`).
+    @objc public dynamic var formattedMax: String
+    {
+        SensorValueFormatter.string( for: self.sensor?.max, kind: self.sensor?.kind )
+    }
+
+    /// Key paths whose changes invalidate `formattedLast`.
+    @objc private class func keyPathsForValuesAffectingFormattedLast() -> Set<String>
+    {
+        [ "sensor.last", "sensor.kind" ]
+    }
+
+    /// Key paths whose changes invalidate `formattedMin`.
+    @objc private class func keyPathsForValuesAffectingFormattedMin() -> Set<String>
+    {
+        [ "sensor.min", "sensor.kind" ]
+    }
+
+    /// Key paths whose changes invalidate `formattedMax`.
+    @objc private class func keyPathsForValuesAffectingFormattedMax() -> Set<String>
+    {
+        [ "sensor.max", "sensor.kind" ]
+    }
+
     private var graph = SensorGraphView()
 
     @IBOutlet private var graphContainer: NSView!

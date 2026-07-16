@@ -513,7 +513,7 @@
         <div class="tags">
             <span class="sev sev-info">Finding 6 · Info</span>
             <span class="cat">UI / formatting</span>
-            <span class="capsule status-notstarted">Not started</span>
+            <span class="capsule status-completed">Completed</span>
         </div>
     </div>
     <p class="loc"><code>SensorsUI/SensorValue.swift:48</code> (and the value binding for the cell)</p>
@@ -528,11 +528,43 @@
         <li>Re-wire the XIB binding if the formatting moves off the <code>SensorValue</code> transformer; verify the value column renders correctly for each kind.</li>
         <li>Keep the formatting logic pure/testable so M8 can cover it.</li>
     </ul>
-    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
-    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
-    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-16</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li><strong>Investigation:</strong> the <code>SensorValue</code> transformer is used in three <code>SensorItem.xib</code> bindings — the <code>last</code>, <code>min</code>, and <code>max</code> textfields (<code>value</code> bound to <code>self.sensor.last/min/max</code>, transformer <code>SensorValue</code>, fixed <code>%.02f</code>, value-only). <code>SensorHistoryData</code> exposes <code>kind: Kind</code> (<code>thermal, voltage, current, ambientLight, rpm</code>) and <code>last/min/max: NSNumber?</code>. The kind is available on <code>SensorItem</code> via <code>sensor.kind</code>.</li>
+        <li><strong>Design decisions (resolved with the user before coding):</strong>
+            <ul>
+                <li><em>Precision:</em> all kinds show 2 fractional digits <strong>except fan speed (RPM)</strong>, which is a whole number (e.g. <code>45.25</code>, <code>12.34</code>, <code>1.20</code>, <code>350.00</code>, <code>2100</code>). Locale-aware decimal separator; no thousands grouping (matches the previous no-grouping display and the approved preview).</li>
+                <li><em>Mechanism:</em> a new pure, testable <code>SensorValueFormatter</code> (value + kind + locale → string, <code>"--"</code> for nil) plus <code>formattedLast/Min/Max</code> computed properties on <code>SensorItem</code> using KVO dependent keys, rebinding the three textfields off the transformer.</li>
+                <li><em>Cleanup:</em> remove the now-unused <code>SensorValue</code> transformer (file + xib references + Xcode-project entries).</li>
+                <li><em>Units:</em> kept as bare numbers (no unit suffixes) — within the plan's precision+locale scope.</li>
+            </ul>
+        </li>
+        <li><strong>New <code>SensorsUI/SensorValueFormatter.swift</code>:</strong> a pure, static namespace (<code>public class</code> + <code>private init()</code>, matching <code>Colors</code>/<code>DefaultsKeys</code>). <code>string( for: NSNumber?, kind: SensorHistoryData.Kind?, locale: Locale = .current ) -&gt; String</code> returns <code>"--"</code> for a nil/non-finite value, else formats with a <code>NumberFormatter</code> (<code>.decimal</code>, <code>usesGroupingSeparator = false</code>, locale-driven separator, min == max fraction digits). <code>fractionDigits(for:)</code> maps <code>.rpm → 0</code>, everything else → 2 (via <code>case .rpm?: … default: 2</code>, which also safely handles a nil kind). The injectable <code>locale</code> makes it deterministically testable for M8.</li>
+        <li><strong><code>SensorItem.swift</code>:</strong> added <code>@objc dynamic</code> computed <code>formattedLast/Min/Max</code> (calling the formatter with <code>sensor?.last/min/max</code> and <code>sensor?.kind</code>) plus <code>keyPathsForValuesAffectingFormatted…</code> KVO dependent-key class funcs returning <code>["sensor.&lt;last|min|max&gt;", "sensor.kind"]</code>, so the bindings refresh live exactly as the old direct <code>sensor.last</code> binding did.</li>
+        <li><strong><code>SensorItem.xib</code>:</strong> rebound the three <code>value</code> textfields from <code>self.sensor.last/min/max</code> (transformer <code>SensorValue</code>) to <code>self.formattedLast/Min/Max</code> (no transformer), preserving the binding ids.</li>
+        <li><strong>Removed <code>SensorValue.swift</code>:</strong> deleted the file and its 4 <code>project.pbxproj</code> entries; added the 4 entries for <code>SensorValueFormatter.swift</code>. No <code>SensorValue</code> reference remains anywhere (grep-verified).</li>
+        <li><strong>Verification:</strong> both <code>SensorsUI</code> and the <code>Sensors</code> app build (<strong>BUILD SUCCEEDED</strong>). A standalone check of the formatter recipe produced exactly the approved preview: <code>350.00</code>, <code>2100</code> (no grouping), <code>2101</code> (RPM 2100.7 rounded), <code>45.26</code> (2dp), French locale <code>45,25</code> (locale-aware separator), and <code>nil → "--"</code>. <em>Caveat: the KVO live-update binding is compile-verified and reviewer-verified against the KVO contract, but not runtime-verified in a running app here — worth a quick visual check when the app is run.</em></li>
+        <li><strong>Automated review loop:</strong> 1 round, converged. No Critical/High/Medium. Two Low notes acted on: added the missing <code>private init()</code> (namespace consistency) and a <code>value.doubleValue.isFinite</code> guard so a NaN/∞ reading renders <code>"--"</code> instead of the locale "NaN"/"∞" symbol. Rebuilt — <strong>BUILD SUCCEEDED</strong>.</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>KVO dependent keys correct — live updates preserved</strong> — Info (correctness, highest priority) — <em>Confirmed.</em> Method naming/capitalization matches; key paths through the to-one <code>sensor</code> relationship are supported; <code>@objc private</code> class funcs are still found by the KVO runtime (<code>private</code> hides only Swift visibility, not the Obj-C selector); automatic KVO is on for the <code>NSObject</code>-derived <code>SensorItem</code>. No regression vs the old direct binding.</li>
+        <li><strong>XIB rewire well-formed; no dangling transformer</strong> — Info (correctness) — <em>Confirmed.</em> Three <code>value</code> bindings now target <code>self.formattedLast/Min/Max</code>; no <code>NSValueTransformerName&gt;SensorValue</code> remains.</li>
+        <li><strong>Xcode project integrity</strong> — Info (build) — <em>Confirmed.</em> Build-file/file-ref ids consistent and unique; file in group + Sources phase; no leftover <code>SensorValue</code> reference.</li>
+        <li><strong>Dead code fully removed</strong> — Info (completeness) — <em>Confirmed.</em></li>
+        <li><strong><code>SensorValueFormatter</code> should be non-instantiable</strong> — Low (style) — <em>Fixed.</em> Added <code>private init()</code>.</li>
+        <li><strong>NaN/∞ <code>NSNumber</code> formats as the locale symbol, not <code>"--"</code></strong> — Low (edge case) — <em>Fixed.</em> Added an <code>isFinite</code> guard (not a regression from the old code, but fixed to match the "render invalid as --" intent).</li>
+        <li><strong>NumberFormatter allocated per call</strong> — Info (perf) — <em>No action.</em> Negligible at the refresh rate; keeps the formatter pure.</li>
+        <li><strong><code>sensor.kind</code> dependent key never fires</strong> — Info — <em>No action.</em> <code>kind</code> is set once; included for correctness-by-intent, harmless.</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li><strong>Design decisions (via questions):</strong> precision = "all 2 dp except RPM integer"; remove the unused <code>SensorValue</code> transformer. Mechanism (pure formatter + computed properties on the cell) presented and used.</li>
+        <li><strong>Q:</strong> Is it supposed to be already visible in the UI? <em>(Question about the work — answered in the conversation.)</em> Resolution: in a US/dot-decimal locale the only visible change is fan speed (RPM) rendering as a whole number; other kinds stay at 2 dp. The user's machine has no fans, so no visible difference is expected and correct — not a defect.</li>
+        <li><strong>Approval:</strong> "Looks good." Reviewed and accepted (after confirming the no-visible-change was expected given no fan sensors).</li>
+    </ul>
 </div>
 
 <!-- M8 -->
