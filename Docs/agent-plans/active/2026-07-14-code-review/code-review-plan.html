@@ -414,7 +414,7 @@
         <div class="tags">
             <span class="sev sev-info">Finding 7 · Info</span>
             <span class="cat">robustness</span>
-            <span class="capsule status-notstarted">Not started</span>
+            <span class="capsule status-completed">Completed</span>
         </div>
     </div>
     <p class="loc"><code>SensorsUI/SensorGraphView.swift:72</code></p>
@@ -425,11 +425,40 @@
         <li>Change the fallback to <code>?? .gradient</code> so it matches the intended default.</li>
         <li>Sanity-check that a fresh install and an out-of-range stored value both render gradient.</li>
     </ul>
-    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
-    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
-    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-16</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li>One-token change in <code>draw(_:)</code>: the out-of-range fallback for the graph style went from <code>?? .bars</code> to <code>?? .gradient</code> (<code>SensorGraphView.swift:94</code>).</li>
+        <li>Rationale confirmed against the code: <code>GraphStyle</code> is <code>gradient=0, line=1, fill=2, bars=3</code>, and <code>UserDefaults.standard.integer(forKey:)</code> returns <code>0</code> for an unset key, so an unset key already resolved to <code>.gradient</code> (the <code>??</code> never fired for it). The <code>??</code> only fires for a non-decodable/out-of-range raw value (e.g. 4+ or negative), which previously fell back to the unrelated <code>.bars</code> case. Now the unset default and the corrupt-value fallback agree on <code>.gradient</code>.</li>
+        <li>Verified <code>.gradient</code> is the genuine product default: <code>SensorsWindowController</code> initializes <code>graphStyle</code> from the same key (0 → gradient), and the preferences popup ships with "Gradient" pre-selected (tag 0). No change to a fresh install or to normal stored values (0–3); only the degenerate out-of-range case changes, and it now avoids the more crash-prone <code>.bars</code> path.</li>
+        <li>Built the <code>SensorsUI</code> target via <code>xcodebuild</code> — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Automated review loop:</strong> 1 round, converged immediately — no Critical/High/Medium findings, no regressions. Reviewer independently confirmed the enum ordering, the unset-key behavior, and (via the XIB) that Gradient is the pre-selected default.</li>
+        <li><strong>Post-review change (user request — unify the preference-key literals):</strong> the review flagged that the <code>sensorsWindowGraphStyle</code> literal was duplicated between <code>SensorGraphView</code> and <code>SensorsWindowController</code>. On the user's direction (scope: <em>all</em> keys; home: a <em>new shared type</em>), introduced <code>SensorsUI/DefaultsKeys.swift</code> — a <code>public class</code> namespace with <code>private init()</code>, mirroring the existing <code>Colors</code> helper — holding one <code>public static let</code> per key (all 9 <code>sensorsWindow*</code> keys). Replaced every raw literal / the old <code>SensorGraphView.graphStyleDefaultsKey</code> constant with <code>DefaultsKeys.&lt;name&gt;</code> across both files (reader + writer sites). Added the new file to <code>SensorsUI.xcodeproj</code> (PBXBuildFile, PBXFileReference, PBXGroup child, PBXSourcesBuildPhase). Rebuilt — <strong>BUILD SUCCEEDED</strong> (the file compiling confirms the project wiring).</li>
+        <li><strong>Fidelity check:</strong> independently diffed the set of <code>sensorsWindow*</code> key strings from <code>git HEAD</code> against <code>DefaultsKeys.swift</code> — identical 9/9, so no preference is silently repointed. Each literal is unique, so the per-key substitution cannot cross-wire keys.</li>
+        <li><strong>Second automated review loop (on the unify + project change):</strong> 1 round, converged. All refactor checks passed (character-for-character key fidelity, no cross-wiring, no orphaned refs, well-formed/unique pbxproj entries, conventions match <code>Colors</code>). The reviewer's one Medium finding was a <em>false positive</em> — it flagged the <code>.bars → .gradient</code> fallback (this milestone's already-approved M5 change) as an "unrelated bundled change" because it lacked the milestone context; no action needed.</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>Alignment is correct</strong> — Info (correctness) — <em>Confirmed.</em> Unset key and out-of-range value both resolve to <code>.gradient</code>, matching the writer's default and the UI's pre-selected item.</li>
+        <li><strong>No regression on normal paths</strong> — Info (regression check) — <em>Confirmed.</em> Values 0–3 are valid raw values, so the <code>??</code> never fires for them; a fresh install is unchanged.</li>
+        <li><strong>No downside vs <code>.bars</code></strong> — Info (robustness) — <em>Confirmed.</em> <code>.gradient</code> is the well-exercised non-<code>.bars</code> path; the change makes hitting the <code>.bars</code> path <em>less</em> likely.</li>
+        <li><strong>Key literal duplicated in <code>SensorsWindowController</code></strong> — Info (maintainability) — <em>Fixed (on user request).</em> Originally flagged as out-of-scope; the user then asked to unify. Resolved by the new <code>DefaultsKeys</code> shared type (see Implementation notes) — the duplication is now gone across all 9 keys.</li>
+    </ul>
+    <p><span class="label">Automated review</span> <em>(second round — on the unify + Xcode-project change)</em></p>
+    <ul>
+        <li><strong>Key-string fidelity (all 9 keys)</strong> — Info (correctness) — <em>Confirmed.</em> Each constant matches its original literal character-for-character; every call site maps to the correctly-named key (<code>showSMC</code> → SMC key, etc.). Independently re-verified via a <code>git HEAD</code> string diff.</li>
+        <li><strong>No orphaned/leftover literals</strong> — Info (completeness) — <em>Confirmed.</em> <code>graphStyleDefaultsKey</code> fully removed; the only <code>"sensorsWindow*"</code> literals left are the 9 definitions in <code>DefaultsKeys.swift</code>.</li>
+        <li><strong>Xcode project integrity</strong> — Info (build) — <em>Confirmed.</em> The four pbxproj entries are internally consistent, ids unique, file in the source group and the target's Sources phase.</li>
+        <li><strong>Conventions match <code>Colors</code></strong> — Info (style) — <em>Confirmed.</em> <code>public class</code> + <code>private init()</code>, MIT header, aligned <code>=</code>, doc comments on the type and every member, one type per file.</li>
+        <li><strong>"Bundled <code>.bars → .gradient</code> change"</strong> — Medium (flagged by reviewer) — <em>Not a defect / no action.</em> This is the already-approved M5 fallback change; the reviewer flagged it only because it lacked milestone context. Both changes belong to M5 and commit together.</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li><strong>Feedback:</strong> Unify — the <code>sensorsWindowGraphStyle</code> key literal should be a single shared constant rather than duplicated across <code>SensorGraphView</code> and <code>SensorsWindowController</code>. <em>Acted on: introduced one shared source of truth for the key and used it in all read/write sites (see Implementation notes).</em></li>
+        <li><strong>Scope decision (asked):</strong> unify <em>all</em> preference keys (not just <code>graphStyle</code>) into a <em>new shared type</em>. Implemented as <code>DefaultsKeys</code>.</li>
+        <li><strong>Approval:</strong> "Looks good." Reviewed and accepted (the fallback fix, the <code>DefaultsKeys</code> unification, and the Xcode-project change).</li>
+    </ul>
 </div>
 
 <!-- M6 -->

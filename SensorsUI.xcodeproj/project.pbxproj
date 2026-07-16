@@ -15,6 +15,7 @@
 		058B8EB52994386700263FE9 /* ArrayIsEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */; };
 		058B8EB62994386700263FE9 /* SensorValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94626864492006EE45A /* SensorValue.swift */; };
 		058B8EB72994386700263FE9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95426865C78006EE45A /* Colors.swift */; };
+		05DEFA1700000000DEF0BE01 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */; };
 		058B8EB82994386700263FE9 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		058B8EB92994386B00263FE9 /* SensorsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* SensorsWindowController.xib */; };
 		058B8EBA2994386B00263FE9 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
@@ -113,6 +114,7 @@
 		0566B94826864627006EE45A /* SensorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGraphView.swift; sourceTree = "<group>"; };
 		0566B95226865B60006EE45A /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		0566B95426865C78006EE45A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsEmpty.swift; sourceTree = "<group>"; };
 		0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmpty.swift; sourceTree = "<group>"; };
 		058B8E8F299436D900263FE9 /* SensorsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SensorsKit.xcodeproj; path = Submodules/SensorsKit/SensorsKit.xcodeproj; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */,
 				0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */,
 				0566B95426865C78006EE45A /* Colors.swift */,
+				05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */,
 				0566B93D2686438E006EE45A /* Images */,
 				0566B95226865B60006EE45A /* NSImage.swift */,
 				0566B94826864627006EE45A /* SensorGraphView.swift */,
@@ -434,6 +437,7 @@
 			files = (
 				058B8EB12994386700263FE9 /* SensorIcon.swift in Sources */,
 				058B8EB72994386700263FE9 /* Colors.swift in Sources */,
+				05DEFA1700000000DEF0BE01 /* DefaultsKeys.swift in Sources */,
 				058B8EB22994386700263FE9 /* NSImage.swift in Sources */,
 				058B8EB02994386700263FE9 /* ArrayIsNotEmpty.swift in Sources */,
 				058B8EB62994386700263FE9 /* SensorValue.swift in Sources */,

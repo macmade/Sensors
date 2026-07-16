@@ -29,75 +29,75 @@ public class SensorsWindowController: NSWindowController
 {
     @objc private dynamic var sensors = Sensors()
 
-    @objc private dynamic var showTemperature = UserDefaults.standard.object( forKey: "sensorsWindowShowTemperature" ) as? Bool ?? true
+    @objc private dynamic var showTemperature = UserDefaults.standard.object( forKey: DefaultsKeys.showTemperature ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showTemperature, forKey: "sensorsWindowShowTemperature" )
+            UserDefaults.standard.set( self.showTemperature, forKey: DefaultsKeys.showTemperature )
         }
     }
 
-    @objc private dynamic var showVoltage =  UserDefaults.standard.object( forKey: "sensorsWindowShowVoltage" ) as? Bool ?? true
+    @objc private dynamic var showVoltage =  UserDefaults.standard.object( forKey: DefaultsKeys.showVoltage ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showVoltage, forKey: "sensorsWindowShowVoltage" )
+            UserDefaults.standard.set( self.showVoltage, forKey: DefaultsKeys.showVoltage )
         }
     }
 
-    @objc private dynamic var showCurrent =  UserDefaults.standard.object( forKey: "sensorsWindowShowCurrent" ) as? Bool ?? true
+    @objc private dynamic var showCurrent =  UserDefaults.standard.object( forKey: DefaultsKeys.showCurrent ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showCurrent, forKey: "sensorsWindowShowCurrent" )
+            UserDefaults.standard.set( self.showCurrent, forKey: DefaultsKeys.showCurrent )
         }
     }
 
-    @objc private dynamic var showAmbientLight =  UserDefaults.standard.object( forKey: "sensorsWindowShowAmbientLight" ) as? Bool ?? true
+    @objc private dynamic var showAmbientLight =  UserDefaults.standard.object( forKey: DefaultsKeys.showAmbientLight ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showAmbientLight, forKey: "sensorsWindowShowAmbientLight" )
+            UserDefaults.standard.set( self.showAmbientLight, forKey: DefaultsKeys.showAmbientLight )
         }
     }
 
-    @objc private dynamic var showFanSpeed =  UserDefaults.standard.object( forKey: "sensorsWindowShowFanSpeed" ) as? Bool ?? true
+    @objc private dynamic var showFanSpeed =  UserDefaults.standard.object( forKey: DefaultsKeys.showFanSpeed ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showFanSpeed, forKey: "sensorsWindowShowFanSpeed" )
+            UserDefaults.standard.set( self.showFanSpeed, forKey: DefaultsKeys.showFanSpeed )
         }
     }
 
-    @objc private dynamic var showIOHID =  UserDefaults.standard.object( forKey: "sensorsWindowShowIOHID" ) as? Bool ?? true
+    @objc private dynamic var showIOHID =  UserDefaults.standard.object( forKey: DefaultsKeys.showIOHID ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showIOHID, forKey: "sensorsWindowShowIOHID" )
+            UserDefaults.standard.set( self.showIOHID, forKey: DefaultsKeys.showIOHID )
         }
     }
 
-    @objc private dynamic var showSMC =  UserDefaults.standard.object( forKey: "sensorsWindowShowSMC" ) as? Bool ?? true
+    @objc private dynamic var showSMC =  UserDefaults.standard.object( forKey: DefaultsKeys.showSMC ) as? Bool ?? true
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.showSMC, forKey: "sensorsWindowShowSMC" )
+            UserDefaults.standard.set( self.showSMC, forKey: DefaultsKeys.showSMC )
         }
     }
 
-    @objc private dynamic var sorting =  UserDefaults.standard.integer( forKey: "sensorsWindowSorting" )
+    @objc private dynamic var sorting =  UserDefaults.standard.integer( forKey: DefaultsKeys.sorting )
     {
         didSet
         {
             self.updateFilters()
-            UserDefaults.standard.set( self.sorting, forKey: "sensorsWindowSorting" )
+            UserDefaults.standard.set( self.sorting, forKey: DefaultsKeys.sorting )
         }
     }
 
@@ -106,11 +106,11 @@ public class SensorsWindowController: NSWindowController
         didSet { self.updateFilters() }
     }
 
-    @objc private dynamic var graphStyle = UserDefaults.standard.integer( forKey: "sensorsWindowGraphStyle" )
+    @objc private dynamic var graphStyle = UserDefaults.standard.integer( forKey: DefaultsKeys.graphStyle )
     {
         didSet
         {
-            UserDefaults.standard.set( self.graphStyle, forKey: "sensorsWindowGraphStyle" )
+            UserDefaults.standard.set( self.graphStyle, forKey: DefaultsKeys.graphStyle )
         }
     }
 

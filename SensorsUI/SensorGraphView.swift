@@ -44,8 +44,6 @@ public class SensorGraphView: NSView
         }
     }
 
-    private static let graphStyleDefaultsKey = "sensorsWindowGraphStyle"
-
     public override init( frame: NSRect )
     {
         super.init( frame: frame )
@@ -60,17 +58,17 @@ public class SensorGraphView: NSView
 
     deinit
     {
-        UserDefaults.standard.removeObserver( self, forKeyPath: Self.graphStyleDefaultsKey )
+        UserDefaults.standard.removeObserver( self, forKeyPath: DefaultsKeys.graphStyle )
     }
 
     private func observeGraphStyleDefault()
     {
-        UserDefaults.standard.addObserver( self, forKeyPath: Self.graphStyleDefaultsKey, options: [], context: nil )
+        UserDefaults.standard.addObserver( self, forKeyPath: DefaultsKeys.graphStyle, options: [], context: nil )
     }
 
     public override func observeValue( forKeyPath keyPath: String?, of object: Any?, change: [ NSKeyValueChangeKey: Any ]?, context: UnsafeMutableRawPointer? )
     {
-        guard keyPath == Self.graphStyleDefaultsKey
+        guard keyPath == DefaultsKeys.graphStyle
         else
         {
             super.observeValue( forKeyPath: keyPath, of: object, change: change, context: context )
@@ -91,7 +89,7 @@ public class SensorGraphView: NSView
             return
         }
 
-        let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: Self.graphStyleDefaultsKey ) ) ?? .bars
+        let style = GraphStyle( rawValue: UserDefaults.standard.integer( forKey: DefaultsKeys.graphStyle ) ) ?? .gradient
 
         self.drawBorder( in: rect, style: style )
         self.drawBackground( in: rect, style: style )
