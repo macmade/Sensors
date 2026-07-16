@@ -32,7 +32,7 @@ public class ApplicationDelegate: NSObject, NSApplicationDelegate
     @objc private dynamic var aboutWindowController = AboutWindowController()
     @objc private dynamic var mainWindowController  = SensorsWindowController()
 
-    @IBOutlet private var updater: GitHubUpdater!
+    @IBOutlet private var updater: GitHubUpdater?
 
     public func applicationDidFinishLaunching( _ notification: Notification )
     {
@@ -42,7 +42,7 @@ public class ApplicationDelegate: NSObject, NSApplicationDelegate
 
         DispatchQueue.main.asyncAfter( deadline: .now() + .seconds( 5 ) )
         {
-            self.updater.checkForUpdatesInBackground()
+            self.updater?.checkForUpdatesInBackground()
         }
     }
 
@@ -99,6 +99,6 @@ public class ApplicationDelegate: NSObject, NSApplicationDelegate
     @IBAction
     public func checkForUpdates( _ sender: Any? )
     {
-        self.updater.checkForUpdates( sender )
+        self.updater?.checkForUpdates( sender )
     }
 }

@@ -468,7 +468,7 @@
         <div class="tags">
             <span class="sev sev-info">Finding 5 · Info</span>
             <span class="cat">style / convention</span>
-            <span class="capsule status-notstarted">Not started</span>
+            <span class="capsule status-completed">Completed</span>
         </div>
     </div>
     <p class="loc"><code>Sensors/Classes/ApplicationDelegate.swift:35</code></p>
@@ -480,11 +480,28 @@
         <li>Verify the outlet is still connected in <code>MainMenu.xib</code> and that "Check for Updates" still works.</li>
         <li>Build the <code>Sensors</code> app target with <code>xcodebuild</code>.</li>
     </ul>
-    <div class="kv"><span class="k">Status</span><span class="fieldval">Not started</span></div>
-    <div class="kv"><span class="k">Completed</span><span class="empty">—</span></div>
-    <p><span class="label">Implementation notes</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Automated review</span> <span class="empty">Not started.</span></p>
-    <p><span class="label">Review comments</span> <span class="empty">Not started.</span></p>
+    <div class="kv"><span class="k">Status</span><span class="fieldval">Completed</span></div>
+    <div class="kv"><span class="k">Completed</span><span class="fieldval">2026-07-16</span></div>
+    <p><span class="label">Implementation notes</span></p>
+    <ul>
+        <li>Changed <code>@IBOutlet private var updater: GitHubUpdater!</code> to <code>@IBOutlet private var updater: GitHubUpdater?</code> and optional-chained both call sites: <code>self.updater?.checkForUpdatesInBackground()</code> (line 45, the 5-second post-launch background check) and <code>self.updater?.checkForUpdates( sender )</code> (line 102, the "Check for Updates" IBAction). This removes the implicitly-unwrapped optional / force-unwrap per the project convention.</li>
+        <li><strong>Deviation from the plan's "weak" wording — deliberate, for correctness.</strong> The plan (Q&amp;A 3) said "weak/optional", but <code>weak</code> is wrong here: <code>GitHubUpdater</code> (id <code>JVY-cK-DUa</code>) is a <em>top-level object</em> in <code>MainMenu.xib</code> (direct child of <code>&lt;objects&gt;</code>), and the <code>updater</code> outlet (xib line 16) is its <em>only</em> strong reference — its <code>-init</code> (<code>GitHubUpdater.m:70</code>) doesn't self-retain (no observer/timer, just properties + a dispatch queue). Apple's Nib Files guide: outlets to nib top-level objects must be <strong>strong</strong>, or ARC deallocates them right after load. A <code>weak</code> outlet would let <code>GitHubUpdater</code> be deallocated → both update paths silently no-op. So I kept a <strong>strong optional</strong>, which still satisfies the no-force-unwrap goal without breaking updates. (Verified via Apple's docs + NSHipster, and confirmed by the automated reviewer against the xib and submodule source.)</li>
+        <li>No XIB edit needed: both <code>T!</code> and <code>T?</code> of a class type bridge to the same nullable Obj-C object property, so the existing <code>property="updater"</code> connection still binds.</li>
+        <li>Built the <code>Sensors</code> app target via <code>xcodebuild -project Sensors.xcodeproj -scheme Sensors -configuration Debug build</code> — <strong>BUILD SUCCEEDED</strong>.</li>
+        <li><strong>Automated review loop:</strong> 1 round, converged immediately — no Critical/High/Medium findings. The reviewer independently verified the strong-vs-weak reasoning (top-level object, no self-retention, no other references, <code>weak</code> would have introduced a nil bug), the force-unwrap removal, behavioral equivalence for the connected case, and the intact XIB binding.</li>
+    </ul>
+    <p><span class="label">Automated review</span></p>
+    <ul>
+        <li><strong>Strong optional is correct for this top-level nib object</strong> — Info (memory) — <em>Confirmed.</em> <code>weak</code> would have risked deallocation and silent no-op; strong optional is right.</li>
+        <li><strong>Force-unwrap fully eliminated; none introduced</strong> — Info (conventions) — <em>Confirmed.</em></li>
+        <li><strong>Behavioral equivalence for the connected case</strong> — Info (correctness) — <em>Confirmed.</em> <code>?.</code> on a non-nil value calls through identically.</li>
+        <li><strong>XIB/KVC binding preserved</strong> — Info (correctness) — <em>Confirmed.</em> No xib edit needed.</li>
+        <li><strong>IBAction silently no-ops if the outlet is ever nil</strong> — Low/Info (UX) — <em>Deferred (acceptable, in scope).</em> Cannot happen with a correctly wired app; adding error UI is out of M6's scope and strictly better than a force-unwrap crash.</li>
+    </ul>
+    <p><span class="label">Review comments</span></p>
+    <ul>
+        <li><strong>Approval:</strong> "Looks good." Reviewed and accepted, including the deliberate deviation from the plan's "weak" wording — kept a strong optional because <code>GitHubUpdater</code> is a top-level nib object and <code>weak</code> would risk deallocation.</li>
+    </ul>
 </div>
 
 <div class="phase-title">Phase 3 — Larger improvements</div>
