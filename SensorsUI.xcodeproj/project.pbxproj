@@ -3,19 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		057E570000000000000000B2 /* SensorsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058B8EA22994383300263FE9 /* SensorsUI.framework */; };
+		057E570000000000000000B3 /* SensorsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058B8E96299436D900263FE9 /* SensorsKit.framework */; };
+		057E570000000000000000D1 /* SensorValueFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E570000000000000000C1 /* SensorValueFormatterTests.swift */; };
+		057E570000000000000000D2 /* SensorGraphViewGeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E570000000000000000C2 /* SensorGraphViewGeometryTests.swift */; };
+		057E570000000000000000D3 /* ArrayIsEmptyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E570000000000000000C3 /* ArrayIsEmptyTests.swift */; };
+		057E570000000000000000D4 /* ArrayIsNotEmptyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E570000000000000000C4 /* ArrayIsNotEmptyTests.swift */; };
 		058B8EB02994386700263FE9 /* ArrayIsNotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */; };
 		058B8EB12994386700263FE9 /* SensorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B93B26864187006EE45A /* SensorIcon.swift */; };
 		058B8EB22994386700263FE9 /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95226865B60006EE45A /* NSImage.swift */; };
 		058B8EB32994386700263FE9 /* SensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B94826864627006EE45A /* SensorGraphView.swift */; };
 		058B8EB42994386700263FE9 /* SensorsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05646BF62685064C00707676 /* SensorsWindowController.swift */; };
 		058B8EB52994386700263FE9 /* ArrayIsEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */; };
-		05FA17FMT00000000DEF001 /* SensorValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA17FMT00000000DEF002 /* SensorValueFormatter.swift */; };
 		058B8EB72994386700263FE9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0566B95426865C78006EE45A /* Colors.swift */; };
-		05DEFA1700000000DEF0BE01 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */; };
 		058B8EB82994386700263FE9 /* SensorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0C31B268635C300D1D216 /* SensorItem.swift */; };
 		058B8EB92994386B00263FE9 /* SensorsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05646BF82685072900707676 /* SensorsWindowController.xib */; };
 		058B8EBA2994386B00263FE9 /* SensorItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E0C31D268635F200D1D216 /* SensorItem.xib */; };
@@ -25,6 +29,8 @@
 		058B8EBE2994387900263FE9 /* SensorsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 058B8E96299436D900263FE9 /* SensorsKit.framework */; };
 		058B8EBF2994387900263FE9 /* SensorsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 058B8E96299436D900263FE9 /* SensorsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05BDE9EE29944B9D00B0B888 /* AmbientLightTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05BDE9EC29944B9D00B0B888 /* AmbientLightTemplate.pdf */; };
+		05DEFA1700000000DEF0BE01 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */; };
+		05FA17FMT00000000DEF001 /* SensorValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA17FMT00000000DEF002 /* SensorValueFormatter.swift */; };
 		38B72A892C53DAE100AD0B87 /* FanTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 38B72A882C53DAE100AD0B87 /* FanTemplate.pdf */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +41,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 4D2FB22BA770D9C8EE0B9425;
 			remoteInfo = SensorsKitTests;
+		};
+		057E570000000000000000A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05646B92268501B300707676 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 058B8EA12994383300263FE9;
+			remoteInfo = SensorsUI;
 		};
 		058B8E95299436D900263FE9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -110,25 +123,40 @@
 		0566B93F2686438E006EE45A /* VoltageTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = VoltageTemplate.pdf; sourceTree = "<group>"; };
 		0566B9402686438E006EE45A /* CurrentTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = CurrentTemplate.pdf; sourceTree = "<group>"; };
 		0566B9412686438E006EE45A /* ThermalTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ThermalTemplate.pdf; sourceTree = "<group>"; };
-		05FA17FMT00000000DEF002 /* SensorValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorValueFormatter.swift; sourceTree = "<group>"; };
 		0566B94826864627006EE45A /* SensorGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGraphView.swift; sourceTree = "<group>"; };
 		0566B95226865B60006EE45A /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 		0566B95426865C78006EE45A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		0566B97126874FD3006EE45A /* ArrayIsEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsEmpty.swift; sourceTree = "<group>"; };
 		0566B97526875012006EE45A /* ArrayIsNotEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmpty.swift; sourceTree = "<group>"; };
+		057E570000000000000000B0 /* SensorsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SensorsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		057E570000000000000000C1 /* SensorValueFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorValueFormatterTests.swift; sourceTree = "<group>"; };
+		057E570000000000000000C2 /* SensorGraphViewGeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGraphViewGeometryTests.swift; sourceTree = "<group>"; };
+		057E570000000000000000C3 /* ArrayIsEmptyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsEmptyTests.swift; sourceTree = "<group>"; };
+		057E570000000000000000C4 /* ArrayIsNotEmptyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIsNotEmptyTests.swift; sourceTree = "<group>"; };
 		058B8E8F299436D900263FE9 /* SensorsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SensorsKit.xcodeproj; path = Submodules/SensorsKit/SensorsKit.xcodeproj; sourceTree = "<group>"; };
 		058B8EA22994383300263FE9 /* SensorsUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SensorsUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		058B8EEB2994419B00263FE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		058B8EED2994419B00263FE9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		058B8EEE2994419B00263FE9 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		05BDE9EC29944B9D00B0B888 /* AmbientLightTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = AmbientLightTemplate.pdf; sourceTree = "<group>"; };
+		05DEFA1700000000DEF0BE02 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		05E0C31B268635C300D1D216 /* SensorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorItem.swift; sourceTree = "<group>"; };
 		05E0C31E268635F200D1D216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SensorItem.xib; sourceTree = "<group>"; };
+		05FA17FMT00000000DEF002 /* SensorValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorValueFormatter.swift; sourceTree = "<group>"; };
 		38B72A882C53DAE100AD0B87 /* FanTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = FanTemplate.pdf; sourceTree = "<group>"; };
+		057E570000000000000000E1 /* SensorsUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SensorsUI.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		057E570000000000000000A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				057E570000000000000000B2 /* SensorsUI.framework in Frameworks */,
+				057E570000000000000000B3 /* SensorsKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		058B8E9F2994383300263FE9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,6 +177,8 @@
 				058B8E8F299436D900263FE9 /* SensorsKit.xcodeproj */,
 				05646BB7268503D300707676 /* xcconfig */,
 				058B8EA32994383300263FE9 /* SensorsUI */,
+				057E570000000000000000B1 /* SensorsUITests */,
+				057E570000000000000000E1 /* SensorsUI.xctestplan */,
 				05646B9B268501B300707676 /* Products */,
 				0566B96C2686B531006EE45A /* Frameworks */,
 			);
@@ -158,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				058B8EA22994383300263FE9 /* SensorsUI.framework */,
+				057E570000000000000000B0 /* SensorsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,6 +328,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		057E570000000000000000B1 /* SensorsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				057E570000000000000000C1 /* SensorValueFormatterTests.swift */,
+				057E570000000000000000C2 /* SensorGraphViewGeometryTests.swift */,
+				057E570000000000000000C3 /* ArrayIsEmptyTests.swift */,
+				057E570000000000000000C4 /* ArrayIsNotEmptyTests.swift */,
+			);
+			path = SensorsUITests;
+			sourceTree = "<group>";
+		};
 		058B8E90299436D900263FE9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +381,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		057E570000000000000000A1 /* SensorsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 057E570000000000000000A2 /* Build configuration list for PBXNativeTarget "SensorsUITests" */;
+			buildPhases = (
+				057E570000000000000000A5 /* Sources */,
+				057E570000000000000000A6 /* Frameworks */,
+				057E570000000000000000A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				057E570000000000000000A8 /* PBXTargetDependency */,
+			);
+			name = SensorsUITests;
+			productName = SensorsUITests;
+			productReference = 057E570000000000000000B0 /* SensorsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		058B8EA12994383300263FE9 /* SensorsUI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 058B8EAF2994383300263FE9 /* Build configuration list for PBXNativeTarget "SensorsUI" */;
@@ -364,9 +424,13 @@
 		05646B92268501B300707676 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
+					057E570000000000000000A1 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					058B8EA12994383300263FE9 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -392,6 +456,7 @@
 			projectRoot = "";
 			targets = (
 				058B8EA12994383300263FE9 /* SensorsUI */,
+				057E570000000000000000A1 /* SensorsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -414,6 +479,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		057E570000000000000000A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		058B8EA02994383300263FE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,6 +503,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		057E570000000000000000A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				057E570000000000000000D1 /* SensorValueFormatterTests.swift in Sources */,
+				057E570000000000000000D2 /* SensorGraphViewGeometryTests.swift in Sources */,
+				057E570000000000000000D3 /* ArrayIsEmptyTests.swift in Sources */,
+				057E570000000000000000D4 /* ArrayIsNotEmptyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		058B8E9E2994383300263FE9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -449,6 +532,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		057E570000000000000000A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SensorsUI;
+			target = 058B8EA12994383300263FE9 /* SensorsUI */;
+			targetProxy = 057E570000000000000000A9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		05646BF82685072900707676 /* SensorsWindowController.xib */ = {
@@ -483,6 +575,47 @@
 			baseConfigurationReference = 05646BBE268503D300707676 /* Release - Library.xcconfig */;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		057E570000000000000000A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 326Y53CJMD;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.SensorsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		057E570000000000000000A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 326Y53CJMD;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.SensorsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -540,6 +673,15 @@
 			buildConfigurations = (
 				05646BA6268501B400707676 /* Debug */,
 				05646BA7268501B400707676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		057E570000000000000000A2 /* Build configuration list for PBXNativeTarget "SensorsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				057E570000000000000000A3 /* Debug */,
+				057E570000000000000000A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

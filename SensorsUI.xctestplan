@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "A1B2C3D4-0000-4000-8000-0000000000A1",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SensorsUI.xcodeproj",
+      "identifier" : "058B8EA12994383300263FE9",
+      "name" : "SensorsUI"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:SensorsUI.xcodeproj",
+        "identifier" : "057E570000000000000000A1",
+        "name" : "SensorsUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

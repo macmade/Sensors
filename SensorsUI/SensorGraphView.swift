@@ -254,7 +254,7 @@ public class SensorGraphView: NSView
             }
 
             let v = values[ i ]
-            let p = min == max ? 0 : ( v - min ) / ( max - min )
+            let p = Self.fillFraction( value: v, min: min, max: max )
 
             for j in 0 ..< c
             {
@@ -271,7 +271,12 @@ public class SensorGraphView: NSView
         }
     }
 
-    private static func columnCount( width: CGFloat, cellSize: CGFloat ) -> Int
+    static func fillFraction( value: CGFloat, min: CGFloat, max: CGFloat ) -> CGFloat
+    {
+        min == max ? 0 : ( value - min ) / ( max - min )
+    }
+
+    static func columnCount( width: CGFloat, cellSize: CGFloat ) -> Int
     {
         guard width.isFinite, cellSize.isFinite, cellSize > 0
         else

@@ -1,0 +1,51 @@
+{
+  "configurations" : [
+    {
+      "id" : "27D44C6A-6CF1-458C-96C3-7C4BE12DF8F5",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Sensors.xcodeproj",
+      "identifier" : "05646B99268501B300707676",
+      "name" : "Sensors"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Submodules\/SensorsKit\/Submodules\/IOHIDKit\/IOHIDKit.xcodeproj",
+        "identifier" : "AAAA00000000000000000001",
+        "name" : "IOHIDKit-Tests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Submodules\/SensorsKit\/Submodules\/SMCKit\/SMCKit.xcodeproj",
+        "identifier" : "0FCE00000000000000000001",
+        "name" : "SMCKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Submodules\/SensorsKit\/SensorsKit.xcodeproj",
+        "identifier" : "109DBA20EBD7BC7BBC0D1359",
+        "name" : "SensorsKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:SensorsUI.xcodeproj",
+        "identifier" : "057E570000000000000000A1",
+        "name" : "SensorsUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

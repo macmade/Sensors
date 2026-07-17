@@ -40,6 +40,13 @@
 			remoteGlobalIDString = 058B8EA22994383300263FE9;
 			remoteInfo = SensorsUI;
 		};
+		05E2A6CD3008CCF10038C2A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 058B8EC82994392E00263FE9 /* SensorsUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 057E570000000000000000B0;
+			remoteInfo = SensorsUITests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +122,8 @@
 		058B8EE52994419200263FE9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		058B8EE92994419200263FE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		058B8EEA2994419200263FE9 /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
+		05E2A6C83008CCF00038C2A2 /* Sensors.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sensors.xctestplan; sourceTree = "<group>"; };
+		05E2A6E43008D3150038C2A2 /* SensorsUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SensorsUI.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +145,8 @@
 				058B8EEA2994419200263FE9 /* CODE_OF_CONDUCT.md */,
 				058B8EE52994419200263FE9 /* LICENSE */,
 				058B8EE92994419200263FE9 /* README.md */,
+				05E2A6C83008CCF00038C2A2 /* Sensors.xctestplan */,
+				05E2A6E43008D3150038C2A2 /* SensorsUI.xctestplan */,
 				058B8EC82994392E00263FE9 /* SensorsUI.xcodeproj */,
 				0566B9632686B526006EE45A /* GitHubUpdates.xcodeproj */,
 				05646BB7268503D300707676 /* xcconfig */,
@@ -319,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				058B8ED12994392E00263FE9 /* SensorsUI.framework */,
+				05E2A6CE3008CCF10038C2A2 /* SensorsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,7 +364,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					05646B99268501B300707676 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -408,6 +420,13 @@
 			fileType = wrapper.framework;
 			path = SensorsUI.framework;
 			remoteRef = 058B8ED02994392E00263FE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05E2A6CE3008CCF10038C2A2 /* SensorsUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SensorsUITests.xctest;
+			remoteRef = 05E2A6CD3008CCF10038C2A2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -482,6 +501,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05646BBB268503D300707676 /* Debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 326Y53CJMD;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
@@ -490,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05646BBC268503D300707676 /* Release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 326Y53CJMD;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
