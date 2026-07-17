@@ -58,9 +58,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <connections>
-                                    <binding destination="-2" name="hidden" keyPath="self.sensors.data" id="CrI-nj-hKU">
+                                    <binding destination="-2" name="hidden" keyPath="self.hasVisibleSensors" id="CrI-nj-hKU">
                                         <dictionary key="options">
-                                            <string key="NSValueTransformerName">ArrayIsEmpty</string>
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -324,8 +324,46 @@
                                     </binding>
                                 </connections>
                             </customView>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nr1-st-s01">
+                                <rect key="frame" x="303" y="255" width="194" height="130"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nr1-ic-i01">
+                                        <rect key="frame" x="49" y="34" width="96" height="96"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="96" id="nr1-wc-001"/>
+                                            <constraint firstAttribute="height" constant="96" id="nr1-hc-002"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="nr1-icc-01"/>
+                                    </imageView>
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nr0-lb-l01">
+                                        <rect key="frame" x="0.0" y="0.0" width="194" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="wordWrap" alignment="center" title="No sensors to display." id="nr0-cl-c01">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="-2" name="value" keyPath="self.noResultsMessage" id="nr0-vl-v01"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                                <connections>
+                                    <binding destination="-2" name="hidden" keyPath="self.noResultsHidden" id="nr1-hd-h01"/>
+                                </connections>
+                            </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="nr1-st-s01" firstAttribute="centerX" secondItem="aKe-JS-2Ui" secondAttribute="centerX" id="nr0-cx-001"/>
+                            <constraint firstItem="nr1-st-s01" firstAttribute="centerY" secondItem="aKe-JS-2Ui" secondAttribute="centerY" id="nr0-cy-002"/>
+                            <constraint firstItem="nr0-lb-l01" firstAttribute="width" relation="lessThanOrEqual" secondItem="aKe-JS-2Ui" secondAttribute="width" constant="-40" id="nr0-wd-003"/>
                             <constraint firstItem="X4f-ON-Yh7" firstAttribute="top" secondItem="aKe-JS-2Ui" secondAttribute="bottom" id="5IN-cs-jqm"/>
                             <constraint firstItem="Asg-vC-Nsi" firstAttribute="centerX" secondItem="uRj-rz-hcT" secondAttribute="centerX" id="961-zO-gq7"/>
                             <constraint firstItem="aKe-JS-2Ui" firstAttribute="leading" secondItem="uRj-rz-hcT" secondAttribute="leading" constant="20" symbolic="YES" id="K0o-wa-efC"/>
